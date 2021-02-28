@@ -19,7 +19,7 @@ FORMS += \
     mainwindow.ui
 
 # Default rules for deployment.
-# replace with your own .pro file... idk
+# Please Work...
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
