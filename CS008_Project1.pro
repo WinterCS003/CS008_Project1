@@ -18,6 +18,7 @@ SOURCES += \
     sales_report.cpp
 
 HEADERS += \
+    vector.h \
     sales.h \
     item.h \
     members.h \
