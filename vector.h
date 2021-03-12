@@ -5,10 +5,8 @@
 const int NO_ERROR = 0;
 const int INVALID = 1;
 #include <iostream>
-#include <cassert>
-using namespace std;
 
-void test_vector();
+using namespace std;
 
 template <class T>
 class vector
@@ -254,105 +252,6 @@ string vector<T>::error_description() {
     case NO_ERROR:  return "NO ERROR";
     default:        return "UNKNOWN ERROR";
     }
-}
-
-
-
-//=============================================
-// test function
-// ============================================
-void test_vector() {
-    vector<int> v;
-    v.reserve(3);
-    assert(v.capacity() == 3);
-
-    cout<<"========string========"<<endl;
-    vector<string> v1(3);
-    assert(v1.capacity() == 3);
-    assert(v1.size() == 3);
-    assert(v1[0] == "");
-    assert(v1[1] == "");
-    cout<<"*** v1[0], v1[1], and v1[2] print: , , , "<<endl;
-    cout<<"v1: "<<v1[0]<<" , "<<v1[1]<<" , "<<v1[2]<<" , ";
-    cout<<endl;
-
-    cout<<"========int========"<<endl;
-    vector<int> v2(3, 8);   // v2[0]=8
-    assert(v2[0] == 8);
-    v2[1] = 5;
-    v2[2] = 10;
-    cout<<"v2: "<<v2[0]<<" , "<<v2[1]<<" , "<<v2[2]<<" , ";
-    cout<<endl;
-
-    cout<<"========char========"<<endl;
-    vector<char> v3(3);
-    assert(v3.capacity() == 3);
-    assert(v3.size() == 3);
-    v3[0] = 'A';
-    v3[1] = 'B';
-    v3[2] = 'C';
-    cout<<"v3: "<<v3[0]<<" , "<<v3[1]<<" , "<<v3[2]<<" , ";
-    cout<<endl;
-
-    cout<<"========string========"<<endl;
-    vector<string> v4(3);
-    assert(v4.capacity() == 3);
-    assert(v4.size() == 3);
-    v4[0] = "hello";
-    v4[1] = "goodbye";
-    cout<<"v4: "<<v4[0]<<" , "<<v4[1]<<" , ";
-    v4[2] = "cs";
-    cout<<v4[2]<<" , ";
-    cout<<endl;
-
-    cout<<"========double========"<<endl;
-    vector<double> v5(10);
-    assert(v5.capacity() == 10);
-    assert(v5.size() == 10);
-    v5[0] = 1.5;
-    v5[1] = 10.1;
-    v5[2] = 5.3;
-    cout<<"v5: "<<v5[0]<<" , "<<v5[1]<<" , "<<v5[2]<<" , ";
-    v5[3] = 8.9;
-    cout<<v5[3]<<" , ";
-    v5[4] = 12.2;
-    v5[5] = 13.5;
-    v5[6] = 17.8;
-    cout<<v5[4]<<" , "<<v5[5]<<" , "<<v5[6]<<" , ";
-    cout<<"\n\n";
-
-    cout<<"pop_back last element of: v2, v3, v4";
-    v2.pop_back();
-    v3.pop_back();
-    v4.pop_back();
-    cout<<endl;
-    cout<<"v2: "<<v2<<endl;
-    cout<<"v3: "<<v3<<endl;
-    cout<<"v4: "<<v4<<endl;
-    cout<<"\n";
-
-    cout<<"push_back: "<<endl;
-    v2.push_back(10);
-    v2[2] = 10;
-    v3.push_back('E');
-    v3[2] = 'E';
-    v4.push_back("programming ");
-    v4[2] = "programming ";
-    cout<<"v2: "<<v2<<" , "<<v2[2]<<endl;
-    cout<<"v3: "<<v3<<" , "<<v3[2]<<endl;
-    cout<<"v4: "<<v4<<" , "<<v4[2]<<endl;
-    cout<<"\n";
-
-    v2[2] += 50;
-    cout<<"adding 50 to v2[2] : ";
-    cout<<"v2: "<<v2<<" , "<<v2[2]<<endl;
-    cout<<"v3: "<<v3<<" , "<<v3[2]<<endl;
-    cout<<"v4: "<<v4<<" , "<<v4[2]<<endl;
-    v4[2] += "with c++";
-    cout<<"adding 'with c++' to v4[2] :  ";
-    cout<<"v4: "<<v4<<" , "<<v4[2]<<endl;
-
-}
-
+};
 
 #endif // VECTOR_H
