@@ -3,6 +3,7 @@
 
 #include "item.h"
 #include <QMainWindow>
+#include "../sales_report/sales_report.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -21,7 +22,10 @@ private slots:
     void on_loginButton_clicked();      // if user clicks 'login'
     void on_newMemberButton_clicked();  // if user clicks 'new member'
 
+    void on_dailySales_clicked();
+
 private:
     Ui::MainWindow *ui;
+    sales_report* sR;
 };
 #endif // MAINWINDOW_H

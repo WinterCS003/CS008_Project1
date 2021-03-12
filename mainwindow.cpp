@@ -10,6 +10,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
+    delete sR;
     delete ui;
 }
 
@@ -31,3 +32,9 @@ void MainWindow::on_newMemberButton_clicked()
 }
 
 
+
+void MainWindow::on_dailySales_clicked()
+{
+    sR = new sales_report;
+    sR->show();
+}
