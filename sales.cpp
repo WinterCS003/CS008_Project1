@@ -1,17 +1,18 @@
  #include "sales.h"
 
-sales::sales(std::string date, item* item, size_t ID, double sales_tax, member* customer, int invoice)
+sales::sales()
+{
+
+}
+
+sales::sales(std::string date, std::string item, size_t ID, double sales_tax, std::string member, bool type, int invoice)
 {
     date_sold = date;
-    item_sold = item;
+    item_name = item;
     this->ID = ID;
     this->sales_tax = sales_tax;
-    this->customer = customer;
+    this->customer_name = member;
+    isPreferred = type;
     SalesInvoiceNumber = invoice;
 }
 
-sales::~sales()
-{
-    item_sold = nullptr;
-    customer  = nullptr;
-}

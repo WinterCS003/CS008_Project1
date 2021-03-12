@@ -9,15 +9,16 @@
 class sales
 {
 public:
-    sales(std::string, item*, size_t, double, member*, int);
-    ~sales();
+    sales();
+    sales(std::string, std::string, size_t, double, std::string, bool, int);
 
 private:
     std::string date_sold;
-    item* item_sold;
+    std::string item_name;
     size_t ID;
     double sales_tax;
-    member* customer;
+    std::string customer_name;
+    bool isPreferred;
     int SalesInvoiceNumber;
 };
 
