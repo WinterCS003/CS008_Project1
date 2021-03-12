@@ -13,3 +13,21 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::on_quitButton_clicked()
+{
+    qApp->quit();
+}
+
+void MainWindow::on_loginButton_clicked()
+{
+    // when 'login' button is clicked, appear a page where user can
+    //  input member id #,
+    // member class
+}
+
+void MainWindow::on_newMemberButton_clicked()
+{
+    // member class
+}
+
+
