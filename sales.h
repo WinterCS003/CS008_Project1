@@ -9,10 +9,8 @@
 class sales
 {
 public:
-    sales(std::string, size_t, double, member*, int);
-
-    void PrintReportToScreen();
-    void PrintReportToTxt();
+    sales(std::string, item*, size_t, double, member*, int);
+    ~sales();
 
 private:
     std::string date_sold;
