@@ -9,22 +9,22 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    sales.cpp \
-    sales_container.cpp \
+    sales/sales.cpp \
+    sales/sales_container.cpp \
     main.cpp \
     mainwindow.cpp \
-    sales_report.cpp
+    sales_report/sales_report.cpp
 
 HEADERS += \
     vector.h \
-    sales.h \
-    sales_container.h \
+    sales/sales.h \
+    sales/sales_container.h \
     mainwindow.h \
-    sales_report.h
+    sales_report/sales_report.h
 
 FORMS += \
     mainwindow.ui \
-    sales_report.ui
+    sales_report/sales_report.ui
 
 # Default rules for deployment.
 # Please Work...
