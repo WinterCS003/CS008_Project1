@@ -3,8 +3,8 @@
 
 #include <string>
 
-#include "member.h"
-#include "item.h"
+#include "stubs/member.h"
+#include "stubs/item.h"
 
 class sales
 {
@@ -15,11 +15,9 @@ public:
 private:
     std::string date_sold;
     std::string item_name;
-    size_t ID;
-    double sales_tax;
     std::string customer_name;
     bool isPreferred;
-    int SalesInvoiceNumber;
+    const double sales_tax = 0.875;
 };
 
 #endif // SALES_H

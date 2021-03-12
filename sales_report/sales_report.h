@@ -15,7 +15,11 @@ public:
     sales_report(QWidget *parent = nullptr);
     ~sales_report();
 
+    void generate_daily_sales_report();
+
 private:
     Ui::sales_report *ui;
+    QString report_output;
 };
+
 #endif // SALES_REPORT_H
