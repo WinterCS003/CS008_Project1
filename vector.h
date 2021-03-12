@@ -253,6 +253,6 @@ string vector<T>::error_description() {
     case NO_ERROR:  return "NO ERROR";
     default:        return "UNKNOWN ERROR";
     }
-};
+}
 
 #endif // VECTOR_H
