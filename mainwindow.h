@@ -3,7 +3,7 @@
 
 #include "item.h"
 #include <QMainWindow>
-#include "../sales_report/sales_report.h"
+#include "sales_report.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
