@@ -10,7 +10,7 @@ CONFIG += c++11
 
 SOURCES += \
     item.cpp \
-    members.cpp \
+    member.cpp \
     sales.cpp \
     sales_container.cpp \
     main.cpp \
