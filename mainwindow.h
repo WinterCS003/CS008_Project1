@@ -1,8 +1,9 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "item.h"
 #include <QMainWindow>
+
+#include "stubs/item.h"
 #include "sales_report/sales_report.h"
 
 QT_BEGIN_NAMESPACE
@@ -28,4 +29,5 @@ private:
     Ui::MainWindow *ui;
     sales_report* sR;
 };
+
 #endif // MAINWINDOW_H

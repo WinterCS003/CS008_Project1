@@ -9,14 +9,35 @@
 class sales
 {
 public:
+    /******************
+     ** CONSTRUCTORS **
+     ******************/
     sales();
-    sales(std::string, std::string, size_t, double, std::string, bool, int);
+    sales(const sales& s);
+    sales(std::string, std::string, std::string, bool, double);
+
+
+    /**************
+     ** MUTATORS **
+     **************/
+
+    sales& operator=(const sales& s);
+
+    /***************
+     ** ACCESSORS **
+     ***************/
+
+    std::string getDate() const;
+    std::string item() const;
+    std::string customer() const;
+    bool member_type() const;
 
 private:
     std::string date_sold;
     std::string item_name;
     std::string customer_name;
     bool isPreferred;
+    double price;
     const double sales_tax = 0.875;
 };
 

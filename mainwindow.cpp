@@ -31,10 +31,13 @@ void MainWindow::on_newMemberButton_clicked()
     // member class
 }
 
-
-
 void MainWindow::on_dailySales_clicked()
 {
-    sR = new sales_report;
+    sales_container sc;
+
+    sales s("03012021", "penguin", "bob", true, 1.0);
+    sc.push_back(s);
+    sR = new sales_report(nullptr, sc);
+
     sR->show();
 }
