@@ -9,6 +9,7 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    member.cpp \
     stubs/item.cpp \
     stubs/member.cpp \
     sales/sales.cpp \
@@ -19,6 +20,7 @@ SOURCES += \
     sales_report/sales_report.cpp
 
 HEADERS += \
+    member.h \
     stubs/item.h \
     stubs/member.h \
     vector.h \
