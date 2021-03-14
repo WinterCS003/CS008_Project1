@@ -26,8 +26,6 @@ public:
      ***************/
     int get_members_count() {return members_count;};
 
-
-
 private:
     Member* members;
     int members_count;

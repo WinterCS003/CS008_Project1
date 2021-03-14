@@ -1,9 +1,12 @@
 #include "member.h"
 
+int Member::next_membership_number = 1000;
+
 /*****************************************************************************
 * Constructor Member: Class Member
 *-----------------------------------------------------------------------------
 * This constructor receives no arguments
+* membership_number initialized to next_membership_number,
 * premium_member initialized to false, membership_expiration initialized
 * as empty string, total_spend and total_rebates both initialized to 0.
 *-----------------------------------------------------------------------------
@@ -11,18 +14,20 @@
 *    none
 * POST-CONDITIONS
 *    Blank member object is created.
+*    next_membership_number incremented by 1.
 ******************************************************************************/
 Member::Member()
-    :premium_member(false), membership_expiration(""),
-    total_spend(0), total_rebates(0)
+    :membership_number(next_membership_number), premium_member(false),
+    membership_expiration(""), total_spend(0), total_rebates(0)
 {
-
+    next_membership_number++;
 }
 
 /*****************************************************************************
 * Constructor Member: Class Member
 *-----------------------------------------------------------------------------
-* This constructor receives two arguments for name and membership number.
+* This constructor receives one argument for name.
+* membership_number initialized to next_membership_number,
 * premium_member initialized to false, membership_expiration initialized
 * as empty string, total_spend and total_rebates both initialized to 0.
 *-----------------------------------------------------------------------------
@@ -30,13 +35,14 @@ Member::Member()
 *    none
 * POST-CONDITIONS
 *    Member object is created.
+*    next_membership_number incremented by 1.
 ******************************************************************************/
-Member::Member(std::string name, std::string membership_number)
-    :premium_member(false), membership_expiration(""),
-    total_spend(0), total_rebates(0)
+Member::Member(std::string name)
+    :membership_number(next_membership_number), premium_member(false),
+    membership_expiration(""), total_spend(0), total_rebates(0)
 {
     this->name = name;
-    this->membership_number = membership_number;
+    next_membership_number++;
 }
 
 /*****************************************************************************
@@ -56,15 +62,17 @@ void Member::set_name(const std::string& _name) {
 /*****************************************************************************
  * Method set_membership_number: Class Member
  *----------------------------------------------------------------------------
- * Receives a string as argument. Returns no values.
+ * Receives no argument. Returns no values.
  *----------------------------------------------------------------------------
  * PRE-CONDITIONS
  *    none
  * POST-CONDITIONS
- *    membership_number attribute set to parameter.
+ *    membership_number attribute set to next_membership_number.
+ *    next_membership_number incremented by 1.
  *****************************************************************************/
-void Member::set_membership_number(const std::string& _number) {
-    membership_number = _number;
+void Member::set_membership_number() {
+    membership_number = next_membership_number;
+    next_membership_number++;
 }
 
 /*****************************************************************************
