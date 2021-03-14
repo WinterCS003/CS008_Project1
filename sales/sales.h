@@ -3,7 +3,7 @@
 
 #include <string>
 
-#include "stubs/member.h"
+#include "member.h"
 #include "stubs/item.h"
 
 class sales
