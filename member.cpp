@@ -119,14 +119,18 @@ void Member::extend_membership() {
 
     std::string date = get_membership_expiration();
 
-    int temp = (int)date[5];
+    int temp = (int)date[5] - 48;
 
     if (temp < 9)
         temp++;
-    else
-        temp = 0;
 
-    date[5] = (char)temp;
+    else {
+        temp = 0;
+        int temp2 = (int)date[4] - 48;
+        temp2++;
+        date[4] = (char)temp2 + 48;
+    }
+    date[5] = (char)temp + 48;
 
     membership_expiration = date;
 
