@@ -18,16 +18,19 @@ public:
      ** MUTATORS **
      **************/
     void add_member(const Member& new_member);
-    void remove_member(const std::string& _name_or_id);
-    void upgrade_membership(const std::string& _name_or_id);
+    void remove_member(const std::string& _name);
+    void remove_member(const int& _membership_number);
+    void upgrade_membership(const std::string& _name);
+    void upgrade_membership(const int& _membership_number);
 
     /***************
      ** ACCESSORS **
      ***************/
+    bool contains(int _membership_number);
     int get_members_count() {return members_count;};
 
 private:
-    Member* members;
+    Member *members;
     int members_count;
 
 };
@@ -65,7 +68,7 @@ private:
  ********************************************************************************/
 
 /********************************************************************************
- * void remove_member (const std::string& _name_or_id)
+ * void remove_member (const std::string& _name)
  *    Mutator; Removes a Member object from the members attribute.
  *-------------------------------------------------------------------------------
  *    Parameter: std::string
@@ -74,14 +77,34 @@ private:
  ********************************************************************************/
 
 /********************************************************************************
+ * void remove_member (const int& _membership_number)
+ *    Mutator; Removes a Member object from the members attribute.
+ *-------------------------------------------------------------------------------
+ *    Parameter: integer
+ *-------------------------------------------------------------------------------
+ *    Return: none
+ ********************************************************************************/
+
+/********************************************************************************
  * void upgrade_membership (const std::string& _name_or_id)
- *    Mutator; Changes premium_member attribute of Member object to true. Uses
- *     the objects name or membership_number as parameter.
+ *    Mutator; Changes premium_member attribute of Member object to true. Use
+ *     object name attribute as parameter.
  *-------------------------------------------------------------------------------
  *    Parameter: std::string
  *-------------------------------------------------------------------------------
  *    Return: none
  ********************************************************************************/
+
+/********************************************************************************
+ * void upgrade_membership (const int& _membership_number)
+ *    Mutator; Changes premium_member attribute of Member object to true. Use
+ *     object membership_number attribute as parameter.
+ *-------------------------------------------------------------------------------
+ *    Parameter: integer
+ *-------------------------------------------------------------------------------
+ *    Return: none
+ ********************************************************************************/
+
 
 /***************
  ** ACCESSORS **
