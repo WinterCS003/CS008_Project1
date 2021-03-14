@@ -10,6 +10,7 @@ CONFIG += c++11
 
 SOURCES += \
     member.cpp \
+    members_container.cpp \
     stubs/item.cpp \
     stubs/member.cpp \
     sales/sales.cpp \
@@ -21,6 +22,7 @@ SOURCES += \
 
 HEADERS += \
     member.h \
+    members_container.h \
     stubs/item.h \
     stubs/member.h \
     vector.h \
