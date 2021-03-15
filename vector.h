@@ -1,6 +1,7 @@
 #ifndef VECTOR_H
 #define VECTOR_H
 
+
 // ERROR CODE:
 const int NO_ERROR = 0;
 const int INVALID = 1;
