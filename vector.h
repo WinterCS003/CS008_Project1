@@ -16,12 +16,10 @@ public:
     vector();
     vector(unsigned int size);
     vector(unsigned int size, const T& initial);
-
-    // Big three:
     vector(const vector<T>& v); // copy constructor
-    vector<T>& operator =(const vector<T>& v);
     ~vector();  // destructor
 
+    vector<T>& operator =(const vector<T>& v);
     unsigned int capacity() const;
     unsigned int size() const;
     bool empty() const;
