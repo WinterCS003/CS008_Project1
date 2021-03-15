@@ -32,7 +32,7 @@ void sales_report::generate_daily_sales_report(std::string date, bool isPreferre
     {
         if(report[i].getDate() == date)
         {
-            report_output += report[i].customer().c_str();
+            report_output += report[i].getCustomer().c_str();
             report_output += "\n";
         }
     }

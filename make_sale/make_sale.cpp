@@ -20,6 +20,6 @@ void make_sale::on_purchase_clicked()
     QDate d;
     d = d.currentDate();
 
-    sales s(d.toString("MMddyyyy").toStdString(), ui->item->text().toStdString(), ui->member->text().toStdString(), false, ui->price->text().toDouble());
-    sc.push_back(s);
+    //sales s(d.toString("MMddyyyy").toStdString(), ui->item->text().toStdString(), ui->member->text().toStdString(), false, ui->price->text().toDouble());
+    //sc.push_back(s);
 }
