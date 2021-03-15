@@ -10,8 +10,9 @@ public:
      ** CONSTRUCTORS & DESTRUCTORS **
      ********************************/
     sales_container();
-    sales_container(unsigned int size);
-    sales_container(unsigned int size, const sales& initial);
+    sales_container(unsigned int size);        // IN - size of new container
+    sales_container(unsigned int size,         // IN - size of new container
+                    const sales& initial);     // IN - first sale object
     sales_container(const sales_container& v); // copy constructor
     ~sales_container();  // destructor
 
@@ -21,42 +22,43 @@ public:
     unsigned int capacity() const;
     unsigned int size() const;
     bool empty() const;
-    sales& operator[](unsigned int index) const;
+    sales& operator[](unsigned int index) const; // IN - index of sales
+                                                 //      object
     double getTotalRevenue() const;
-    int find(const sales& s) const;
+    int find(const sales& s) const; // IN - sales to search for
 
     /**************
      ** MUTATORS **
      **************/
 
-    void push_back(const sales& value);
+    void push_back(const sales& value); // IN – sales to add to end of object
     void pop_back();
-    void erase(const sales& s);
+    void erase(const sales& s); // IN – sales to erase from object
 
-    void set_size(int size);
-    void set_capacity(int capacity);
+    void set_size(int size);         // IN – new size of the object
+    void set_capacity(int capacity); // IN – new capacity for the object
 
-    sales_container& operator+=(const sales& item);
-    sales_container& operator=(const sales_container& s);
+    sales_container& operator+=(const sales& item); // IN – new sales to add to object
+    sales_container& operator=(const sales_container& s); // IN – sales container to
+                                                          //      assign from
 
-    void reserve(unsigned int capacity);
-    void resize(unsigned int size);
+    void reserve(unsigned int capacity); // IN – new capacity
+    void resize(unsigned int size);      // IN – new size of container
     void clear();
 
 private:
-    // member variables: my_size and my_capacity
-    unsigned int my_size;
-    unsigned int my_capacity;
-    sales* my_list;
-    double total_revenue;
+    unsigned int my_capacity; // IN - allocated size of container
+    unsigned int my_size;     // IN - size of container
+    sales* my_list;           // IN - array of sales
 };
 
 #endif // sales_container_H
 
 /****************************************************************
  * sales_container Class
- *   This class represents a sheep object. It manages 4 attributes,
- *   name, age and position (x and y coordinate)
+ *   This class represents a container of sales objects. It
+ *   handles 4 attributes, the size of the container, the
+ *   allocated capacity of the container, and an array of sales.
  ***************************************************************/
 
 

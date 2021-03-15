@@ -13,15 +13,21 @@ public:
      ** CONSTRUCTORS **
      ******************/
     sales();
-    sales(const sales& s);
-    sales(std::string, int, std::string, double, int, std::string, bool);
+    sales(const sales& s); // IN - sales object to copy from
+    sales(std::string date,     // IN - date of sale
+          int id,               // IN - id of item
+          std::string item,     // IN - item name
+          double price,         // IN - price of item
+          int quantity,         // IN - number of items bought
+          std::string customer, // IN - customer name
+          bool type);           // IN - membership type
 
 
     /**************
      ** MUTATORS **
      **************/
 
-    sales& operator=(const sales& s);
+    sales& operator=(const sales& s); // IN – sales object to assign from
 
     /***************
      ** ACCESSORS **
@@ -35,7 +41,7 @@ public:
     double getRevenue() const;
     std::string getCustomer() const;
     bool member_type() const;
-    bool operator==(const sales& s) const;
+    bool operator==(const sales& s) const; // IN - sales to compare to
 
 private:
     const double sales_tax = 0.875; // CONST - sales tax rate
@@ -70,7 +76,7 @@ private:
 /****************************************************************
  * sales(const sales& s);
  *   Constructor; copy constructor
- *   Parameters: s (sales&) - sales object to copy from
+ *   Parameters: s (sales&) // IN - sales object to copy from
  *   Return: none
  ***************************************************************/
 

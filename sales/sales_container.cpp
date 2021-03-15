@@ -8,7 +8,8 @@
  *   Parameters: none
  *   Return: none
  ***************************************************************/
-sales_container::sales_container() {
+sales_container::sales_container()
+{
     my_capacity = 0;
     my_size = 0;
     my_list = 0;
@@ -20,7 +21,8 @@ sales_container::sales_container() {
  *   Parameters: size (unsigned int) // IN - size of new container
  *   Return: none
  ***************************************************************/
-sales_container::sales_container(unsigned int size) {
+sales_container::sales_container(unsigned int size) // IN - size of new container
+{
     my_capacity = size;
     my_size = size;
     my_list = new sales[size];
@@ -34,11 +36,13 @@ sales_container::sales_container(unsigned int size) {
  *               initial (sales&) // IN - first sale object
  *   Return: none
  ***************************************************************/
-sales_container::sales_container(unsigned int size, const sales& initial) {
+sales_container::sales_container(unsigned int size, // IN - size of new container
+                                 const sales& initial) // IN - first sale object
+{
     my_size = size;
     my_capacity = size;
     my_list = new sales[size];
-    for (unsigned int i=0; i<size; i++) {
+    for (unsigned int i = 0; i < size; i++) {
         my_list[i] = initial;
     }
 }
@@ -50,11 +54,12 @@ sales_container::sales_container(unsigned int size, const sales& initial) {
  *                                            from
  *   Return: none
  ***************************************************************/
-sales_container::sales_container(const sales_container& s) {
+sales_container::sales_container(const sales_container& s) // IN - parameter to copy from
+{
     my_size = s.my_size;
     my_capacity = s.my_capacity;
     my_list = new sales[my_size];
-    for (unsigned int i=0; i < my_size; i++) {
+    for (unsigned int i = 0; i < my_size; i++) {
         my_list[i] = s.my_list[i];
     }
 }
@@ -65,7 +70,8 @@ sales_container::sales_container(const sales_container& s) {
  *   Parameters: none
  *   Return: none
  ***************************************************************/
-sales_container::~sales_container() {
+sales_container::~sales_container()
+{
     delete[] my_list;
 }
 
@@ -125,7 +131,8 @@ bool sales_container::empty() const
  * --------------------------------------------------------------
  *   Return: sales (sales&) - sales object at parameter index
  ***************************************************************/
-sales& sales_container::operator[](unsigned int index) const
+sales& sales_container::operator[](unsigned int index) const // IN - index of sales
+                                                             // object
 {
     return my_list[index];
 }
@@ -167,7 +174,7 @@ double sales_container::getTotalRevenue() const
  *   Return: index (int) - index of the sales parameter to find
  *                         -1 is returned if parameter not found
  ***************************************************************/
-int sales_container::find(const sales& s) const
+int sales_container::find(const sales& s) const // IN - sales to search for
 {
     for(unsigned int i = 0; i < my_size; i++)
     {
@@ -190,7 +197,8 @@ int sales_container::find(const sales& s) const
  *------------------------------------------------------------------
  *   Return: none
  *******************************************************************/
-void sales_container::push_back(const sales& s) {
+void sales_container::push_back(const sales& s) // IN – sales to add to end of object
+{
     if (my_size >= my_capacity) {
         reserve(my_capacity + 5);
         my_list[my_size++] = s;
@@ -207,7 +215,8 @@ void sales_container::push_back(const sales& s) {
  *------------------------------------------------------------------
  *   Return: none
  *******************************************************************/
-void sales_container::pop_back() {
+void sales_container::pop_back()
+{
     my_size--;
 }
 
@@ -221,7 +230,7 @@ void sales_container::pop_back() {
  *------------------------------------------------------------------
  *   Return: none
  *******************************************************************/
-void sales_container::erase(const sales& s)
+void sales_container::erase(const sales& s) // IN – sales to erase from object
 {
     int index = find(s);
     if(index == -1)
@@ -243,11 +252,13 @@ void sales_container::erase(const sales& s)
  *   Mutator; This method will set the size of the object to the
  *   parameter
  *------------------------------------------------------------------
+ *   Preconditions: size > 0
  *   Parameter: size (int) // IN – new size of the object
  *------------------------------------------------------------------
  *   Return: none
  *******************************************************************/
-void sales_container::set_size(int size) {
+void sales_container::set_size(int size) // IN – new size of the object
+{
     my_size = size;
 }
 
@@ -257,11 +268,14 @@ void sales_container::set_size(int size) {
  *   Mutator; This method will set the capacity of this object to
  *   the parameter
  *------------------------------------------------------------------
+ *   Preconditions: capacity > 0
+ *
  *   Parameter: capacity (int) // IN – new capacity for the object
  *------------------------------------------------------------------
  *   Return: none
  *******************************************************************/
-void sales_container::set_capacity(int capacity) {
+void sales_container::set_capacity(int capacity) // IN – new capacity for the object
+{
     my_capacity = capacity;
 }
 
@@ -275,7 +289,8 @@ void sales_container::set_capacity(int capacity) {
  *------------------------------------------------------------------
  *   Return: reference to this object
  *******************************************************************/
-sales_container& sales_container::operator+=(const sales& item) {
+sales_container& sales_container::operator+=(const sales& item) // IN – new sales to add to object
+{
     push_back(item);
     return *this;
 }
@@ -291,13 +306,15 @@ sales_container& sales_container::operator+=(const sales& item) {
  *------------------------------------------------------------------
  *   Return: a reference to this object is returned
  *******************************************************************/
-sales_container& sales_container::operator=(const sales_container& v) {
+sales_container& sales_container::operator=(const sales_container& s) // IN – sales container to
+                                                                      // assign from
+{
     delete[] my_list;
-    my_size = v.my_size;
-    my_capacity = v.my_capacity;
+    my_size = s.my_size;
+    my_capacity = s.my_capacity;
     my_list = new sales[my_size];
     for (unsigned int i=0; i<my_size; i++) {
-        my_list[i] = v.my_list[i];
+        my_list[i] = s.my_list[i];
     }
     return *this;
 }
@@ -308,11 +325,14 @@ sales_container& sales_container::operator=(const sales_container& v) {
  *   Mutator; This method will set the capacity of the container to
  *   the parameter, size will remain the same
  *------------------------------------------------------------------
+ *   Preconditions: capacity > my_size
+ *
  *   Parameter: capacity (unsigned int) // IN – new capacity
  *------------------------------------------------------------------
  *   Return: none
  *******************************************************************/
-void sales_container::reserve(unsigned int capacity) {
+void sales_container::reserve(unsigned int capacity) // IN – new capacity
+{
     // allocate
     if (my_list == 0) {
         my_size = 0;
@@ -333,11 +353,14 @@ void sales_container::reserve(unsigned int capacity) {
  *   Mutator; This method will set the size and capacity of the
  *   container to the parameter
  *------------------------------------------------------------------
+ *   Preconditions: size > 0
+ *
  *   Parameter: size (unsigned int) // IN – new size of container
  *------------------------------------------------------------------
  *   Return: none
  *******************************************************************/
-void sales_container::resize(unsigned int size) {
+void sales_container::resize(unsigned int size) // IN – new size of container
+{
     // reallocate
     reserve(size);
     my_size = size;
@@ -352,7 +375,8 @@ void sales_container::resize(unsigned int size) {
  *------------------------------------------------------------------
  *   Return: none
  *******************************************************************/
-void sales_container::clear() {
+void sales_container::clear()
+{
     my_size = 0;
     my_capacity = 0;
 }
