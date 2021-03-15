@@ -67,8 +67,8 @@ public:
 
 private:
     // member variables: my_size and my_capacity
-    unsigned int my_size;
     unsigned int my_capacity;
+    unsigned int my_size;
     T* my_list;
     int _error = check_error();
 };
