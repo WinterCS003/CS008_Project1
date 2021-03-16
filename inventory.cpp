@@ -115,6 +115,21 @@ int inventory::getItemQuantity()
 }
 
 /***************************************************
+ * int getItemName()
+ *
+ * Accessor; This method returns the item name from
+ * the Item class.
+ * -------------------------------------------------
+ *   Parameter: none
+ * -------------------------------------------------
+ *   Returns: string
+****************************************************/
+string inventory::getItemName()
+{
+    return item->get_item_name();
+}
+
+/***************************************************
  * int capacity() const
  *
  * Accessor: returns member _capacity

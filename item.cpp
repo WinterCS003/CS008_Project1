@@ -18,7 +18,7 @@ Item::Item()
 }
 
 /***********************************************
- * Item()
+ * Item(int, int, double)
  *
  * initializing a CTOR to given parameters
  * ---------------------------------------------
@@ -35,7 +35,7 @@ Item::Item(int id, int quantity, double price)
 }
 
 /***********************************************
- * Item()
+ * Item(string, int, double)
  *
  * initializing a constructor with given parameters
  * ---------------------------------------------
@@ -52,7 +52,7 @@ Item::Item(string n, int q, double p)
 }
 
 /***********************************************
- * Item()
+ * void set_item_number(int)
  *
  * Mutator; set a new item number to member value
  * ---------------------------------------------
@@ -66,7 +66,7 @@ void Item::set_item_number(int id)
 }
 
 /***********************************************
- * Item()
+ * void set_quantity(int)
  *
  * Mutator; set a new quantity value to member value
  * ---------------------------------------------
@@ -80,7 +80,7 @@ void Item::set_quantity(int quan)
 }
 
 /***********************************************
- * Item()
+ * void set_price(double)
  *
  * Mutator; set a new price for an item
  * ---------------------------------------------

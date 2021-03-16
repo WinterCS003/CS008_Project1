@@ -19,6 +19,7 @@ public:
     // ACCESSORS
     int getItemNumber();                    // OUT: return item number
     int getItemQuantity();                  // OUT: return item quantity
+    string getItemName();                   // OUT: return item name
     int capacity() const;                   // OUT: return _capacity
     int size() const;                       // OUT: return _size
     bool empty() const;                     // check if array is empty
