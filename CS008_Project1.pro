@@ -11,6 +11,7 @@ CONFIG += c++11
 SOURCES += \
     member.cpp \
     members_container.cpp \
+    item.cpp \
     sales/sales.cpp \
     sales/sales_container.cpp \
     main.cpp \
@@ -21,6 +22,7 @@ SOURCES += \
 HEADERS += \
     member.h \
     members_container.h \
+    item.h \
     vector.h \
     sales/sales.h \
     sales/sales_container.h \
