@@ -51,6 +51,7 @@ private:
     unsigned int my_capacity; // IN - allocated size of container
     unsigned int my_size;     // IN - size of container
     sales* my_list;           // IN - array of sales
+    // vector of sales?
 };
 
 #endif // sales_container_H

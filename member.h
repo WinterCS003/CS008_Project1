@@ -14,6 +14,12 @@ public:
     *****************/
     Member();
     Member(std::string name);
+    Member(std::string nm,
+           int memNum,
+           bool premium,
+           std::string expDate,
+           double totalSpent,
+           double totalRebate);
 
     /**************
      ** MUTATORS **
@@ -33,6 +39,7 @@ public:
     std::string get_membership_expiration() const { return membership_expiration; };
     double get_total_spend() const { return total_spend; };
     double get_total_rebates() const { return total_rebates; };
+    std::string getInfo();
 
 private:
     std::string name;
@@ -43,6 +50,7 @@ private:
     double total_spend;
     double total_rebates;
     //    sales_container purchases[];
+    // vector purchaseHistory?
 };
 
 /*****************************************************************************

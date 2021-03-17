@@ -5,6 +5,8 @@
 
 #include "item.h"
 #include "sales_report/sales_report.h"
+#include "members_container.h"
+#include "managemembers.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -21,13 +23,17 @@ public:
 private slots:
     void on_quitButton_clicked();       // if user quits, program exits
     void on_loginButton_clicked();      // if user clicks 'login'
-    void on_newMemberButton_clicked();  // if user clicks 'new member'
+
 
     void on_dailySales_clicked();
+
+    void on_manageMembers_clicked(); // if manage members is clicked
+
 
 private:
     Ui::MainWindow *ui;
     sales_report* sR;
+    manageMembers* mM;
 };
 
 #endif // MAINWINDOW_H
