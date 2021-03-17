@@ -35,7 +35,7 @@ void MainWindow::on_dailySales_clicked()
 {
     sales_container sc;
 
-    sales s("03012021", "penguin", "bob", true, 1.0);
+    sales s("03012021", 1234, "penguin", 1.0, 1, "bob", true);
     sc.push_back(s);
     sR = new sales_report(nullptr, sc);
 

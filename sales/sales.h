@@ -13,7 +13,7 @@ public:
      ** CONSTRUCTORS **
      ******************/
     sales();
-    sales(const sales& s); // IN - sales object to copy from
+    sales(const sales& s);      // IN - sales object to copy from
     sales(std::string date,     // IN - date of sale
           int id,               // IN - id of item
           std::string item,     // IN - item name
