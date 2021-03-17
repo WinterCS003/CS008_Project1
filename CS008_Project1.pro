@@ -10,6 +10,7 @@ CONFIG += c++11
 
 SOURCES += \
     # sales classes
+    managemembers.cpp \
     sales/sales.cpp \
     sales/sales_container.cpp \
     # item classes
@@ -26,6 +27,7 @@ SOURCES += \
     # inventorytracker.cpp
 
 HEADERS += \
+    managemembers.h \
     vector.h \
     # sales classes
     sales/sales.h \
@@ -46,6 +48,7 @@ FORMS += \
     mainwindow.ui \
     inventorytracker.ui \
     make_sale/make_sale.ui \
+    managemembers.ui \
     sales_report/sales_report.ui
 
 # Default rules for deployment.
