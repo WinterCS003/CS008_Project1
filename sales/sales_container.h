@@ -27,6 +27,7 @@ public:
     double getTotalRevenue() const;
     int find(const sales& s) const; // IN - sales to search for
 
+
     /**************
      ** MUTATORS **
      **************/

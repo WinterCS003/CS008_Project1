@@ -13,14 +13,13 @@ public:
      ** CONSTRUCTORS **
      ******************/
     sales();
-    sales(const sales& s);      // IN - sales object to copy from
-    sales(std::string date,     // IN - date of sale
-          int id,               // IN - id of item
-          std::string item,     // IN - item name
-          double price,         // IN - price of item
-          int quantity,         // IN - number of items bought
-          std::string customer, // IN - customer name
-          bool type);           // IN - membership type
+    sales(const sales& s);  // IN - sales object to copy from
+    sales(std::string date, // IN - date of sale
+          int id,           // IN - id of member
+          std::string item, // IN - item name
+          double price,     // IN - price of item
+          int quantity);    // IN - number of items bought
+
 
 
     /**************
@@ -39,19 +38,15 @@ public:
     double getPrice() const;
     int getQuantity() const;
     double getRevenue() const;
-    std::string getCustomer() const;
-    bool member_type() const;
     bool operator==(const sales& s) const; // IN - sales to compare to
 
 private:
     const double sales_tax = 0.875; // CONST - sales tax rate
-    std::string customer_name;      // IN - name of customer
     std::string item_name;          // IN - name of item
     std::string date_sold;          // IN - mm/dd/yyyy
-    bool isPreferred;               // IN - membership type
     double price;                   // IN - price of item
     int quantity;                   // IN - quantity of item bought
-    int item_ID;                    // IN - item id
+    int member_ID;                    // IN - item id
 };
 
 #endif // SALES_H

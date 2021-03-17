@@ -24,16 +24,15 @@ sales_report::~sales_report()
     delete ui;
 }
 
-void sales_report::generate_daily_sales_report(std::string date, bool isPreferred)
+void sales_report::generate_daily_sales_report(std::string date)
 {
     report_output = report_output.fromStdString(("Date: " + date + "\n"));
 
     for(size_t i = 0; i < report.size(); i++)
     {
-        if(report[i].getDate() == date)
+        if(date == report[i].getDate())
         {
-            report_output += report[i].getCustomer().c_str();
-            report_output += "\n";
+            //report_output += report[i];
         }
     }
 

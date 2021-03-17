@@ -18,7 +18,7 @@ public:
     sales_report(QWidget *parent, const sales_container& sc);
     ~sales_report();
 
-    void generate_daily_sales_report(std::string date, bool isPreferred);
+    void generate_daily_sales_report(std::string date);
     void error();
 
 private slots:
