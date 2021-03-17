@@ -26,8 +26,10 @@ public:
     /***************
      ** ACCESSORS **
      ***************/
-    bool contains(int _membership_number);
+    bool contains(const int& _membership_number);
+    bool contains(const std::string& _name);
     int get_members_count() {return members_count;};
+    Member get_member(int i) {return members[i];};
 
 private:
     Member *members;
@@ -116,4 +118,22 @@ private:
  *    Parameter: none
  *-------------------------------------------------------------------------------
  *    Return: integer
+ ********************************************************************************/
+
+/********************************************************************************
+ * bool contains (int _membership_number)
+ *  Accessor; returns true if member with passed in _membership_number is found.
+ *-------------------------------------------------------------------------------
+ *    Parameter: integer
+ *-------------------------------------------------------------------------------
+ *    Return: boolean
+ ********************************************************************************/
+
+/********************************************************************************
+ * bool contains (const std::string _name)
+ *  Accessor; returns true if member with passed in _name is found.
+ *-------------------------------------------------------------------------------
+ *    Parameter: std::string
+ *-------------------------------------------------------------------------------
+ *    Return: boolean
  ********************************************************************************/
