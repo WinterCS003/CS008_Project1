@@ -201,8 +201,8 @@ void sales_container::push_back(const sales& s) // IN – sales to add to end of
 {
     if (my_size >= my_capacity) {
         reserve(my_capacity + 5);
-        my_list[my_size++] = s;
     }
+    my_list[my_size++] = s;
 }
 
 /*******************************************************************

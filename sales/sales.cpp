@@ -72,6 +72,7 @@ sales& sales::operator=(const sales& s)
     this->date_sold = s.date_sold;
     this->item_name = s.item_name;
     this->member_ID = s.member_ID;
+    this->quantity = s.quantity;
     this->price = s.price;
 
     return *this;

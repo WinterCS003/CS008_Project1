@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 
-#include "stubs/item.h"
+#include "item.h"
 #include "sales_report/sales_report.h"
 
 QT_BEGIN_NAMESPACE

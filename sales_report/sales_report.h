@@ -18,13 +18,16 @@ public:
     sales_report(QWidget *parent, const sales_container& sc);
     ~sales_report();
 
-    void generate_daily_sales_report(std::string date);
-    void error();
 
 private slots:
     void on_submit_clicked();
 
+    void on_back_clicked();
+
 private:
+    void switchScreen();
+    void generate_daily_sales_report(std::string date);
+
     Ui::sales_report *ui;
     QString report_output;
     sales_container report;

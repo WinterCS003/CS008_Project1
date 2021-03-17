@@ -23,7 +23,7 @@ SOURCES += \
     mainwindow.cpp \
     make_sale/make_sale.cpp \
     sales_report/sales_report.cpp \
-    inventorytracker.cpp
+    # inventorytracker.cpp
 
 HEADERS += \
     vector.h \
@@ -32,15 +32,15 @@ HEADERS += \
     sales/sales_container.h \
     # item classes
     item.h \
-    inventory.cpp \
+    inventory.h \
     # member classes
     member.h \
     members_container.h \
-    # forms
+    #forms
     mainwindow.h \
     make_sale/make_sale.h \
     sales_report/sales_report.h \
-    inventorytracker.h
+    # inventorytracker.h
 
 FORMS += \
     mainwindow.ui \

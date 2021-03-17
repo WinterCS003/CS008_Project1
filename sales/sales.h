@@ -46,7 +46,7 @@ private:
     std::string date_sold;          // IN - mm/dd/yyyy
     double price;                   // IN - price of item
     int quantity;                   // IN - quantity of item bought
-    int member_ID;                    // IN - item id
+    int member_ID;                  // IN - member id
 };
 
 #endif // SALES_H
