@@ -172,8 +172,8 @@ template <class T>
 void vector<T>::push_back(const T& v) {
     if (my_size >= my_capacity) {
         reserve(my_capacity + 5);
-        my_list[my_size++] = v;
     }
+    my_list[my_size++] = v;
 }
 
 template <class T>
