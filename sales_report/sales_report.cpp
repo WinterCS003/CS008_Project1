@@ -62,5 +62,5 @@ void sales_report::on_submit_clicked()
         preferred = true;
     }
 
-    generate_daily_sales_report(sdDate, preferred);
+    generate_daily_sales_report(sdDate);
 }
