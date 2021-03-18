@@ -6,7 +6,6 @@
 #include <string>
 #include "member.h"
 
-
 class Members_Container
 {
 public:
@@ -35,7 +34,6 @@ public:
 private:
     Member *members;
     int members_count;
-    // maybe user vector here?
 
 };
 

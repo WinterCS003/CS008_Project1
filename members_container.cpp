@@ -128,8 +128,6 @@ void Members_Container::remove_member(const std::string &_name) {
             break;
         }
     }
-
-    members_count--;
 }
 
 /*****************************************************************************
@@ -156,6 +154,4 @@ void Members_Container::remove_member(const int& _membership_number) {
             break;
         }
     }
-
-    members_count--;
 }
