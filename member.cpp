@@ -53,7 +53,7 @@ Member::Member(std::string nm,
        double totalRebate)
 {
     name = nm;
-    membership_number = memNum;
+//    membership_number = memNum;
     premium_member = premium;
     membership_expiration = expDate;
     total_spend = totalSpent;

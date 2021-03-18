@@ -125,9 +125,12 @@ void Members_Container::remove_member(const std::string &_name) {
         if (members[i].get_name() == _name) {
             for (int j = i; j<get_members_count(); j++)
                 members[j] = members[j+1];
+            members_count--;
             break;
         }
     }
+
+
 }
 
 /*****************************************************************************
@@ -151,6 +154,7 @@ void Members_Container::remove_member(const int& _membership_number) {
         if (members[i].get_membership_number() == _membership_number) {
             for (int j = i; j<get_members_count(); j++)
                 members[j] = members[j+1];
+            members_count--;
             break;
         }
     }

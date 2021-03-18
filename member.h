@@ -14,6 +14,7 @@ public:
     *****************/
     Member();
     Member(std::string name);
+    // added member constructor
     Member(std::string nm,
            int memNum,
            bool premium,
