@@ -20,8 +20,8 @@ public:
     void add_member(const Member& new_member);
     void remove_member(const std::string& _name);
     void remove_member(const int& _membership_number);
-    void upgrade_membership(const std::string& _name);
-    void upgrade_membership(const int& _membership_number);
+    void upgrade_membership(const std::string& _name, const std::string& _date);
+    void upgrade_membership(const int& _membership_number, const std::string& _date);
 
     /***************
      ** ACCESSORS **
@@ -88,7 +88,7 @@ private:
  ********************************************************************************/
 
 /********************************************************************************
- * void upgrade_membership (const std::string& _name_or_id)
+ * void upgrade_membership (const std::string& _name_or_id, const std::string& _date)
  *    Mutator; Changes premium_member attribute of Member object to true. Use
  *     object name attribute as parameter.
  *-------------------------------------------------------------------------------
@@ -98,7 +98,7 @@ private:
  ********************************************************************************/
 
 /********************************************************************************
- * void upgrade_membership (const int& _membership_number)
+ * void upgrade_membership (const int& _membership_number, const std::string& _date)
  *    Mutator; Changes premium_member attribute of Member object to true. Use
  *     object membership_number attribute as parameter.
  *-------------------------------------------------------------------------------

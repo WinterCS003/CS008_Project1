@@ -108,7 +108,7 @@ void Members_Container::add_member(const Member &new_member) {
 * Method remove_member(const std::string& _name): Class Members_Container
 *-----------------------------------------------------------------------------
 * This method receives a string as argument. Calls contains() function
-*  to verify member with name is in the *members attribute. If found,
+*  to verify Member with name is in the *members attribute. If found,
 *  removes member.
 *-----------------------------------------------------------------------------
 * This method returns a bool depending on the result.
@@ -133,9 +133,9 @@ void Members_Container::remove_member(const std::string &_name) {
 /*****************************************************************************
 * Method remove_member(const int& _membership_number): Class Members_Container
 *-----------------------------------------------------------------------------
-* This method receives a string as argument. Calls contains() function
-*  to verify member with name is in the *members attribute. If found,
-*  removes member.
+* This method receives an integer as argument. Calls contains() function
+*  to verify Member with membership_number is in the *members attribute. If
+*  found, removes member.
 *-----------------------------------------------------------------------------
 * This method returns a bool depending on the result.
 *-----------------------------------------------------------------------------
@@ -152,6 +152,58 @@ void Members_Container::remove_member(const int& _membership_number) {
             for (int j = i; j<get_members_count(); j++)
                 members[j] = members[j+1];
             break;
+        }
+    }
+}
+
+/*****************************************************************************
+* Method upgrade_membership(const std::string& _name): Class Members_Container
+*-----------------------------------------------------------------------------
+* This method receives a string as argument. Calls contains() function
+*  to verify Member with membership_number is in the *members attribute. If
+*  found, and if not already premium, makes them a premium member.
+*-----------------------------------------------------------------------------
+* This method returns a bool depending on the result.
+*-----------------------------------------------------------------------------
+* PRE-CONDITIONS
+*    None.
+* POST-CONDITIONS
+*    Changes Member attribute premium_member to true.
+******************************************************************************/
+void Members_Container::upgrade_membership(const std::string& _name, const std::string& _date) {
+    if (!contains(_name))
+        return;
+
+    for (int i=0; i<get_members_count(); i++) {
+        if (members[i].get_name() == _name) {
+            if (!members[i].is_premium_member())
+                members[i].upgrade_member(_date);
+        }
+    }
+}
+
+/*****************************************************************************
+* Method upgrade_membership(const int& _membership_number): Class Members_Container
+*-----------------------------------------------------------------------------
+* This method receives an integer as argument. Calls contains() function
+*  to verify Member with membership_number is in the *members attribute. If found,
+*  and if not already premium, makes them a premium member.
+*-----------------------------------------------------------------------------
+* This method returns a bool depending on the result.
+*-----------------------------------------------------------------------------
+* PRE-CONDITIONS
+*    None.
+* POST-CONDITIONS
+*    Changes Member attribute premium_member to true.
+******************************************************************************/
+void Members_Container::upgrade_membership(const int &_membership_number, const std::string& _date) {
+    if (!contains(_membership_number))
+        return;
+
+    for (int i=0; i<get_members_count(); i++) {
+        if (members[i].get_membership_number() == _membership_number) {
+            if (!members[i].is_premium_member())
+                members[i].upgrade_member(_date);
         }
     }
 }
