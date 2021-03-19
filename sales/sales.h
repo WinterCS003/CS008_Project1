@@ -2,6 +2,8 @@
 #define SALES_H
 
 #include <string>
+#include <QTextStream>
+#include <QDate>
 
 #include "member.h"
 #include "item.h"
@@ -25,6 +27,11 @@ public:
      **************/
 
     sales& operator=(const sales& s); // IN – sales object to assign from
+    bool setItemName(std::string name);
+    bool setDate(std::string date);
+    bool setPrice(double price);
+    bool setQuantity(int quantity);
+    bool setId(int id);
 
     /***************
      ** ACCESSORS **
@@ -37,6 +44,8 @@ public:
     int getQuantity() const;
     double getRevenue() const;
     bool operator==(const sales& s) const; // IN - sales to compare to
+
+    friend QTextStream& operator>>(QTextStream& in, sales& s);
 
 private:
     const double sales_tax = 0.875; // CONST - sales tax rate

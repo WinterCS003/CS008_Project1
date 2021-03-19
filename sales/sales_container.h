@@ -55,6 +55,7 @@ private:
     sales* my_list;           // IN - array of sales
 };
 
+
 #endif // sales_container_H
 
 /****************************************************************

@@ -4,7 +4,13 @@
 #include <QMainWindow>
 
 #include "item.h"
-#include "sales_report/sales_report.h"
+
+// sales libraries
+#include "sales_report/daily_sales.h"
+#include "sales_report/yearly_sales.h"
+#include "make_sale/make_sale.h"
+
+// member libraries
 #include "member.h"
 #include "members_container.h"
 #include "managemembers.h"
@@ -31,12 +37,21 @@ private slots:
     void on_manageMembers_clicked(); // if manage members is clicked
 
 
+    void on_makeSale_clicked();
+
+    void on_yearlySales_clicked();
+
 private:
     Ui::MainWindow *ui;
-    sales_report* sR;
-    sales_container sc;
-    Members_Container mc;
-    manageMembers* mM;
+    // containers
+    Members_Container mc;      // all members
+    sales_container all_sales; // all sales
+    // update containers
+    manageMembers* mM; // add or delete members
+    make_sale* ms;     // add sales
+    // reports
+    daily_sales* dailySale;  // Sales report by day
+    yearly_sales* yearlySale; // Sales report by year
 };
 
 #endif // MAINWINDOW_H
