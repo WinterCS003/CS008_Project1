@@ -18,13 +18,13 @@ daily_sales::daily_sales(QWidget *parent, sales_container* sc, Members_Container
     ui->report->hide();
     ui->goBack->hide();
 
+    // tests to make sure window works, DELETE LATER
     sales temp1("03/01/2021", 0, "penguin", 1.0, 1);
     sales temp2("03/01/2021", 1, "seal", 2.0, 1);
     sales temp3("03/02/2021", 2, "walrus", 10.0, 2);
     sc->push_back(temp1);
     sc->push_back(temp2);
     sc->push_back(temp3);
-
     Member member1("Alice", 1, true, "01/02/2023", 0.0, 60.0);
     Member member2("Bob", 2, false, "04/05/2026", 0.0, 60.0);
     Member member3("Charles", 3, true, "07/08/2029", 0.0, 60.0);

@@ -16,6 +16,20 @@ yearly_sales::yearly_sales(QWidget *parent, sales_container* all_sales, Members_
     ui->yearlyReport->hide();
     ui->goBack->hide();
 
+    // tests to make sure it works - DELETE LATER
+    sales temp1("03/01/2021", 0, "penguin", 1.0, 1);
+    sales temp2("03/01/2021", 1, "seal", 2.0, 1);
+    sales temp3("03/02/2020", 2, "walrus", 10.0, 2);
+    all_sales->push_back(temp1);
+    all_sales->push_back(temp2);
+    all_sales->push_back(temp3);
+    Member member1("Alice", 1, true, "01/02/2023", 0.0, 60.0);
+    Member member2("Bob", 2, false, "04/05/2026", 0.0, 60.0);
+    Member member3("Charles", 3, true, "07/08/2029", 0.0, 60.0);
+    mc->add_member(member1);
+    mc->add_member(member2);
+    mc->add_member(member3);
+
     this->all_sales = all_sales;
     this->all_members = mc;
 }
@@ -83,7 +97,7 @@ void yearly_sales::on_submit_clicked()
         switchScreen();
         return;
     }
-    QString output = "---------------Year: " + year + "---------------";
+    QString output = "---------------Year: " + year + "---------------\n";
     // second pass, generate output for all sales in the year
     for(unsigned int i = 0; i < yearlySales.size(); i++)
     {
