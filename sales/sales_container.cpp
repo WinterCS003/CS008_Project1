@@ -140,7 +140,7 @@ sales& sales_container::operator[](unsigned int index) const // IN - index of sa
 /****************************************************************
  * double getTotalRevenue() const;
  *
- *   Accessor; This method will return the total revenue of all
+ *   Accessor; This method will return the revenue of all
  *   sales in the container
  * --------------------------------------------------------------
  *   Parameters: none
@@ -185,6 +185,21 @@ int sales_container::find(const sales& s) const // IN - sales to search for
     }
 
     return -1;
+}
+
+int sales_container::getItemQuantity(std::string item) const
+{
+    int count = 0;
+
+    for(unsigned int i = 0; i < my_size; i++)
+    {
+        if(item == my_list[i].getItem())
+        {
+            count += my_list[i].getQuantity();
+        }
+    }
+
+    return count;
 }
 
 /*******************************************************************

@@ -5,6 +5,7 @@
 
 #include "item.h"
 #include "sales_report/sales_report.h"
+#include "member.h"
 #include "members_container.h"
 #include "managemembers.h"
 
@@ -33,6 +34,8 @@ private slots:
 private:
     Ui::MainWindow *ui;
     sales_report* sR;
+    sales_container sc;
+    Members_Container mc;
     manageMembers* mM;
 };
 

@@ -26,6 +26,8 @@ public:
                                                  //      object
     double getTotalRevenue() const;
     int find(const sales& s) const; // IN - sales to search for
+    int getItemQuantity(std::string item) const; // item to search
+    bool contains(const sales& s) const;
 
 
     /**************
@@ -51,7 +53,6 @@ private:
     unsigned int my_capacity; // IN - allocated size of container
     unsigned int my_size;     // IN - size of container
     sales* my_list;           // IN - array of sales
-    // vector of sales?
 };
 
 #endif // sales_container_H
