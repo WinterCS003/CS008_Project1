@@ -1,23 +1,22 @@
-#include "sales_report.h"
-#include "ui_sales_report.h"
+#include "daily_sales.h"
+#include "ui_daily_sales.h"
 
-sales_report::sales_report(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::sales_report)
+daily_sales::daily_sales(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::daily_sales)
 {
     ui->setupUi(this);
-    ui->output->hide();
-    ui->back->hide();
+    ui->report->hide();
+    ui->goBack->hide();
 }
 
-sales_report::sales_report(QWidget *parent, sales_container* sc, Members_Container* mc)
-    : QMainWindow(parent)
-    , ui(new Ui::sales_report)
+daily_sales::daily_sales(QWidget *parent, sales_container* sc, Members_Container* mc)
+    : QWidget(parent)
+    , ui(new Ui::daily_sales)
 {
     ui->setupUi(this);
-    ui->output->hide();
-    ui->output->backward();
-    ui->back->hide();
+    ui->report->hide();
+    ui->goBack->hide();
 
     sales temp1("03/01/2021", 0, "penguin", 1.0, 1);
     sales temp2("03/01/2021", 1, "seal", 2.0, 1);
@@ -37,12 +36,12 @@ sales_report::sales_report(QWidget *parent, sales_container* sc, Members_Contain
     members = mc;
 }
 
-sales_report::~sales_report()
+daily_sales::~daily_sales()
 {
     delete ui;
 }
 
-void sales_report::on_submit_clicked()
+void daily_sales::on_submit_clicked()
 {
     switchScreen();
 
@@ -51,37 +50,39 @@ void sales_report::on_submit_clicked()
     std::string sdDate = sDate.toStdString();
     bool preferred = false;
 
-    if(ui->member_type->isChecked())
+    if(ui->preferred->isChecked())
     {
         preferred = true;
     }
 
-    generate_daily_sales_report(sdDate);
+    generate_daily_daily_sales(sdDate);
 }
 
-void sales_report::switchScreen()
+void daily_sales::switchScreen()
 {
-    if(ui->output->isHidden())
+    if(ui->report->isHidden())
     {
         ui->date->hide();
         ui->dateEdit->hide();
-        ui->member_type->hide();
+        ui->preferred->hide();
+        ui->basic->hide();
         ui->submit->hide();
-        ui->output->show();
-        ui->back->show();
+        ui->report->show();
+        ui->goBack->show();
     }
     else
     {
-        ui->output->hide();
+        ui->report->hide();
         ui->date->show();
         ui->dateEdit->show();
-        ui->member_type->show();
+        ui->preferred->show();
+        ui->basic->show();
         ui->submit->show();
-        ui->back->hide();
+        ui->goBack->hide();
     }
 }
 
-void sales_report::generate_daily_sales_report(std::string date)
+void daily_sales::generate_daily_daily_sales(std::string date)
 {
     report_output = report_output.fromStdString(("----------Date: " + date + "----------\n\n"));
     sales_container dailySale;
@@ -97,7 +98,9 @@ void sales_report::generate_daily_sales_report(std::string date)
     // check if no sales were made on the date
     if(dailySale.size() == 0)
     {
-        report_output += "No sales made\n";
+        QString warning = date.c_str();
+        QMessageBox::warning(this, "Warning", "No sales made on: " + warning);
+        switchScreen();
         return;
     }
     // second pass - make report of all items sold
@@ -117,6 +120,7 @@ void sales_report::generate_daily_sales_report(std::string date)
         }
     }
     // total revenue of all sales on the given date
+    report_output += "Total Revenue: ";
     report_output += to_string(dailySale.getTotalRevenue()).c_str();
     report_output += "\n\n";
 
@@ -141,7 +145,7 @@ void sales_report::generate_daily_sales_report(std::string date)
                 countBasic++;
             }
             report_output += memberName;
-            report_output += "\n\n";
+            report_output += "\n";
         }
     }
     // number of basic members
@@ -154,11 +158,11 @@ void sales_report::generate_daily_sales_report(std::string date)
     report_output += "\n\n";
     report_output += "----------End of report----------";
 
-    ui->output->show();
-    ui->output->setText(report_output);
+    ui->report->show();
+    ui->report->setText(report_output);
 }
 
-void sales_report::on_back_clicked()
+void daily_sales::on_goBack_clicked()
 {
     switchScreen();
 }

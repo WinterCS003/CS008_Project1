@@ -23,11 +23,14 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     make_sale/make_sale.cpp \
-    sales_report/sales_report.cpp \
-    # inventorytracker.cpp
+    sales_report/daily_sales.cpp \
+ \    # inventorytracker.cpp
+    sales_report/yearly_sales.cpp
 
 HEADERS += \
     managemembers.h \
+    sales_report/daily_sales.h \
+    sales_report/yearly_sales.h \
     vector.h \
     # sales classes
     sales/sales.h \
@@ -41,7 +44,6 @@ HEADERS += \
     #forms
     mainwindow.h \
     make_sale/make_sale.h \
-    sales_report/sales_report.h \
     # inventorytracker.h
 
 FORMS += \
@@ -49,7 +51,8 @@ FORMS += \
     inventorytracker.ui \
     make_sale/make_sale.ui \
     managemembers.ui \
-    sales_report/sales_report.ui
+    sales_report/daily_sales.ui \
+    sales_report/yearly_sales.ui
 
 # Default rules for deployment.
 # Please Work...

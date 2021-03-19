@@ -190,3 +190,56 @@ bool sales::operator==(const sales& s) const
 
     return false;
 }
+
+bool sales::setItemName(std::string name)
+{
+    if(name.length() == 0)
+    {
+      return false;
+    }
+    item_name = name;
+    return true;
+}
+
+bool sales::setDate(std::string date)
+{
+    if(date.length() != 10)
+    {
+        return false;
+    }
+    int month = std::stoi(date.substr(0,2));
+    int day = std::stoi(date.substr(3,2));
+    int year = std::stoi(date.substr(6,4));
+    QDate temp(year, month, day);
+    return temp.isValid();
+}
+
+bool sales::setPrice(double price)
+{
+    if(price < 0)
+    {
+        return false;
+    }
+    this->price = price;
+    return true;
+}
+
+bool sales::setQuantity(int quantity)
+{
+    if(quantity < 0)
+    {
+        return false;
+    }
+    this->quantity = quantity;
+    return true;
+}
+
+bool sales::setId(int id)
+{
+    if(id < 0)
+    {
+        return false;
+    }
+    member_ID = id;
+    return true;
+}

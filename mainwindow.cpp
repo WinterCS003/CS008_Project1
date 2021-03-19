@@ -12,7 +12,8 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete mM;
-    delete sR;
+    delete dailySale;
+    delete ms;
     delete ui;
 }
 
@@ -33,15 +34,27 @@ void MainWindow::on_loginButton_clicked()
 
 void MainWindow::on_dailySales_clicked()
 {
-    sR = new sales_report(nullptr, &sc, &mc);
+    dailySale = new daily_sales(nullptr, &all_sales, &mc);
 
-    sR->show();
+    dailySale->show();
 }
 
 // manage all member operations(adding, displaying reports etc)
 void MainWindow::on_manageMembers_clicked()
 {
-    Members_Container mc;
+//    Members_Container mc;
     mM = new manageMembers(nullptr, mc);
     mM->show();
+}
+
+void MainWindow::on_makeSale_clicked()
+{
+    ms = new make_sale(nullptr, &all_sales);
+    ms->show();
+}
+
+void MainWindow::on_yearlySales_clicked()
+{
+    yearlySale = new yearly_sales(nullptr, &all_sales, &mc);
+    yearlySale->show();
 }

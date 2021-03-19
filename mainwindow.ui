@@ -20,7 +20,7 @@
       <x>680</x>
       <y>0</y>
       <width>115</width>
-      <height>171</height>
+      <height>211</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -33,6 +33,27 @@
        </property>
        <property name="text">
         <string>Manage Members</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="makeSale">
+       <property name="text">
+        <string>Make Sale</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="yearlySales">
+       <property name="text">
+        <string>Yearly Sales Report</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="dailySales">
+       <property name="text">
+        <string>Daily Sales Report</string>
        </property>
       </widget>
      </item>
@@ -60,13 +81,6 @@
        </property>
       </widget>
      </item>
-     <item>
-      <widget class="QPushButton" name="dailySales">
-       <property name="text">
-        <string>Daily Sales Report</string>
-       </property>
-      </widget>
-     </item>
     </layout>
    </widget>
   </widget>
@@ -76,7 +90,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>25</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuSuper_Wholesale_Warehouse">
