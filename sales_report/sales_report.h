@@ -3,7 +3,10 @@
 
 #include <QMainWindow>
 
+#include "sales/sales.h"
 #include "sales/sales_container.h"
+#include "member.h"
+#include "members_container.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class sales_report; }
@@ -15,7 +18,7 @@ class sales_report : public QMainWindow
 
 public:
     sales_report(QWidget *parent = nullptr);
-    sales_report(QWidget *parent, const sales_container& sc);
+    sales_report(QWidget *parent, sales_container* sc, Members_Container* mc);
     ~sales_report();
 
 
@@ -30,7 +33,8 @@ private:
 
     Ui::sales_report *ui;
     QString report_output;
-    sales_container report;
+    Members_Container* members;
+    sales_container* report;
 };
 
 #endif // SALES_REPORT_H

@@ -20,8 +20,6 @@ public:
           double price,     // IN - price of item
           int quantity);    // IN - number of items bought
 
-
-
     /**************
      ** MUTATORS **
      **************/
