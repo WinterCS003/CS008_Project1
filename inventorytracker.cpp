@@ -50,15 +50,9 @@ void InventoryTracker::onMainMenu_clicked()
 void InventoryTracker::backToHome()
 {
     if (ui->exit->isVisible()) {
-        ui->exit->show();
-        ui->table->show();
-        itemList.show();
-        ui->title->show();
-    } else {
         ui->exit->hide();
         ui->table->hide();
         ui->title->hide();
-        itemList.hide();
     }
 }
 
