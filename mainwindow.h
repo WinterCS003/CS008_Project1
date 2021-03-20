@@ -3,8 +3,7 @@
 
 #include <QMainWindow>
 
-#include "stubs/item.h"
-#include "sales_report/sales_report.h"
+#include "inventorytracker.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -20,14 +19,12 @@ public:
 
 private slots:
     void on_quitButton_clicked();       // if user quits, program exits
-    void on_loginButton_clicked();      // if user clicks 'login'
-    void on_newMemberButton_clicked();  // if user clicks 'new member'
-
-    void on_dailySales_clicked();
-
+    void on_inventory_clicked();     // if inventory is clicked
 private:
     Ui::MainWindow *ui;
-    sales_report* sR;
+    InventoryTracker* it;
 };
+
+
 
 #endif // MAINWINDOW_H

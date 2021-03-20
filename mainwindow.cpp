@@ -10,8 +10,8 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
-    delete sR;
     delete ui;
+    delete it;
 }
 
 void MainWindow::on_quitButton_clicked()
@@ -19,25 +19,10 @@ void MainWindow::on_quitButton_clicked()
     qApp->quit();
 }
 
-void MainWindow::on_loginButton_clicked()
+void MainWindow::on_inventory_clicked()
 {
-    // when 'login' button is clicked, appear a page where user can
-    //  input member id #,
-    // member class
+    it = new InventoryTracker(nullptr);
+    it->show();
 }
 
-void MainWindow::on_newMemberButton_clicked()
-{
-    // member class
-}
 
-void MainWindow::on_dailySales_clicked()
-{
-    sales_container sc;
-
-    sales s("03012021", "penguin", "bob", true, 1.0);
-    sc.push_back(s);
-    sR = new sales_report(nullptr, sc);
-
-    sR->show();
-}
