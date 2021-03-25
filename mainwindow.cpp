@@ -15,6 +15,7 @@ MainWindow::~MainWindow()
     delete dailySale;
     delete ms;
     delete ui;
+    delete it;
 }
 
 void MainWindow::on_quitButton_clicked()
