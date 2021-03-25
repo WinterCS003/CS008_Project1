@@ -58,3 +58,9 @@ void MainWindow::on_yearlySales_clicked()
     yearlySale = new yearly_sales(nullptr, &all_sales, &mc);
     yearlySale->show();
 }
+
+void MainWindow::on_manageInventory_clicked()
+{
+    it = new InventoryTracker(nullptr, iv);
+    it->show();
+}
