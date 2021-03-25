@@ -39,9 +39,6 @@ private slots:
     void on_makeSale_clicked();
     void on_dailySales_clicked();
     void on_yearlySales_clicked();
-    
-    void on_quitButton_clicked();       // if user quits, program exits
-    void on_manageInventory_clicked();        // if inventory is clicked
 
 private:
 
