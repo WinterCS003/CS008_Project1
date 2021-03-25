@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>593</width>
-    <height>300</height>
+    <height>410</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,14 +16,14 @@
   <widget class="QPushButton" name="exit">
    <property name="geometry">
     <rect>
-     <x>459</x>
-     <y>270</y>
+     <x>460</x>
+     <y>360</y>
      <width>121</width>
      <height>20</height>
     </rect>
    </property>
    <property name="text">
-    <string>Back to Main Window</string>
+    <string>Exit</string>
    </property>
   </widget>
   <widget class="QLabel" name="title">
@@ -37,7 +37,7 @@
    </property>
    <property name="font">
     <font>
-     <pointsize>20</pointsize>
+     <pointsize>12</pointsize>
     </font>
    </property>
    <property name="layoutDirection">
@@ -50,127 +50,28 @@
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QTableWidget" name="table">
+  <widget class="QLineEdit" name="text">
    <property name="geometry">
     <rect>
      <x>10</x>
      <y>40</y>
-     <width>461</width>
-     <height>221</height>
+     <width>231</width>
+     <height>21</height>
     </rect>
    </property>
-   <row>
-    <property name="text">
-     <string>New Row</string>
-    </property>
-   </row>
-   <row>
-    <property name="text">
-     <string>New Row</string>
-    </property>
-   </row>
-   <row>
-    <property name="text">
-     <string>New Row</string>
-    </property>
-   </row>
-   <row>
-    <property name="text">
-     <string>New Row</string>
-    </property>
-   </row>
-   <row>
-    <property name="text">
-     <string>New Row</string>
-    </property>
-   </row>
-   <row>
-    <property name="text">
-     <string>New Row</string>
-    </property>
-   </row>
-   <row>
-    <property name="text">
-     <string>New Row</string>
-    </property>
-   </row>
-   <row>
-    <property name="text">
-     <string>New Row</string>
-    </property>
-   </row>
-   <row>
-    <property name="text">
-     <string>New Row</string>
-    </property>
-   </row>
-   <row>
-    <property name="text">
-     <string>New Row</string>
-    </property>
-   </row>
-   <row>
-    <property name="text">
-     <string>New Row</string>
-    </property>
-   </row>
-   <row>
-    <property name="text">
-     <string>New Row</string>
-    </property>
-   </row>
-   <row>
-    <property name="text">
-     <string>New Row</string>
-    </property>
-   </row>
-   <row>
-    <property name="text">
-     <string>New Row</string>
-    </property>
-   </row>
-   <row>
-    <property name="text">
-     <string>New Row</string>
-    </property>
-   </row>
-   <column>
-    <property name="text">
-     <string>Item</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>Item ID Number</string>
-    </property>
-    <property name="background">
-     <color>
-      <red>85</red>
-      <green>170</green>
-      <blue>255</blue>
-     </color>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>Quantity Sold</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>Quantity In Stock</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>Price Sold At</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>Total </string>
-    </property>
-   </column>
+  </widget>
+  <widget class="QTableView" name="table">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>70</y>
+     <width>541</width>
+     <height>271</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
   </widget>
  </widget>
  <resources/>

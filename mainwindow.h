@@ -19,10 +19,11 @@ public:
 
 private slots:
     void on_quitButton_clicked();       // if user quits, program exits
-    void on_inventory_clicked();     // if inventory is clicked
+    void on_manageInventory_clicked();        // if inventory is clicked
 private:
     Ui::MainWindow *ui;
     InventoryTracker* it;
+    inventory iv;
 };
 
 

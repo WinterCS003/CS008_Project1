@@ -3,7 +3,9 @@
 
 #include <QDialog>
 #include "inventory.h"
-#include <QTableWidget>
+#include <QTableView>
+#include <QItemDelegate>
+#include <QStandardItemModel>
 
 namespace Ui {
 class InventoryTracker;
@@ -14,22 +16,22 @@ class InventoryTracker : public QDialog
     Q_OBJECT
 
 public:
-    explicit InventoryTracker(QWidget *parent = nullptr);
+    explicit InventoryTracker(QWidget *parent = 0);
     InventoryTracker(QWidget *parent, const inventory& iv);
     ~InventoryTracker();
 
 private slots:
-    void onMainMenu_clicked();
+    void on_exit_clicked();
 
 private:
-    void backToHome();
-    void empty();
     void generate_inventory_list();
+    void empty();
 
     Ui::InventoryTracker *ui;
-    QTableWidget itemList;
     inventory list;
-    QString inventory_list;
+    QTableView itemTable;
+    QStandardItemModel *model;
+    QLineEdit *text;
 };
 
 #endif // INVENTORYTRACKER_H
