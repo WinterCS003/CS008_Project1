@@ -53,7 +53,7 @@ void MainWindow::on_manageMembers_clicked()
 
 void MainWindow::on_makeSale_clicked()
 {
-    ms = new make_sale(nullptr, &all_sales, &mc, &item_container);
+    ms = new make_sale(nullptr, &all_sales, &mc, &iv);
     ms->show();
 }
 
