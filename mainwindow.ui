@@ -17,10 +17,10 @@
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>680</x>
+      <x>644</x>
       <y>0</y>
-      <width>115</width>
-      <height>211</height>
+      <width>151</width>
+      <height>231</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -81,6 +81,32 @@
        </property>
       </widget>
      </item>
+     <item>
+      <widget class="QPushButton" name="dailySales">
+       <property name="font">
+        <font>
+         <family>MS Shell Dlg 2</family>
+         <pointsize>8</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Daily Sales Report</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="manageInventory">
+       <property name="font">
+        <font>
+         <family>MS Shell Dlg 2</family>
+         <pointsize>7</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Inventory Tracking</string>
+       </property>
+      </widget>
+      </item>
     </layout>
    </widget>
   </widget>
@@ -90,7 +116,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>21</height>
+     <height>17</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuSuper_Wholesale_Warehouse">

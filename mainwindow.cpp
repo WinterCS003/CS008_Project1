@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "ui_inventorytracker.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -22,6 +23,8 @@ void MainWindow::on_quitButton_clicked()
 {
     qApp->quit();
 }
+
+
 
 void MainWindow::on_loginButton_clicked()
 {

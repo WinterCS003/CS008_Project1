@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 
+#include "inventorytracker.h"
 #include "item.h"
 
 // sales libraries
@@ -29,6 +30,8 @@ public:
 
 private slots:
     void on_quitButton_clicked();       // if user quits, program exits
+    void on_manageInventory_clicked();        // if inventory is clicked
+    
     void on_loginButton_clicked();      // if user clicks 'login'
 
     void on_manageMembers_clicked(); // if manage members is clicked
@@ -41,6 +44,7 @@ private slots:
     void on_manageInventory_clicked();        // if inventory is clicked
 
 private:
+
     Ui::MainWindow *ui;
     // containers
     Members_Container mc;      // all members
@@ -54,5 +58,7 @@ private:
     yearly_sales* yearlySale; // Sales report by year
     InventoryTracker* it;
 };
+
+
 
 #endif // MAINWINDOW_H

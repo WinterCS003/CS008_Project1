@@ -94,4 +94,3 @@ void InventoryTracker::generate_inventory_list()
         }
     }
 }
-
