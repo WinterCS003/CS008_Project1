@@ -8,13 +8,11 @@
  ***************************************************************/
 sales::sales()
 {
-    customer_name = "";
     item_name = "";
     date_sold = "";
-    isPreferred = false;
     price = 0.0;
     quantity = 0;
-    item_ID = 0;
+    member_ID = 0;
 }
 
 /****************************************************************
@@ -27,9 +25,9 @@ sales::sales(const sales& s)
 {
     this->date_sold = s.date_sold;
     this->item_name = s.item_name;
-    this->customer_name = s.customer_name;
-    this->isPreferred = s.isPreferred;
     this->price = s.price;
+    this->quantity = s.quantity;
+    this->member_ID = s.member_ID;
 }
 
 /****************************************************************
@@ -50,15 +48,13 @@ sales::sales(const sales& s)
  *               type (bool) // IN - membership type
  *   Return: none
  ***************************************************************/
-sales::sales(std::string date, int id, std::string item, double price, int quantity, std::string customer, bool type)
+sales::sales(std::string date, int id, std::string item, double price, int quantity)
 {
     date_sold = date;
-    item_ID = id;
+    member_ID = id;
     item_name = item;
     this->price = price;
     this->quantity = quantity;
-    customer_name = customer;
-    isPreferred = type;
 }
 
 /*******************************************************************
@@ -75,8 +71,8 @@ sales& sales::operator=(const sales& s)
 {
     this->date_sold = s.date_sold;
     this->item_name = s.item_name;
-    this->customer_name = s.customer_name;
-    this->isPreferred = s.isPreferred;
+    this->member_ID = s.member_ID;
+    this->quantity = s.quantity;
     this->price = s.price;
 
     return *this;
@@ -108,7 +104,7 @@ std::string sales::getDate() const
  ***************************************************************/
 int sales::getId() const
 {
-    return item_ID;
+    return member_ID;
 }
 
 /****************************************************************
@@ -171,35 +167,6 @@ double sales::getRevenue() const
 }
 
 /****************************************************************
- * std::string getCustomer() const;
- *
- *   Accessor; This method will return the name of the customer
- * --------------------------------------------------------------
- *   Parameters: none
- * --------------------------------------------------------------
- *   Return: customer_name (std::string) - name of customer
- ***************************************************************/
-std::string sales::getCustomer() const
-{
-    return customer_name;
-}
-
-/****************************************************************
- * bool member_type() const;
- *
- *   Accessor; This method will return the membership type of
- *   the customer
- * --------------------------------------------------------------
- *   Parameters: none
- * --------------------------------------------------------------
- *   Return: isPreferred (bool) - returns membership type
- ***************************************************************/
-bool sales::member_type() const
-{
-    return isPreferred;
-}
-
-/****************************************************************
  * bool operator==(const sales& s) const;
  *
  *   Accessor; This method will return true if the parameter is
@@ -212,16 +179,67 @@ bool sales::member_type() const
  ***************************************************************/
 bool sales::operator==(const sales& s) const
 {
-    if(s.getCustomer() == this->customer_name &&
-       s.getItem()     == this->item_name     &&
+    if(s.getItem()     == this->item_name     &&
        s.getDate()     == this->date_sold     &&
-       s.member_type() == this->isPreferred   &&
        s.getPrice()    == this->price         &&
        s.getQuantity() == this->quantity      &&
-       s.getId()       == this->item_ID)
+       s.getId()       == this->member_ID)
     {
         return true;
     }
 
     return false;
+}
+
+bool sales::setItemName(std::string name)
+{
+    if(name.length() == 0)
+    {
+      return false;
+    }
+    item_name = name;
+    return true;
+}
+
+bool sales::setDate(std::string date)
+{
+    if(date.length() != 10)
+    {
+        return false;
+    }
+    int month = std::stoi(date.substr(0,2));
+    int day = std::stoi(date.substr(3,2));
+    int year = std::stoi(date.substr(6,4));
+    QDate temp(year, month, day);
+    return temp.isValid();
+}
+
+bool sales::setPrice(double price)
+{
+    if(price < 0)
+    {
+        return false;
+    }
+    this->price = price;
+    return true;
+}
+
+bool sales::setQuantity(int quantity)
+{
+    if(quantity < 0)
+    {
+        return false;
+    }
+    this->quantity = quantity;
+    return true;
+}
+
+bool sales::setId(int id)
+{
+    if(id < 0)
+    {
+        return false;
+    }
+    member_ID = id;
+    return true;
 }

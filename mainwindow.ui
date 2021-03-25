@@ -37,6 +37,27 @@
       </widget>
      </item>
      <item>
+      <widget class="QPushButton" name="makeSale">
+       <property name="text">
+        <string>Make Sale</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="yearlySales">
+       <property name="text">
+        <string>Yearly Sales Report</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="dailySales">
+       <property name="text">
+        <string>Daily Sales Report</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QPushButton" name="login">
        <property name="font">
         <font>
@@ -85,7 +106,7 @@
         <string>Inventory Tracking</string>
        </property>
       </widget>
-     </item>
+      </item>
     </layout>
    </widget>
   </widget>

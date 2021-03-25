@@ -410,6 +410,3 @@ inventory& inventory::operator=(const inventory &it)
     }
     return *this;
 }
-
-
-

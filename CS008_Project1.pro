@@ -9,33 +9,50 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    member.cpp \
-    members_container.cpp \
-    stubs/item.cpp \
-    stubs/member.cpp \
+    # sales classes
+    managemembers.cpp \
     sales/sales.cpp \
     sales/sales_container.cpp \
+    # item classes
+    item.cpp \
+    inventory.cpp \
+    # member classes
+    member.cpp \
+    members_container.cpp \
+    # forms
     main.cpp \
     mainwindow.cpp \
     make_sale/make_sale.cpp \
-    sales_report/sales_report.cpp
+    sales_report/daily_sales.cpp \
+ \    # inventorytracker.cpp
+    sales_report/yearly_sales.cpp
 
 HEADERS += \
-    member.h \
-    members_container.h \
-    stubs/item.h \
-    stubs/member.h \
+    managemembers.h \
+    sales_report/daily_sales.h \
+    sales_report/yearly_sales.h \
     vector.h \
+    # sales classes
     sales/sales.h \
     sales/sales_container.h \
+    # item classes
+    item.h \
+    inventory.h \
+    # member classes
+    member.h \
+    members_container.h \
+    #forms
     mainwindow.h \
     make_sale/make_sale.h \
-    sales_report/sales_report.h
+    # inventorytracker.h
 
 FORMS += \
     mainwindow.ui \
+    inventorytracker.ui \
     make_sale/make_sale.ui \
-    sales_report/sales_report.ui
+    managemembers.ui \
+    sales_report/daily_sales.ui \
+    sales_report/yearly_sales.ui
 
 # Default rules for deployment.
 # Please Work...

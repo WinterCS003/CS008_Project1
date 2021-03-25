@@ -45,6 +45,21 @@ Member::Member(std::string name)
     next_membership_number++;
 }
 
+Member::Member(std::string nm,
+       int memNum,
+       bool premium,
+       std::string expDate,
+       double totalSpent,
+       double totalRebate)
+{
+    name = nm;
+//    membership_number = memNum;
+    premium_member = premium;
+    membership_expiration = expDate;
+    total_spend = totalSpent;
+    total_rebates = totalRebate;
+}
+
 /*****************************************************************************
  * Method set_name: Class Member
  *----------------------------------------------------------------------------
@@ -103,9 +118,23 @@ void Member::upgrade_member(const std::string& todays_date) {
     else {
         temp = 0;
         int temp2 = (int)date[4] - 48;
-        temp2++;
-        date[4] = (char)temp2 + 48;
+
+        if (temp2 < 9) {
+            temp2++;
+            date[4] = (char)temp2 + 48;
+        }
+
+        else {
+            temp2 = 0;
+            date[4] = (char)temp2 + 48;
+
+            int temp3 = (int)date[3] - 48;
+            temp3++;
+            date[3] = (char)temp3 + 48;
+        }
+
     }
+
     date[5] = (char)temp + 48;
 
 
@@ -135,11 +164,30 @@ void Member::extend_membership() {
     else {
         temp = 0;
         int temp2 = (int)date[4] - 48;
-        temp2++;
-        date[4] = (char)temp2 + 48;
+
+        if (temp2 < 9) {
+            temp2++;
+            date[4] = (char)temp2 + 48;
+        }
+
+        else {
+            temp2 = 0;
+            date[4] = (char)temp2 + 48;
+
+            int temp3 = (int)date[3] - 48;
+            temp3++;
+            date[3] = (char)temp3 + 48;
+        }
     }
+
     date[5] = (char)temp + 48;
 
     membership_expiration = date;
+
+}
+
+// returns all member info string form
+std::string getInfo()
+{
 
 }
