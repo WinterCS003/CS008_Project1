@@ -24,7 +24,7 @@ SOURCES += \
     mainwindow.cpp \
     make_sale/make_sale.cpp \
     sales_report/daily_sales.cpp \
- \    # inventorytracker.cpp
+    inventorytracker.cpp \
     sales_report/yearly_sales.cpp
 
 HEADERS += \
@@ -44,7 +44,7 @@ HEADERS += \
     #forms
     mainwindow.h \
     make_sale/make_sale.h \
-    # inventorytracker.h
+    inventorytracker.h
 
 FORMS += \
     mainwindow.ui \
