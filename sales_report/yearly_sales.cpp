@@ -78,6 +78,13 @@ void yearly_sales::on_goBack_clicked()
 void yearly_sales::on_submit_clicked()
 {
     QString year = ui->yearInput->text();
+    bool ok;
+    year.toInt(&ok, 10);
+    if(year.length() == 0 || !ok)
+    {
+        QMessageBox::warning(this, "Warning", "Please input a valid Year");
+        return;
+    }
     switchScreen();
     clearInput();
 
@@ -87,7 +94,28 @@ void yearly_sales::on_submit_clicked()
     {
         if(year == (*all_sales)[i].getDate().substr(6,4).c_str())
         {
-            yearlySales.push_back((*all_sales)[i]);
+            if(ui->basic->isChecked() && ui->preferred->isChecked())
+            {
+                yearlySales.push_back((*all_sales)[i]);
+            }
+            else if(ui->basic->isChecked())
+            {
+                if(!all_members->get_member((*all_sales)[i].getId()).is_premium_member())
+                {
+                    yearlySales.push_back((*all_sales)[i]);
+                }
+            }
+            else if(ui->preferred->isChecked())
+            {
+                if(all_members->get_member((*all_sales)[i].getId()).is_premium_member())
+                {
+                    yearlySales.push_back((*all_sales)[i]);
+                }
+            }
+            else
+            {
+                yearlySales.push_back((*all_sales)[i]);
+            }
         }
     }
     // quit function with warning if no sales, return to input

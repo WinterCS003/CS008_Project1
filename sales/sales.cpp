@@ -211,7 +211,12 @@ bool sales::setDate(std::string date)
     int day = std::stoi(date.substr(3,2));
     int year = std::stoi(date.substr(6,4));
     QDate temp(year, month, day);
-    return temp.isValid();
+    if(!temp.isValid())
+    {
+        return false;
+    }
+    this->date_sold = date;
+    return true;
 }
 
 bool sales::setPrice(double price)

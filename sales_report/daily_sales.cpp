@@ -48,14 +48,25 @@ void daily_sales::on_submit_clicked()
     QDate date = ui->dateEdit->date();
     QString sDate = date.toString("MM/dd/yyyy");
     std::string sdDate = sDate.toStdString();
-    bool preferred = false;
 
-    if(ui->preferred->isChecked())
+    int flag = 2;
+    if(ui->basic->isChecked() && ui->preferred->isChecked())
     {
-        preferred = true;
+        flag = 2;
     }
-
-    generate_daily_daily_sales(sdDate);
+    else if(ui->preferred->isChecked())
+    {
+        flag = 1;
+    }
+    else if(ui->basic->isChecked())
+    {
+        flag = 0;
+    }
+    else
+    {
+        flag = 2;
+    }
+    generate_daily_daily_sales(sdDate, flag);
 }
 
 void daily_sales::switchScreen()
@@ -82,7 +93,10 @@ void daily_sales::switchScreen()
     }
 }
 
-void daily_sales::generate_daily_daily_sales(std::string date)
+// flag - 0 = Basic only
+//        1 = Preferred
+//        2 = both
+void daily_sales::generate_daily_daily_sales(std::string date, int flag)
 {
     report_output = report_output.fromStdString(("----------Date: " + date + "----------\n\n"));
     sales_container dailySale;
@@ -92,7 +106,24 @@ void daily_sales::generate_daily_daily_sales(std::string date)
     {
         if(date == (*report)[i].getDate())
         {
-            dailySale.push_back((*report)[i]);
+            if(flag == 0) // only basic members
+            {
+                if(!members->get_member((*report)[i].getId()).is_premium_member())
+                {
+                    dailySale.push_back((*report)[i]);
+                }
+            }
+            else if(flag == 1) // only preferred members
+            {
+                if(members->get_member((*report)[i].getId()).is_premium_member())
+                {
+                    dailySale.push_back((*report)[i]);
+                }
+            }
+            else // both members
+            {
+                dailySale.push_back((*report)[i]);
+            }
         }
     }
     // check if no sales were made on the date

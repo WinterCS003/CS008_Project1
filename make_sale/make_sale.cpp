@@ -11,10 +11,12 @@ make_sale::make_sale(QWidget *parent)
     ui->setupUi(this);
 }
 
-make_sale::make_sale(QWidget *parent, sales_container* sc)
+make_sale::make_sale(QWidget *parent, sales_container* sc, Members_Container* mc, inventory* i)
     : QMainWindow(parent)
     , ui(new Ui::make_sale)
     , all_sales(sc)
+    , all_members(mc)
+    , my_inventory(i)
 {
     ui->setupUi(this);
     ui->fileInput->show();
@@ -108,22 +110,46 @@ void make_sale::on_fileInput_clicked()
         QMessageBox::warning(this, "Warning", "Cannot open file: " + file.errorString());
         return;
     }
+
     setWindowTitle(fileName);
     ifstream in(fileName.toStdString());
     std::string date;
     while(getline(in, date))
     {
-        int id;
+        int id;      //IN - file input member id
         in >> id;
-        in.ignore();
-        std::string name;
+        in.ignore(); // flush input buffer
+        if(!all_members->contains(id))
+        {
+            QString sId = to_string(id).c_str();
+            int o = QMessageBox::warning(this, "Warning", "Member " + sId + " does not exist, make sale anyway?", QMessageBox::Ok, QMessageBox::Cancel);
+            if(o == 0x400000) // cancel button pressed
+            {
+                break;
+            }
+        }
+
+        std::string name; // IN - file input item name
         getline(in, name);
-        double price;
+        //if(!my_inventory->contains(name))
+        {
+            QString sId;
+            sId = sId.fromStdString(name);
+            int o = QMessageBox::warning(this, "Warning", "Item " + sId + " does not exist, make sale anyway?", QMessageBox::Ok, QMessageBox::Cancel);
+            if(o == 0x400000) // cancel button pressed
+            {
+                break;
+            }
+        }
+
+        double price; // IN - file input item price
         in >> price;
-        int quantity;
+
+        int quantity; // IN - file input item quantity
         in >> quantity;
         in.ignore();
-        sales temp(date, id, name, price, quantity);
+
+        sales temp(date, id, name, price, quantity); // make sale with above information
         all_sales->push_back(temp);
     }
     printReport();
@@ -156,6 +182,7 @@ void make_sale::on_makePurchase_clicked()
     sales mysale(date, id, name, price, quantity);
     all_sales->push_back(mysale);
     printReport();
+
     ui->date->clear();
     ui->number->clear();
     ui->name->clear();

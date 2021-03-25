@@ -10,6 +10,10 @@
 
 #include "sales/sales_container.h"
 #include "sales/sales.h"
+#include "member.h"
+
+#include "inventory.h"
+#include "members_container.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class make_sale; }
@@ -21,7 +25,7 @@ class make_sale : public QMainWindow
 
 public:
     make_sale(QWidget *parent = nullptr);
-    make_sale(QWidget *parent, sales_container* sc);
+    make_sale(QWidget *parent, sales_container* sc, Members_Container* mc, inventory* i);
     ~make_sale();
 
 private slots:
@@ -38,5 +42,7 @@ private:
     void switchScreen();
     Ui::make_sale *ui;
     sales_container* all_sales;
+    Members_Container* all_members;
+    inventory* my_inventory;
 };
 #endif // MAKE_SALE_H

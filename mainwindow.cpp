@@ -14,6 +14,7 @@ MainWindow::~MainWindow()
 {
     delete mM;
     delete dailySale;
+    delete yearlySale;
     delete ms;
     delete ui;
     delete it;
@@ -53,7 +54,7 @@ void MainWindow::on_manageMembers_clicked()
 
 void MainWindow::on_makeSale_clicked()
 {
-    ms = new make_sale(nullptr, &all_sales);
+    ms = new make_sale(nullptr, &all_sales, &mc, &iv);
     ms->show();
 }
 

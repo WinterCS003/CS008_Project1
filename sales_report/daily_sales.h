@@ -30,7 +30,7 @@ private slots:
 
 private:
     void switchScreen();
-    void generate_daily_daily_sales(std::string date);
+    void generate_daily_daily_sales(std::string date, int flag);
 
     Ui::daily_sales *ui;
     QString report_output;

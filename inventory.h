@@ -21,6 +21,7 @@ public:
     int getItemQuantity();                  // OUT: return item quantity
     string getItemName();                   // OUT: return item name
     int capacity() const;                   // OUT: return _capacity
+    double getItemPrice();
     int size() const;                       // OUT: return _size
     bool empty() const;                     // check if array is empty
 
