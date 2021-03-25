@@ -102,8 +102,8 @@ int inventory::getItemNumber()
 /***************************************************
  * int getItemQuantity()
  *
- * Accessor: This method returns the quantity from
- * Item class.
+ * Accessor: This method returns the quantity in stock
+ * from Item class.
  * -------------------------------------------------
  *   Parameter: none
  * -------------------------------------------------
@@ -127,6 +127,21 @@ int inventory::getItemQuantity()
 string inventory::getItemName()
 {
     return item->get_item_name();
+}
+
+/***************************************************
+ * int getItemPrice()
+ *
+ * Accessor; This method returns the item price from
+ * the Item class.
+ * -------------------------------------------------
+ *   Parameter: none
+ * -------------------------------------------------
+ *   Returns: double
+****************************************************/
+double inventory::getItemPrice()
+{
+    return item->get_price();
 }
 
 /***************************************************
@@ -183,8 +198,8 @@ bool inventory::empty() const
 ****************************************************/
 void inventory::push_back(const Item &it)
 {
-    if (_size > _capacity) {
-        reallocate(_capacity + 5);
+    if (this->size() > this->capacity()) {
+        reallocate(this->capacity() + 5);
         item[_size++] = it;
     }
 }
@@ -395,6 +410,3 @@ inventory& inventory::operator=(const inventory &it)
     }
     return *this;
 }
-
-
-
