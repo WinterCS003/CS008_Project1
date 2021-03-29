@@ -2,6 +2,13 @@
 #define sales_container_H
 
 #include "sales.h"
+#include "inventory.h"
+#include "members_container.h"
+
+#include <QFileDialog>
+#include <QMessageBox>
+#include <QFile>
+#include <fstream>
 
 class sales_container
 {
@@ -33,21 +40,28 @@ public:
     /**************
      ** MUTATORS **
      **************/
-
-    void push_back(const sales& value); // IN – sales to add to end of object
+    void push_back(const sales& value);
+    void push_back(QWidget* parent,
+                   const sales& value,
+                   inventory& inventory,
+                   Members_Container& all_members); // IN – sales to add to end of object
     void pop_back();
     void erase(const sales& s); // IN – sales to erase from object
 
     void set_size(int size);         // IN – new size of the object
     void set_capacity(int capacity); // IN – new capacity for the object
 
-    sales_container& operator+=(const sales& item); // IN – new sales to add to object
     sales_container& operator=(const sales_container& s); // IN – sales container to
                                                           //      assign from
 
     void reserve(unsigned int capacity); // IN – new capacity
     void resize(unsigned int size);      // IN – new size of container
     void clear();
+    bool readFile(QWidget* parent,
+                  std::string input,
+                  inventory& inventory,
+                  Members_Container& members);
+    bool outFile(std::string output);
 
 private:
     unsigned int my_capacity; // IN - allocated size of container

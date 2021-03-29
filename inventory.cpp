@@ -187,6 +187,26 @@ bool inventory::empty() const
 }
 
 /***************************************************
+ * bool contains(std::string name) const
+ *
+ * Accessor; check if item of name exists
+ * -------------------------------------------------
+ *   Parameter: std::string name
+ * -------------------------------------------------
+ *   Returns: true if name exists false otherwise
+****************************************************/
+bool inventory::contains(std::string name) const
+{
+    for(int i = 0; i < this->size(); i++){
+        if(name == item[i].get_item_name()){
+            return true;
+        }
+    }
+
+    return false;
+}
+
+/***************************************************
  * void push_back(const Item& it)
  *
  * Mutator; This method will add the parameter to
@@ -233,6 +253,16 @@ int inventory::search(const Item& t) const
 {
     for (int i = 0; i < _size; i++) {
         if (item[i] == t) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+int inventory::search(std::string name)
+{
+    for(int i = 0; i < _size; i++){
+        if(item[i].get_item_name() == name){
             return i;
         }
     }

@@ -24,8 +24,10 @@ public:
     double getItemPrice();
     int size() const;                       // OUT: return _size
     bool empty() const;                     // check if array is empty
+    bool contains(std::string name) const;
 
     int search(const Item& t) const;       // searches for an item
+    int search(std::string name);
     Item& operator [](int index) const;
 
     // MUTATORS

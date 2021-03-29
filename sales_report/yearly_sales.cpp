@@ -8,27 +8,15 @@ yearly_sales::yearly_sales(QWidget *parent) :
     ui->setupUi(this);
 }
 
-yearly_sales::yearly_sales(QWidget *parent, sales_container* all_sales, Members_Container* mc):
+yearly_sales::yearly_sales(QWidget *parent,
+                           sales_container* all_sales,
+                           Members_Container* mc):
     QWidget(parent),
     ui(new Ui::yearly_sales)
 {
     ui->setupUi(this);
     ui->yearlyReport->hide();
     ui->goBack->hide();
-
-    // tests to make sure it works - DELETE LATER
-    sales temp1("03/01/2021", 0, "penguin", 1.0, 1);
-    sales temp2("03/01/2021", 1, "seal", 2.0, 1);
-    sales temp3("03/02/2020", 2, "walrus", 10.0, 2);
-    all_sales->push_back(temp1);
-    all_sales->push_back(temp2);
-    all_sales->push_back(temp3);
-    Member member1("Alice", 1, true, "01/02/2023", 0.0, 60.0);
-    Member member2("Bob", 2, false, "04/05/2026", 0.0, 60.0);
-    Member member3("Charles", 3, true, "07/08/2029", 0.0, 60.0);
-    mc->add_member(member1);
-    mc->add_member(member2);
-    mc->add_member(member3);
 
     this->all_sales = all_sales;
     this->all_members = mc;
@@ -77,10 +65,8 @@ void yearly_sales::on_goBack_clicked()
 
 void yearly_sales::on_submit_clicked()
 {
-    QString year = ui->yearInput->text();
-    bool ok;
-    year.toInt(&ok, 10);
-    if(year.length() == 0 || !ok)
+    int year = ui->yearInput->value();
+    if(year == 0)
     {
         QMessageBox::warning(this, "Warning", "Please input a valid Year");
         return;
@@ -92,7 +78,7 @@ void yearly_sales::on_submit_clicked()
     // first pass - find all sales on the given year
     for(unsigned int i = 0; i < all_sales->size(); i++)
     {
-        if(year == (*all_sales)[i].getDate().substr(6,4).c_str())
+        if(to_string(year)== (*all_sales)[i].getDate().substr(6,4))
         {
             if(ui->basic->isChecked() && ui->preferred->isChecked())
             {
@@ -125,7 +111,9 @@ void yearly_sales::on_submit_clicked()
         switchScreen();
         return;
     }
-    QString output = "---------------Year: " + year + "---------------\n";
+    QString output = "---------------Year: ";
+    output += to_string(year).c_str();
+    output += "---------------\n";
     // second pass, generate output for all sales in the year
     for(unsigned int i = 0; i < yearlySales.size(); i++)
     {

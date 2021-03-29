@@ -6,12 +6,17 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
-    ui->setupUi(this);
+    // update container to have all previous sales
+    all_sales.readFile(this, "all-sales.txt", iv, mc);
 
+    ui->setupUi(this);
 }
 
 MainWindow::~MainWindow()
 {
+    // save contents of containers for next execution
+    all_sales.outFile("all-sales.txt");
+    // deallocate all pointers
     delete mM;
     delete dailySale;
     delete yearlySale;
@@ -22,7 +27,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_quitButton_clicked()
 {
-    qApp->quit();
+    all_sales.outFile("./containers/all-sales.txt");
+    qApp->closeAllWindows();
 }
 
 

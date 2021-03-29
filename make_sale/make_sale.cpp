@@ -23,14 +23,16 @@ make_sale::make_sale(QWidget *parent, sales_container* sc, Members_Container* mc
     ui->manualSale->show();
     ui->dateLabel->hide();
     ui->date->hide();
-    ui->numberLabel->hide();
-    ui->number->hide();
+    ui->idLabel->hide();
+    ui->Id->hide();
+    ui->quantityLabel->hide();
+    ui->quantity->hide();
     ui->nameLabel->hide();
-    ui->name->hide();
+    ui->itemName->hide();
     ui->quantityLabel->hide();
     ui->quantity->hide();
     ui->priceLabel->hide();
-    ui->price->hide();
+    ui->itemPrice->hide();
     ui->makePurchase->hide();
 }
 
@@ -46,16 +48,18 @@ void make_sale::switchScreen()
     {
         ui->fileInput->show();
         ui->manualSale->show();
+        ui->idLabel->hide();
+        ui->Id->hide();
         ui->dateLabel->hide();
         ui->date->hide();
-        ui->numberLabel->hide();
-        ui->number->hide();
+        ui->quantityLabel->hide();
+        ui->quantity->hide();
         ui->nameLabel->hide();
-        ui->name->hide();
+        ui->itemName->hide();
         ui->quantityLabel->hide();
         ui->quantity->hide();
         ui->priceLabel->hide();
-        ui->price->hide();
+        ui->itemPrice->hide();
         ui->makePurchase->hide();
     }
     else
@@ -64,14 +68,16 @@ void make_sale::switchScreen()
         ui->manualSale->hide();
         ui->dateLabel->show();
         ui->date->show();
-        ui->numberLabel->show();
-        ui->number->show();
+        ui->idLabel->show();
+        ui->Id->show();
+        ui->quantityLabel->show();
+        ui->quantity->show();
         ui->nameLabel->show();
-        ui->name->show();
+        ui->itemName->show();
         ui->quantityLabel->show();
         ui->quantity->show();
         ui->priceLabel->show();
-        ui->price->show();
+        ui->itemPrice->show();
         ui->makePurchase->show();
     }
 }
@@ -100,61 +106,14 @@ void make_sale::printReport()
 void make_sale::on_fileInput_clicked()
 {
     QString fileName = QFileDialog::getOpenFileName(this, "Open the file");
-    QFile file(fileName);
-    if (file.size() == 0)
+
+    if(!all_sales->readFile(this, fileName.toStdString(), *my_inventory, *all_members))
     {
-        return;
-    }
-    if(!file.open(QIODevice::ReadOnly | QFile::Text))
-    {
-        QMessageBox::warning(this, "Warning", "Cannot open file: " + file.errorString());
+        QMessageBox::warning(this, "Warning", "Cannot open file");
         return;
     }
 
-    setWindowTitle(fileName);
-    ifstream in(fileName.toStdString());
-    std::string date;
-    while(getline(in, date))
-    {
-        int id;      //IN - file input member id
-        in >> id;
-        in.ignore(); // flush input buffer
-        if(!all_members->contains(id))
-        {
-            QString sId = to_string(id).c_str();
-            int o = QMessageBox::warning(this, "Warning", "Member " + sId + " does not exist, make sale anyway?", QMessageBox::Ok, QMessageBox::Cancel);
-            if(o == 0x400000) // cancel button pressed
-            {
-                break;
-            }
-        }
-
-        std::string name; // IN - file input item name
-        getline(in, name);
-        //if(!my_inventory->contains(name))
-        {
-            QString sId;
-            sId = sId.fromStdString(name);
-            int o = QMessageBox::warning(this, "Warning", "Item " + sId + " does not exist, make sale anyway?", QMessageBox::Ok, QMessageBox::Cancel);
-            if(o == 0x400000) // cancel button pressed
-            {
-                break;
-            }
-        }
-
-        double price; // IN - file input item price
-        in >> price;
-
-        int quantity; // IN - file input item quantity
-        in >> quantity;
-        in.ignore();
-
-        sales temp(date, id, name, price, quantity); // make sale with above information
-        all_sales->push_back(temp);
-    }
     printReport();
-
-    file.close();
 }
 
 void make_sale::on_manualSale_clicked()
@@ -175,17 +134,17 @@ void make_sale::on_makePurchase_clicked()
     double price;
     int quantity;
     date = ui->date->date().toString("MM/dd/yyyy").toStdString();
-    id = ui->number->text().toInt();
-    name = ui->name->text().toStdString();
-    price = ui->price->text().toDouble();
-    quantity = ui->quantity->text().toInt();
+    id = ui->Id->value();
+    name = ui->itemName->text().toStdString();
+    price = ui->itemPrice->value();
+    quantity = ui->quantity->value();
     sales mysale(date, id, name, price, quantity);
-    all_sales->push_back(mysale);
+    all_sales->push_back(this, mysale, *my_inventory, *all_members);
     printReport();
 
     ui->date->clear();
-    ui->number->clear();
-    ui->name->clear();
-    ui->price->clear();
+    ui->Id->clear();
+    ui->itemName->clear();
+    ui->itemPrice->clear();
     ui->quantity->clear();
 }

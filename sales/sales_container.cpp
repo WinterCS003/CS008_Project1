@@ -1,6 +1,7 @@
 #include <algorithm>
 
 #include "sales_container.h"
+#include "item.h"
 
 /****************************************************************
  * sales_container();
@@ -212,12 +213,50 @@ int sales_container::getItemQuantity(std::string item) const
  *------------------------------------------------------------------
  *   Return: none
  *******************************************************************/
-void sales_container::push_back(const sales& s) // IN – sales to add to end of object
+void sales_container::push_back(const sales &value)
+{
+    if(my_size >= my_capacity){
+        reserve(my_capacity + 5);
+    }
+
+    my_list[my_size++] = value;
+}
+
+void sales_container::push_back(QWidget* parent,
+                                const sales& value,
+                                inventory& inventory,
+                                Members_Container& all_members) // IN – sales to add to end of object
 {
     if (my_size >= my_capacity) {
         reserve(my_capacity + 5);
     }
-    my_list[my_size++] = s;
+
+    if(!all_members.contains(value.getId()))
+    {
+        QString id;
+        id = to_string(value.getId()).c_str();
+        int status;
+        status = QMessageBox::warning(parent, "Warning", "No member exists at id: " + id + "\nMake sale anyways?", QMessageBox::Ok, QMessageBox::Cancel);
+        if(status != 0x400)
+        {
+            return;
+        }
+    }
+    if(!inventory.contains(value.getItem()))
+    {
+        QString name = value.getItem().c_str();
+        int status;
+        status = QMessageBox::warning(parent, "Warning", "Item " + name + " does not exist\nMake sale anyways?", QMessageBox::Ok, QMessageBox::Cancel);
+        if(status != 0x400)
+        {
+            return;
+        }
+    }
+
+    Item i = inventory[inventory.search(value.getItem())];
+    i.set_quantity(i.get_quantity() - 1);
+
+    my_list[my_size++] = value;
 }
 
 /*******************************************************************
@@ -292,22 +331,6 @@ void sales_container::set_size(int size) // IN – new size of the object
 void sales_container::set_capacity(int capacity) // IN – new capacity for the object
 {
     my_capacity = capacity;
-}
-
-/*******************************************************************
- * sales_container& operator+=(const sales& item);
- *
- *   Mutator; This method will append the sales from the parameter
- *   into this object
- *------------------------------------------------------------------
- *   Parameter: item (sales&) // IN – new sales to add to object
- *------------------------------------------------------------------
- *   Return: reference to this object
- *******************************************************************/
-sales_container& sales_container::operator+=(const sales& item) // IN – new sales to add to object
-{
-    push_back(item);
-    return *this;
 }
 
 /*******************************************************************
@@ -394,4 +417,54 @@ void sales_container::clear()
 {
     my_size = 0;
     my_capacity = 0;
+}
+
+bool sales_container::readFile(QWidget* parent,
+                               std::string input,
+                               inventory& inventory,
+                               Members_Container& members)
+{
+    ifstream in(input);
+    if(!in.is_open())
+    {
+        return false;
+    }
+    std::string date;
+    while(getline(in, date))
+    {
+        int id;      //IN - file input member id
+        in >> id;
+        in.ignore(); // flush input buffer
+
+        std::string name; // IN - file input item name
+        getline(in, name);
+
+        double price; // IN - file input item price
+        in >> price;
+
+        int quantity; // IN - file input item quantity
+        in >> quantity;
+        in.ignore();
+
+        sales temp(date, id, name, price, quantity); // make sale with above information
+        this->push_back(parent, temp, inventory, members);
+    }
+    in.close();
+
+    return true;
+}
+
+bool sales_container::outFile(std::string output)
+{
+    std::ofstream out(output);
+    for(size_t i = 0; i < this->size(); i++)
+    {
+        sales temp = (*this)[i];
+        out << temp.getDate() << "\n";
+        out << temp.getId() << "\n";
+        out << temp.getItem() << "\n";
+        out << temp.getPrice() << " " << temp.getQuantity() << "\n";
+    }
+
+    return true;
 }

@@ -59,14 +59,11 @@
       <widget class="QDateEdit" name="date"/>
      </item>
      <item row="1" column="0">
-      <widget class="QLabel" name="numberLabel">
+      <widget class="QLabel" name="idLabel">
        <property name="text">
         <string>Membership Number:</string>
        </property>
       </widget>
-     </item>
-     <item row="1" column="1">
-      <widget class="QLineEdit" name="number"/>
      </item>
      <item row="2" column="0">
       <widget class="QLabel" name="nameLabel">
@@ -76,7 +73,7 @@
       </widget>
      </item>
      <item row="2" column="1">
-      <widget class="QLineEdit" name="name"/>
+      <widget class="QLineEdit" name="itemName"/>
      </item>
      <item row="3" column="0">
       <widget class="QLabel" name="priceLabel">
@@ -85,18 +82,12 @@
        </property>
       </widget>
      </item>
-     <item row="3" column="1">
-      <widget class="QLineEdit" name="price"/>
-     </item>
      <item row="4" column="0">
       <widget class="QLabel" name="quantityLabel">
        <property name="text">
         <string>Quantity</string>
        </property>
       </widget>
-     </item>
-     <item row="4" column="1">
-      <widget class="QLineEdit" name="quantity"/>
      </item>
      <item row="5" column="1">
       <layout class="QHBoxLayout" name="submitLayout">
@@ -108,6 +99,15 @@
         </widget>
        </item>
       </layout>
+     </item>
+     <item row="1" column="1">
+      <widget class="QSpinBox" name="Id"/>
+     </item>
+     <item row="4" column="1">
+      <widget class="QSpinBox" name="quantity"/>
+     </item>
+     <item row="3" column="1">
+      <widget class="QDoubleSpinBox" name="itemPrice"/>
      </item>
     </layout>
    </widget>
