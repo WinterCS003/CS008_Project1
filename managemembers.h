@@ -14,7 +14,7 @@ class manageMembers : public QMainWindow
 
 public:
     manageMembers(QWidget *parent = nullptr);
-    manageMembers(QWidget *parent, Members_Container* mc);
+    manageMembers(QWidget *parent, const Members_Container& mc);
     ~manageMembers();
 
 private slots:
@@ -22,17 +22,21 @@ private slots:
 
     void on_submit_clicked();
 
+    void on_button_delete_Member_clicked();
+
     void on_submitDelete_clicked();
 
     void on_viewMemberInfo_clicked();
 
-    void on_button_delete_Member_clicked();
-
     void on_displayButton_clicked();
+
+    void on_membersFromFile_clicked();
+
+    void on_submitFile_clicked();
 
 private:
     Ui::manageMembers *ui;
-    Members_Container* members;
+    Members_Container members;
 };
 
 #endif // MANAGEMEMBERS_H

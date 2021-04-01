@@ -462,6 +462,36 @@ bool sales_container::readFile(QWidget* parent,
     return true;
 }
 
+bool sales_container::readFile(std::string name)
+{
+    ifstream in(name);
+    if(!in.is_open())
+    {
+        return false;
+    }
+    std::string date;
+    while(getline(in, date))
+    {
+        int id;      //IN - file input member id
+        in >> id;
+        in.ignore(); // flush input buffer
+
+        std::string name; // IN - file input item name
+        getline(in, name);
+
+        double price; // IN - file input item price
+        in >> price;
+
+        int quantity; // IN - file input item quantity
+        in >> quantity;
+        in.ignore();
+
+        sales temp(date, id, name, price, quantity); // make sale with above information
+        this->push_back(temp);
+    }
+    in.close();
+}
+
 bool sales_container::outFile(std::string output)
 {
     std::ofstream out(output);
