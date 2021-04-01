@@ -14,19 +14,14 @@ public:
     *****************/
     Member();
     Member(std::string name);
-    // added member constructor
-    Member(std::string nm,
-           int memNum,
-           bool premium,
-           std::string expDate,
-           double totalSpent,
-           double totalRebate);
+    Member(std::string _name, int _membership_number, bool _premium_member, std::string _membership_expiration);
 
     /**************
      ** MUTATORS **
     ***************/
     void set_name(const std::string& _name);
     void set_membership_number();
+    void add_total(double money){ total_spend += money; };
     void upgrade_member(const std::string& _month_year);
     void extend_membership();
 
@@ -39,7 +34,7 @@ public:
     bool is_premium_member() const { return premium_member; };
     std::string get_membership_expiration() const { return membership_expiration; };
     double get_total_spend() const { return total_spend; };
-    double get_total_rebates() const { return total_rebates; };
+    double get_total_rebates() { if(premium_member){total_rebates *= 1.05;} return total_rebates; };
     std::string getInfo();
 
 private:

@@ -17,7 +17,7 @@ class InventoryTracker : public QDialog
 
 public:
     explicit InventoryTracker(QWidget *parent = 0);
-    InventoryTracker(QWidget *parent, const inventory& iv);
+    InventoryTracker(QWidget *parent, inventory* iv);
     ~InventoryTracker();
 
 private slots:
@@ -28,7 +28,7 @@ private:
     void empty();
 
     Ui::InventoryTracker *ui;
-    inventory list;
+    inventory* list;
     QTableView itemTable;
     QStandardItemModel *model;
     QLineEdit *text;

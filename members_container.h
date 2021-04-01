@@ -5,6 +5,12 @@
 #include <cassert>
 #include <string>
 #include "member.h"
+#include "inventory.h"
+
+#include <QFileDialog>
+#include <QMessageBox>
+#include <QFile>
+#include <fstream>
 
 class Members_Container
 {
@@ -22,6 +28,8 @@ public:
     void remove_member(const int& _membership_number);
     void upgrade_membership(const std::string& _name, const std::string& _date);
     void upgrade_membership(const int& _membership_number, const std::string& _date);
+    bool readFile(std::string input);
+    bool outFile(std::string output);
 
     /***************
      ** ACCESSORS **
@@ -29,13 +37,33 @@ public:
     bool contains(const int& _membership_number);
     bool contains(const std::string& _name);
     int get_members_count() {return members_count;};
-    Member get_member(int i) {return members[i];};
+    int get_member_index(int _memberid) {
+        assert(this->contains(_memberid));
+        for (int i=0; i<members_count; i++) {
+            if (members[i].get_membership_number()==_memberid) {
+                return i;
+            }
+        }
+        return -1;
+    }
+    Member get_member(int _memberid) {
+        assert(this->contains(_memberid));
+        for (int i=0; i<members_count; i++) {
+            if (members[i].get_membership_number()==_memberid) {
+                return members[i];
+            }
+        }
+        return members[0];  //this is a failsafe return. The code should never get here but if it does it
+                            //protects the entire program from crashing. Am working on a better solution.
+    }
+    Member& operator[](int i){return members[i];};
 
 private:
     Member *members;
     int members_count;
 
 };
+
 
 #endif // MEMBERS_CONTAINER_H
 

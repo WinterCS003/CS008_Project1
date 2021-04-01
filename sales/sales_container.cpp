@@ -227,34 +227,40 @@ void sales_container::push_back(QWidget* parent,
                                 inventory& inventory,
                                 Members_Container& all_members) // IN – sales to add to end of object
 {
-    if (my_size >= my_capacity) {
-        reserve(my_capacity + 5);
+    if(value.getQuantity() > 100)
+    {
+        QMessageBox::warning(parent, "Warning", "Sale exceeds 100");
+        return;
     }
-
     if(!all_members.contains(value.getId()))
     {
         QString id;
         id = to_string(value.getId()).c_str();
-        int status;
-        status = QMessageBox::warning(parent, "Warning", "No member exists at id: " + id + "\nMake sale anyways?", QMessageBox::Ok, QMessageBox::Cancel);
-        if(status != 0x400)
-        {
-            return;
-        }
+        QMessageBox::warning(parent, "Warning", "No member exists at id: " + id);
+        return;
     }
     if(!inventory.contains(value.getItem()))
     {
         QString name = value.getItem().c_str();
-        int status;
-        status = QMessageBox::warning(parent, "Warning", "Item " + name + " does not exist\nMake sale anyways?", QMessageBox::Ok, QMessageBox::Cancel);
-        if(status != 0x400)
-        {
-            return;
-        }
+        QMessageBox::warning(parent, "Warning", "Item " + name + " does not exist");
+        return;
+    }
+    Item i = inventory[inventory.search(value.getItem())];
+    if(i.get_quantity() < value.getQuantity())
+    {
+        QString name = value.getItem().c_str();
+        QMessageBox::warning(parent, "Warning", "Not enough " + name + " in stock");
+        return;
     }
 
-    Item i = inventory[inventory.search(value.getItem())];
-    i.set_quantity(i.get_quantity() - 1);
+    if (my_size >= my_capacity) {
+        reserve(my_capacity + 5);
+    }
+
+    int index = all_members.get_member_index(value.getId());
+    all_members[index].add_total(value.getPrice()*value.getQuantity());
+    index = inventory.search(value.getItem());
+    inventory[index].set_quantity(inventory[index].get_quantity() - value.getQuantity());
 
     my_list[my_size++] = value;
 }
@@ -448,6 +454,8 @@ bool sales_container::readFile(QWidget* parent,
 
         sales temp(date, id, name, price, quantity); // make sale with above information
         this->push_back(parent, temp, inventory, members);
+        Item i = inventory[inventory.search(name)];
+        inventory[inventory.search(name)].set_quantity(i.get_quantity() - quantity);
     }
     in.close();
 
@@ -467,4 +475,17 @@ bool sales_container::outFile(std::string output)
     }
 
     return true;
+}
+
+bool sales_container::contains(sales &s) const
+{
+    for(size_t i = 0; i < my_size; i++)
+    {
+        if(my_list[i] == s)
+        {
+            return true;
+        }
+    }
+
+    return false;
 }

@@ -64,14 +64,14 @@
     <item row="1" column="1">
      <layout class="QVBoxLayout" name="submitLayout">
       <item>
-       <widget class="QCheckBox" name="basic">
+       <widget class="QCheckBox" name="preferred">
         <property name="text">
          <string>Preferred</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QCheckBox" name="preferred">
+       <widget class="QCheckBox" name="basic">
         <property name="text">
          <string>Basic</string>
         </property>

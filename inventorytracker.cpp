@@ -8,7 +8,7 @@ InventoryTracker::InventoryTracker(QWidget *parent) :
     ui->setupUi(this);
 }
 
-InventoryTracker::InventoryTracker(QWidget *parent, const inventory& iv)
+InventoryTracker::InventoryTracker(QWidget *parent, inventory* iv)
     : QDialog(parent), ui(new Ui::InventoryTracker)
 {
     ui->setupUi(this);
@@ -53,6 +53,7 @@ InventoryTracker::~InventoryTracker()
 
 void InventoryTracker::on_exit_clicked()
 {
+    ui->~InventoryTracker();
     InventoryTracker::close();
 }
 
@@ -64,33 +65,27 @@ void InventoryTracker::empty()
 void InventoryTracker::generate_inventory_list()
 {
     QString out = " ";
+    if (list->size() == 0) {
+        empty();
+    }
 
-    for (int row = 0; row < 6; row++) {
+    for (int row = 0; row < list->size(); row++) {
+        QModelIndex index = model->index(row, 0, QModelIndex());
+        model->setData(index, out.fromStdString((*list)[row].get_item_name()));
 
-        if (list.size() == 0) {
-            empty();
-        } else {
-            for (int i = 0; i < list.size(); ++i) {
-                QModelIndex index = model->index(row, 0, QModelIndex());
-                model->setData(index, out.fromStdString(list[i].get_item_name()));
-                ////out.fromStdString(list[i].get_item_name())
+        QModelIndex i2 = model->index(row, 1, QModelIndex());
+        model->setData(i2, (*list)[row].get_ID());
 
-                QModelIndex i2 = model->index(row, 1, QModelIndex());
-                model->setData(i2, list[i].get_ID());
+        QModelIndex i3 = model->index(row, 2, QModelIndex());
+        model->setData(i3, 0);
 
-                QModelIndex i3 = model->index(row, 2, QModelIndex());
-                model->setData(i3, 0);
+        QModelIndex i4 = model->index(row, 3, QModelIndex());
+        model->setData(i4, (*list)[row].get_quantity());
 
-                QModelIndex i4 = model->index(row, 3, QModelIndex());
-                model->setData(i4, list[i].get_quantity());
+        QModelIndex i5 = model->index(row, 4, QModelIndex());
+        model->setData(i5, (*list)[row].get_price());
 
-                QModelIndex i5 = model->index(row, 4, QModelIndex());
-                model->setData(i5, list[i].get_price());
-
-                QModelIndex i6 = model->index(row, 5, QModelIndex());
-                model->setData(i6, 0);
-            }
-
-        }
+        QModelIndex i6 = model->index(row, 5, QModelIndex());
+        model->setData(i6, 0);
     }
 }

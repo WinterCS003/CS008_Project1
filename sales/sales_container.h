@@ -34,7 +34,9 @@ public:
     double getTotalRevenue() const;
     int find(const sales& s) const; // IN - sales to search for
     int getItemQuantity(std::string item) const; // item to search
-    bool contains(const sales& s) const;
+    bool contains(sales& s) const;
+    sales* begin(){return &my_list[0];}
+    sales* end(){return &my_list[my_size-1];}
 
 
     /**************
