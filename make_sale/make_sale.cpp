@@ -34,6 +34,8 @@ make_sale::make_sale(QWidget *parent, sales_container* sc, Members_Container* mc
     ui->priceLabel->hide();
     ui->itemPrice->hide();
     ui->makePurchase->hide();
+
+    ui->back->hide();
 }
 
 make_sale::~make_sale()
@@ -66,6 +68,7 @@ void make_sale::switchScreen()
     {
         ui->fileInput->hide();
         ui->manualSale->hide();
+        ui->back->show();
         ui->dateLabel->show();
         ui->date->show();
         ui->idLabel->show();

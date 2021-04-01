@@ -5,6 +5,12 @@
 #include <cassert>
 #include <string>
 #include "member.h"
+#include "inventory.h"
+
+#include <QFileDialog>
+#include <QMessageBox>
+#include <QFile>
+#include <fstream>
 
 class Members_Container
 {
@@ -22,6 +28,8 @@ public:
     void remove_member(const int& _membership_number);
     void upgrade_membership(const std::string& _name, const std::string& _date);
     void upgrade_membership(const int& _membership_number, const std::string& _date);
+    bool readFile(std::string input);
+    bool outFile(std::string output);
 
     /***************
      ** ACCESSORS **
@@ -29,13 +37,15 @@ public:
     bool contains(const int& _membership_number);
     bool contains(const std::string& _name);
     int get_members_count() {return members_count;};
-    Member get_member(int i) {return members[i];};
+    int get_member(int);
+    Member& operator[](int i){return members[i];};
 
 private:
     Member *members;
     int members_count;
 
 };
+
 
 #endif // MEMBERS_CONTAINER_H
 

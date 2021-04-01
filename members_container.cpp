@@ -211,3 +211,65 @@ void Members_Container::upgrade_membership(const int &_membership_number, const 
         }
     }
 }
+
+int Members_Container::get_member(int _membership_number) {
+    for (int index=0; index<get_members_count(); index++) {
+        if (members[index].get_membership_number() == _membership_number)
+            return index;
+    }
+
+    return -1;
+}
+
+bool Members_Container::readFile(std::string input)
+{
+    ifstream in(input);
+    if(!in.is_open())
+    {
+        return false;
+    }
+    std::string name;
+    while(getline(in, name))
+    {
+        int id;      //IN - file input member id
+        in >> id;
+
+        std::string type; // IN - file input item name
+        in >> type;
+
+        std::string expiration; // IN - file input item price
+        in >> expiration;
+        in.ignore();
+
+        bool isPremium;
+        std::string basic = "Basic";
+        type == basic ? isPremium = false : isPremium = true;
+        Member temp(name, id, isPremium, expiration); // make member with above information
+        this->add_member(temp);
+    }
+    in.close();
+
+    return true;
+}
+
+bool Members_Container::outFile(std::string output)
+{
+    std::ofstream out(output);
+    for(size_t i = 0; i < this->get_members_count(); i++)
+    {
+        Member temp = (*this)[i];
+        out << temp.get_name() << "\n";
+        out << temp.get_membership_number() << "\n";
+        if(!temp.is_premium_member())
+        {
+            out << "Basic\n";
+        }
+        else
+        {
+            out << "Preferred\n";
+        }
+        out << temp.get_membership_expiration() << "\n";
+    }
+
+    return true;
+}

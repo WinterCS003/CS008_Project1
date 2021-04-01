@@ -218,10 +218,10 @@ bool inventory::contains(std::string name) const
 ****************************************************/
 void inventory::push_back(const Item &it)
 {
-    if (this->size() > this->capacity()) {
+    if (this->size() >= this->capacity()) {
         reallocate(this->capacity() + 5);
-        item[_size++] = it;
     }
+    item[_size++] = it;
 }
 
 /***************************************************
@@ -439,4 +439,39 @@ inventory& inventory::operator=(const inventory &it)
         item[i] = it.item[i];
     }
     return *this;
+}
+
+void inventory::readFile(std::string input)
+{
+    ifstream in(input);
+    if(!in.is_open())
+    {
+        return;
+    }
+    std::string name;
+    while(getline(in, name))
+    {
+        double price; // IN - file input item price
+        in >> price;
+        in.ignore();
+
+        int quantity; // IN - file input item quantity
+        in >> quantity;
+        in.ignore();
+
+        Item temp(name, quantity, price); // make sale with above information
+        this->push_back(temp);
+    }
+    in.close();
+}
+
+void inventory::outFile(std::string name)
+{
+    std::ofstream out(name);
+    for(int i = 0; i < this->size(); i++)
+    {
+        Item temp = (*this)[i];
+        out << temp.get_item_name() << "\n";
+        out << temp.get_price() << " " << temp.get_quantity() << "\n";
+    }
 }

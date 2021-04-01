@@ -14,7 +14,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="addMemberButton">
+   <widget class="QPushButton" name="button_addMember">
     <property name="geometry">
      <rect>
       <x>30</x>
@@ -27,7 +27,7 @@
      <string>Add Member</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="deleteMemberButton">
+   <widget class="QPushButton" name="button_delete_Member">
     <property name="geometry">
      <rect>
       <x>30</x>
@@ -79,7 +79,7 @@
      <string>View Member Info</string>
     </property>
    </widget>
-   <widget class="QTextEdit" name="nameInput">
+   <widget class="QTextEdit" name="input_1_name">
     <property name="geometry">
      <rect>
       <x>460</x>
@@ -89,7 +89,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QTextEdit" name="memberNumInput">
+   <widget class="QTextEdit" name="input_2_mem_ID">
     <property name="geometry">
      <rect>
       <x>460</x>
@@ -99,7 +99,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QTextEdit" name="memberTypeInput">
+   <widget class="QTextEdit" name="input_3_prem">
     <property name="geometry">
      <rect>
       <x>460</x>
@@ -109,7 +109,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QTextEdit" name="memberExpireDateInput">
+   <widget class="QTextEdit" name="input_4_exp_dat">
     <property name="geometry">
      <rect>
       <x>460</x>
@@ -119,7 +119,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QTextEdit" name="totalAmtSpentInput">
+   <widget class="QTextEdit" name="input_5_total_spend">
     <property name="geometry">
      <rect>
       <x>460</x>
@@ -129,7 +129,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QTextEdit" name="rebateAmountInput">
+   <widget class="QTextEdit" name="input_6_rebate_amt">
     <property name="geometry">
      <rect>
       <x>460</x>
@@ -152,7 +152,7 @@
      <string>Submit</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label">
+   <widget class="QLabel" name="label_1_name">
     <property name="geometry">
      <rect>
       <x>390</x>
@@ -165,7 +165,7 @@
      <string>Name</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_2">
+   <widget class="QLabel" name="label_2_mem_ID">
     <property name="geometry">
      <rect>
       <x>374</x>
@@ -178,7 +178,7 @@
      <string>Member ID</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_3">
+   <widget class="QLabel" name="label_3_prem">
     <property name="geometry">
      <rect>
       <x>344</x>
@@ -191,7 +191,7 @@
      <string>Premium? (Y/N)</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_4">
+   <widget class="QLabel" name="label_4_exp_dat">
     <property name="geometry">
      <rect>
       <x>244</x>
@@ -204,7 +204,7 @@
      <string>Member Exp Date (MM/DD/YYYY)</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_5">
+   <widget class="QLabel" name="label_5_total_spend">
     <property name="geometry">
      <rect>
       <x>324</x>
@@ -217,7 +217,7 @@
      <string>Total Amount Spent</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_6">
+   <widget class="QLabel" name="label_6_rebate_amt">
     <property name="geometry">
      <rect>
       <x>344</x>

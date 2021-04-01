@@ -2,6 +2,8 @@
 #define INVENTORY_H
 #include "item.h"
 #include <cassert>
+#include <fstream>
+#include <QMessageBox>
 
 // Item container class
 
@@ -45,6 +47,9 @@ public:
 
     void PrintReportToScreen();
     void PrintReportToText();
+
+    void readFile(std::string name);
+    void outFile(std::string name);
 
 private:
     Item *item;     // IN: array of items

@@ -2,6 +2,25 @@
 
 int Member::next_membership_number = 1000;
 
+
+/*****************************************************************************
+* Constructor Member: Class Member
+*-----------------------------------------------------------------------------
+*
+*-----------------------------------------------------------------------------
+* PRE-CONDITIONS
+*    None
+* POST-CONDITIONS
+*    None
+*    None
+******************************************************************************/
+Member::Member(std::string _name, int _membership_number,
+               bool _premium_member, std::string _membership_expiration)
+    :name(_name),
+      membership_number(_membership_number),
+      premium_member(_premium_member),
+      membership_expiration(_membership_expiration) {}
+
 /*****************************************************************************
 * Constructor Member: Class Member
 *-----------------------------------------------------------------------------
@@ -43,21 +62,6 @@ Member::Member(std::string name)
 {
     this->name = name;
     next_membership_number++;
-}
-
-Member::Member(std::string nm,
-       int memNum,
-       bool premium,
-       std::string expDate,
-       double totalSpent,
-       double totalRebate)
-{
-    name = nm;
-//    membership_number = memNum;
-    premium_member = premium;
-    membership_expiration = expDate;
-    total_spend = totalSpent;
-    total_rebates = totalRebate;
 }
 
 /*****************************************************************************
@@ -189,5 +193,5 @@ void Member::extend_membership() {
 // returns all member info string form
 std::string getInfo()
 {
-
+    return " ";
 }

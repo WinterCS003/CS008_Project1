@@ -92,16 +92,17 @@ void daily_sales::generate_daily_daily_sales(std::string date, int flag)
     {
         if(date == (*report)[i].getDate())
         {
+            int index = members->get_member((*report)[i].getId());
             if(flag == 0) // only basic members
             {
-                if(!members->get_member((*report)[i].getId()).is_premium_member())
+                if(!(*members)[index].is_premium_member())
                 {
                     dailySale.push_back((*report)[i]);
                 }
             }
             else if(flag == 1) // only preferred members
             {
-                if(members->get_member((*report)[i].getId()).is_premium_member())
+                if(!(*members)[index].is_premium_member())
                 {
                     dailySale.push_back((*report)[i]);
                 }
@@ -120,25 +121,39 @@ void daily_sales::generate_daily_daily_sales(std::string date, int flag)
         switchScreen();
         return;
     }
-    // second pass - make report of all items sold
+
+    sales_container unique_sales;
     for(size_t i = 0; i < dailySale.size(); i++)
     {
-        if(!report_output.contains(dailySale[i].getItem().c_str()))
+        if(unique_sales.find(dailySale[i]) == -1)
         {
-            // Item name
-            report_output += "Item Name: ";
-            report_output += dailySale[i].getItem().c_str();
-            report_output += "\n";
-
-            // Item Quantity
-            report_output += "Item Quantity: ";
-            report_output += to_string(dailySale.getItemQuantity(dailySale[i].getItem())).c_str();
-            report_output += "\n\n";
+            unique_sales.push_back(dailySale[i]);
         }
+        else
+        {
+            sales s1 = dailySale[i];
+            sales* s2 = &unique_sales[unique_sales.find(dailySale[i])];
+
+            s2->setQuantity(s1.getQuantity() + s2->getQuantity());
+        }
+    }
+
+    // second pass - make report of all items sold
+    for(size_t i = 0; i < unique_sales.size(); i++)
+    {
+        // Item name
+        report_output += "Item Name: ";
+        report_output += unique_sales[i].getItem().c_str();
+        report_output += "\n";
+
+        // Item Quantity
+        report_output += "Item Quantity: ";
+        report_output += to_string(unique_sales.getItemQuantity(unique_sales[i].getItem())).c_str();
+        report_output += "\n\n";
     }
     // total revenue of all sales on the given date
     report_output += "Total Revenue: ";
-    report_output += to_string(dailySale.getTotalRevenue()).c_str();
+    report_output += to_string(unique_sales.getTotalRevenue()).c_str();
     report_output += "\n\n";
 
     report_output += "List of Members:\n";
@@ -149,7 +164,8 @@ void daily_sales::generate_daily_daily_sales(std::string date, int flag)
     // Members who shopped
     for(unsigned int i = 0; i < dailySale.size(); i++)
     {
-        temp = members->get_member(dailySale[i].getId());
+        int index = members->get_member(dailySale[i].getId());
+        temp = (*members)[index];
         memberName = temp.get_name().c_str();
         if(!report_output.contains(memberName))
         {

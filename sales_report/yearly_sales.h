@@ -8,6 +8,7 @@
 #include "sales/sales.h"
 #include "members_container.h"
 #include "member.h"
+#include "inventory.h"
 
 namespace Ui {
 class yearly_sales;
@@ -19,7 +20,7 @@ class yearly_sales : public QWidget
 
 public:
     explicit yearly_sales(QWidget *parent = nullptr);
-    yearly_sales(QWidget *parent, sales_container* all_sales, Members_Container* mc);
+    yearly_sales(QWidget *parent, sales_container* all_sales, Members_Container* mc, inventory* iv);
     ~yearly_sales();
 
 private slots:
@@ -33,6 +34,7 @@ private:
     Ui::yearly_sales *ui;
     sales_container* all_sales;
     Members_Container* all_members;
+    inventory* all_items;
 };
 
 #endif // YEARLY_SALES_H

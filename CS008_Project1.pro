@@ -10,6 +10,8 @@ CONFIG += c++11
 
 SOURCES += \
     # sales classes
+    item_reports.cpp \
+    itemreport.cpp \
     managemembers.cpp \
     sales/sales.cpp \
     sales/sales_container.cpp \
@@ -28,6 +30,8 @@ SOURCES += \
     sales_report/yearly_sales.cpp
 
 HEADERS += \
+    item_reports.h \
+    itemreport.h \
     managemembers.h \
     sales_report/daily_sales.h \
     sales_report/yearly_sales.h \
@@ -47,6 +51,8 @@ HEADERS += \
     inventorytracker.h
 
 FORMS += \
+    item_reports.ui \
+    itemreport.ui \
     mainwindow.ui \
     inventorytracker.ui \
     make_sale/make_sale.ui \
