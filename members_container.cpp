@@ -17,6 +17,10 @@ Members_Container::Members_Container()
     members = new Member[30];
 }
 
+Members_Container::~Members_Container() {
+    delete [] members;
+}
+
 /*****************************************************************************
 * Method contains(int _membership_number): Class Members_Container
 *-----------------------------------------------------------------------------
@@ -212,55 +216,48 @@ void Members_Container::upgrade_membership(const int &_membership_number, const 
     }
 }
 
-bool Members_Container::readFile(std::string input)
-{
-    ifstream in(input);
-    if(!in.is_open())
-    {
-        return false;
-    }
+/*****************************************************************************
+* Method add_bulk_members(const ifstream& file): Class Members_Container
+*-----------------------------------------------------------------------------
+* This method ....
+*
+*-----------------------------------------------------------------------------
+* PRE-CONDITIONS
+*
+* POST-CONDITIONS
+*
+******************************************************************************/
+void Members_Container::add_bulk_members(const std::string& file_location) {
+    std::ifstream input;
+    input.open(file_location);
+    std::string get;
+
     std::string name;
-    while(getline(in, name))
-    {
-        int id;      //IN - file input member id
-        in >> id;
+    std::string temp_id;
+    int member_id;
+    bool premium = false;
+    std::string expiration_date;
 
-        std::string type; // IN - file input item name
-        in >> type;
+    while (input >> get) {
+        std::cout << get + "\n";
+        name = get;
+        input >> get;
+        name = name + get;
+        input >> get;
 
-        std::string expiration; // IN - file input item price
-        in >> expiration;
-        in.ignore();
+        std::cout << get + "\n";
+        temp_id = get;
+        member_id = stoi(temp_id);
+        input >> get;
 
-        bool isPremium;
-        std::string basic = "Basic";
-        type == basic ? isPremium = false : isPremium = true;
-        Member temp(name, id, isPremium, expiration); // make member with above information
-        this->add_member(temp);
-    }
-    in.close();
+        std::cout << get + "\n";
+        if (get == "Preferred") premium = true;
+        input >> get;
 
-    return true;
-}
-
-bool Members_Container::outFile(std::string output)
-{
-    std::ofstream out(output);
-    for(size_t i = 0; i < this->get_members_count(); i++)
-    {
-        Member temp = (*this)[i];
-        out << temp.get_name() << "\n";
-        out << temp.get_membership_number() << "\n";
-        if(!temp.is_premium_member())
-        {
-            out << "Basic\n";
-        }
-        else
-        {
-            out << "Preferred\n";
-        }
-        out << temp.get_membership_expiration() << "\n";
+        std::cout << get + "\n";
+        expiration_date = get;
+        add_member(Member(name, member_id, premium, expiration_date));
     }
 
-    return true;
+    input.close();
 }

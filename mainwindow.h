@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 
+#include "item_reports.h"
 #include "inventorytracker.h"
 #include "item.h"
 
@@ -40,6 +41,8 @@ private slots:
     void on_dailySales_clicked();
     void on_yearlySales_clicked();
 
+    void on_itemReport_clicked();
+
 private:
 
     Ui::MainWindow *ui;
@@ -53,6 +56,7 @@ private:
     // reports
     daily_sales* dailySale;  // Sales report by day
     yearly_sales* yearlySale; // Sales report by year
+    item_reports* ir;
     InventoryTracker* it;
 };
 

@@ -20,7 +20,7 @@
       <x>644</x>
       <y>0</y>
       <width>151</width>
-      <height>231</height>
+      <height>257</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -106,7 +106,14 @@
         <string>Inventory Tracking</string>
        </property>
       </widget>
-      </item>
+     </item>
+     <item>
+      <widget class="QPushButton" name="itemReport">
+       <property name="text">
+        <string>Item Reports</string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </widget>
   </widget>
@@ -116,7 +123,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>17</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuSuper_Wholesale_Warehouse">

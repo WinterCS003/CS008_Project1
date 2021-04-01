@@ -143,7 +143,7 @@
     <property name="geometry">
      <rect>
       <x>710</x>
-      <y>110</y>
+      <y>10</y>
       <width>80</width>
       <height>25</height>
      </rect>
@@ -201,7 +201,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Member Exp Date (MM/DD/YYYY)</string>
+     <string>Member Exp Date (MM/YYYY)</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_5_total_spend">
@@ -264,6 +264,32 @@
     </property>
     <property name="text">
      <string>Display</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="membersFromFile">
+    <property name="geometry">
+     <rect>
+      <x>149</x>
+      <y>10</y>
+      <width>131</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Add Members from file</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="submitFile">
+    <property name="geometry">
+     <rect>
+      <x>710</x>
+      <y>10</y>
+      <width>80</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Submit File</string>
     </property>
    </widget>
   </widget>

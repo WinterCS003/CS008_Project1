@@ -63,6 +63,7 @@ public:
                   std::string input,
                   inventory& inventory,
                   Members_Container& members);
+    bool readFile(std::string name);
     bool outFile(std::string output);
 
 private:
