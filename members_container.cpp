@@ -238,11 +238,9 @@ void Members_Container::add_bulk_members(const std::string& file_location) {
     bool premium = false;
     std::string expiration_date;
 
-    while (input >> get) {
+    while (getline(input, get)) {
         std::cout << get + "\n";
         name = get;
-        input >> get;
-        name = name + get;
         input >> get;
 
         std::cout << get + "\n";
@@ -253,6 +251,7 @@ void Members_Container::add_bulk_members(const std::string& file_location) {
         std::cout << get + "\n";
         if (get == "Preferred") premium = true;
         input >> get;
+        input.ignore();
 
         std::cout << get + "\n";
         expiration_date = get;
@@ -260,4 +259,26 @@ void Members_Container::add_bulk_members(const std::string& file_location) {
     }
 
     input.close();
+}
+
+bool Members_Container::outFile(std::string output)
+{
+    std::ofstream out(output);
+    for(size_t i = 0; i < this->get_members_count(); i++)
+    {
+        Member temp = (*this)[i];
+        out << temp.get_name() << "\n";
+        out << temp.get_membership_number() << "\n";
+        if(!temp.is_premium_member())
+        {
+            out << "Basic\n";
+        }
+        else
+        {
+            out << "Preferred\n";
+        }
+        out << temp.get_membership_expiration() << "\n";
+    }
+
+    return true;
 }

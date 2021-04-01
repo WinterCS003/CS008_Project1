@@ -8,7 +8,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     // update containers to have all previous sales
     iv.readFile("all-items.txt");
-    mc.readFile("all-members.txt");
+    mc.add_bulk_members("all-members.txt");
     all_sales.readFile("all-sales.txt");
 
     ui->setupUi(this);

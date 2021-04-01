@@ -14,7 +14,7 @@ class manageMembers : public QMainWindow
 
 public:
     manageMembers(QWidget *parent = nullptr);
-    manageMembers(QWidget *parent, const Members_Container& mc);
+    manageMembers(QWidget *parent, Members_Container* mc);
     ~manageMembers();
 
 private slots:
@@ -36,7 +36,7 @@ private slots:
 
 private:
     Ui::manageMembers *ui;
-    Members_Container members;
+    Members_Container* members;
 };
 
 #endif // MANAGEMEMBERS_H

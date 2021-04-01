@@ -1,21 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <author/>
- <comment/>
- <exportmacro/>
  <class>memberPurchase</class>
- <widget name="memberPurchase" class="QWidget">
+ <widget class="QWidget" name="memberPurchase">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>470</width>
+    <height>343</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <widget class="QWidget" name="horizontalLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>70</x>
+     <y>10</y>
+     <width>314</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="titleLayout">
+    <item>
+     <widget class="QLabel" name="title">
+      <property name="font">
+       <font>
+        <pointsize>20</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Member Purchase Reports</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="formLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>140</x>
+     <y>70</y>
+     <width>160</width>
+     <height>100</height>
+    </rect>
+   </property>
+   <layout class="QFormLayout" name="formLayout">
+    <item row="0" column="0">
+     <widget class="QLabel" name="nameLabel">
+      <property name="text">
+       <string>Member name:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QLineEdit" name="nameInput"/>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="idLabel">
+      <property name="text">
+       <string>Member ID:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QSpinBox" name="id"/>
+    </item>
+    <item row="3" column="1">
+     <widget class="QPushButton" name="submit">
+      <property name="text">
+       <string>submit</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QCheckBox" name="allMembers">
+      <property name="text">
+       <string>All Members</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QPushButton" name="back">
+   <property name="geometry">
+    <rect>
+     <x>390</x>
+     <y>10</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Back</string>
+   </property>
+  </widget>
+  <widget class="QTableView" name="report">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>70</y>
+     <width>451</width>
+     <height>261</height>
+    </rect>
+   </property>
+  </widget>
+  <zorder>report</zorder>
+  <zorder>horizontalLayoutWidget</zorder>
+  <zorder>formLayoutWidget</zorder>
+  <zorder>back</zorder>
  </widget>
- <pixmapfunction/>
+ <resources/>
  <connections/>
 </ui>
