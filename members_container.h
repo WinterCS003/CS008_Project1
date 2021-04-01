@@ -32,6 +32,7 @@ public:
     bool contains(const int& _membership_number);
     bool contains(const std::string& _name);
     int get_members_count() {return members_count;};
+    Member& operator[](int index) { return members[index]; };
     Member _get_member(int i) {return members[i];};
 
     Member get_member(int _memberid) {
@@ -43,6 +44,17 @@ public:
         }
         return members[0];
     }
+
+    int get_member_index(int _memberid) {
+        assert(this->contains(_memberid));
+        for (int i=0; i<members_count; i++) {
+            if (members[i].get_membership_number()==_memberid) {
+                return i;
+            }
+        }
+        return -1;
+    }
+    bool outFile(std::string name);
 
 private:
     Member *members;
