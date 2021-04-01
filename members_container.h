@@ -46,7 +46,6 @@ public:
     }
 
     int get_member_index(int _memberid) {
-        assert(this->contains(_memberid));
         for (int i=0; i<members_count; i++) {
             if (members[i].get_membership_number()==_memberid) {
                 return i;
