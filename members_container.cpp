@@ -212,15 +212,6 @@ void Members_Container::upgrade_membership(const int &_membership_number, const 
     }
 }
 
-int Members_Container::get_member(int _membership_number) {
-    for (int index=0; index<get_members_count(); index++) {
-        if (members[index].get_membership_number() == _membership_number)
-            return index;
-    }
-
-    return -1;
-}
-
 bool Members_Container::readFile(std::string input)
 {
     ifstream in(input);

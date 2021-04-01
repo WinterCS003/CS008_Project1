@@ -257,7 +257,7 @@ void sales_container::push_back(QWidget* parent,
         reserve(my_capacity + 5);
     }
 
-    int index = all_members.get_member(value.getId());
+    int index = all_members.get_member_index(value.getId());
     all_members[index].add_total(value.getPrice()*value.getQuantity());
     index = inventory.search(value.getItem());
     inventory[index].set_quantity(inventory[index].get_quantity() - value.getQuantity());

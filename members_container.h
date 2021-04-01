@@ -37,7 +37,25 @@ public:
     bool contains(const int& _membership_number);
     bool contains(const std::string& _name);
     int get_members_count() {return members_count;};
-    int get_member(int);
+    int get_member_index(int _memberid) {
+        assert(this->contains(_memberid));
+        for (int i=0; i<members_count; i++) {
+            if (members[i].get_membership_number()==_memberid) {
+                return i;
+            }
+        }
+        return -1;
+    }
+    Member get_member(int _memberid) {
+        assert(this->contains(_memberid));
+        for (int i=0; i<members_count; i++) {
+            if (members[i].get_membership_number()==_memberid) {
+                return members[i];
+            }
+        }
+        return members[0];  //this is a failsafe return. The code should never get here but if it does it
+                            //protects the entire program from crashing. Am working on a better solution.
+    }
     Member& operator[](int i){return members[i];};
 
 private:

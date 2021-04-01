@@ -28,8 +28,9 @@ private slots:
 
     void on_button_delete_Member_clicked();
 
+    void on_displayButton_clicked();
+
 private:
-    void switchScreen();
     Ui::manageMembers *ui;
     Members_Container* members;
 };

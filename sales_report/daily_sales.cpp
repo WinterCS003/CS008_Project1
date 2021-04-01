@@ -92,7 +92,7 @@ void daily_sales::generate_daily_daily_sales(std::string date, int flag)
     {
         if(date == (*report)[i].getDate())
         {
-            int index = members->get_member((*report)[i].getId());
+            int index = members->get_member_index((*report)[i].getId());
             if(flag == 0) // only basic members
             {
                 if(!(*members)[index].is_premium_member())
@@ -164,7 +164,7 @@ void daily_sales::generate_daily_daily_sales(std::string date, int flag)
     // Members who shopped
     for(unsigned int i = 0; i < dailySale.size(); i++)
     {
-        int index = members->get_member(dailySale[i].getId());
+        int index = members->get_member_index(dailySale[i].getId());
         temp = (*members)[index];
         memberName = temp.get_name().c_str();
         if(!report_output.contains(memberName))

@@ -84,7 +84,7 @@ void yearly_sales::on_submit_clicked()
     {
         if(to_string(year)== (*all_sales)[i].getDate().substr(6,4))
         {
-            int index = all_members->get_member((*all_sales)[i].getId());
+            int index = all_members->get_member_index((*all_sales)[i].getId());
             if(ui->basic->isChecked() && ui->preferred->isChecked())
             {
                 yearlySales.push_back((*all_sales)[i]);
@@ -185,7 +185,7 @@ void yearly_sales::on_submit_clicked()
     // all members who shopped
     for(unsigned int i = 0; i < yearlySales.size(); i++)
     {
-        int index = all_members->get_member(unique_sales[i].getId());
+        int index = all_members->get_member_index(unique_sales[i].getId());
         temp = (*all_members)[index];
         memberName = temp.get_name().c_str();
         if(!output.contains(memberName))
