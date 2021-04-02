@@ -34,6 +34,8 @@ private slots:
 
     void on_submitFile_clicked();
 
+    void on_membersConvToBasic_clicked();
+
 private:
     Ui::manageMembers *ui;
     Members_Container* members;
