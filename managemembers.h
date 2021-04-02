@@ -36,6 +36,10 @@ private slots:
 
     void on_membersConvToBasic_clicked();
 
+    void on_button_renew_membership_clicked();
+
+    void on_submitRenew_clicked();
+
 private:
     Ui::manageMembers *ui;
     Members_Container* members;

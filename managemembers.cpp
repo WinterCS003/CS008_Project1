@@ -29,6 +29,7 @@ manageMembers::manageMembers(QWidget *parent, Members_Container* mc)
     ui->submitDelete->hide();
     ui->displayButton->hide();
     ui->submitFile->hide();
+    ui->submitRenew->hide();
     members = mc;
 
 }
@@ -58,6 +59,7 @@ void manageMembers::on_button_addMember_clicked()
     ui->submitDelete->hide();
     ui->displayButton->hide();
     ui->submitFile->hide();
+    ui->submitRenew->hide();
 
     ui->label_1_name->show();
     ui->label_2_mem_ID->show();
@@ -129,6 +131,7 @@ void manageMembers::on_membersFromFile_clicked() {
     ui->submit->hide();
     ui->submitDelete->hide();
     ui->displayButton->hide();
+    ui->submitRenew->hide();
 }
 
 void manageMembers::on_submitFile_clicked() {
@@ -178,6 +181,7 @@ void manageMembers::on_button_delete_Member_clicked()
     ui->submitDelete->hide();
     ui->displayButton->hide();
     ui->submitFile->hide();
+    ui->submitRenew->hide();
 
 
     ui->label_1_name->show();
@@ -231,10 +235,11 @@ void manageMembers::on_viewMemberInfo_clicked()
     ui->submitDelete->hide();
     ui->displayButton->hide();
     ui->submitFile->hide();
+    ui->submitRenew->hide();
 
     ui->display->clear();
-    ui->label_1_name->show();
-    ui->input_1_name->show();
+    //ui->label_1_name->show();
+    //ui->input_1_name->show();
     ui->label_2_mem_ID->show();
     ui->input_2_mem_ID->show();
     ui->displayButton->show();
@@ -299,6 +304,7 @@ void manageMembers::on_membersConvToBasic_clicked()
     ui->submitDelete->hide();
     ui->displayButton->hide();
     ui->submitFile->hide();
+    ui->submitRenew->hide();
 
     Members_Container memberList;
 
@@ -321,4 +327,60 @@ void manageMembers::on_membersConvToBasic_clicked()
     }
 
     ui->display->setText(QString::fromStdString(output));
+}
+
+void manageMembers::on_button_renew_membership_clicked() {
+
+    ui->label_1_name->hide();
+    ui->label_2_mem_ID->show();
+    ui->label_3_prem->hide();
+    ui->label_4_exp_dat->hide();
+    ui->label_5_total_spend->hide();
+    ui->label_6_rebate_amt->hide();
+    ui->input_1_name->hide();
+    ui->input_2_mem_ID->show();
+    ui->input_3_prem->hide();
+    ui->input_4_exp_dat->hide();
+    ui->input_5_total_spend->hide();
+    ui->input_6_rebate_amt->hide();
+    ui->submit->hide();
+    ui->submitDelete->hide();
+    ui->displayButton->hide();
+    ui->submitFile->hide();
+    ui->submitRenew->show();
+
+}
+
+void manageMembers::on_submitRenew_clicked() {
+    QString mem_number;
+    mem_number = ui->input_2_mem_ID->toPlainText();
+    int id_number = mem_number.toInt();
+    if (members->contains(id_number)) {
+        members->extend_membership(id_number);
+
+        QString msg_top = "Membership extended!";
+        QString msg_id = "ID#: ";
+        QString msg_name = "Name: ";
+        QString msg_prem = "Premium: ";
+        QString msg_exp_date = "Membership Expiration: ";
+
+        std::string name = members->get_member(id_number).get_name();
+        QString name_display = QString::fromStdString(name);
+        QString prem_display = "N";
+        QString exp_date_display = "N/A";
+
+        if (members->get_member(id_number).is_premium_member()) {
+            prem_display = "Y";
+            std::string temp = members->get_member(id_number).get_membership_expiration();
+            exp_date_display = QString::fromStdString(temp);
+        }
+
+        ui->display->setPlainText( msg_top + "\n" +
+                                   msg_name + "\t" + "\t" + name_display + "\n" +
+                                   msg_id +  "\t" + "\t" + QString::number(id_number) + "\n" +
+                                   msg_prem + "\t" + "\t" + prem_display + "\n" +
+                                   msg_exp_date + "\t" + exp_date_display
+                                   );
+
+    }
 }

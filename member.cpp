@@ -157,9 +157,8 @@ void Member::upgrade_member(const std::string& todays_date) {
  *****************************************************************************/
 void Member::extend_membership() {
     assert(is_premium_member());
-
+/*
     std::string date = get_membership_expiration();
-
     int temp = (int)date[5] - 48;
 
     if (temp < 9)
@@ -183,11 +182,35 @@ void Member::extend_membership() {
             date[3] = (char)temp3 + 48;
         }
     }
-
     date[5] = (char)temp + 48;
-
     membership_expiration = date;
+*/
+    std::string date = get_membership_expiration();
+    int temp = (int)date[9] - 48;
 
+    if (temp < 9)
+        temp++;
+
+    else {
+        temp = 0;
+        int temp2 = (int)date[8] - 48;
+
+        if (temp2 < 9) {
+            temp2++;
+            date[8] = (char)temp2 + 48;
+        }
+
+        else {
+            temp2 = 0;
+            date[8] = (char)temp2 + 48;
+
+            int temp3 = (int)date[7] - 48;
+            temp3++;
+            date[7] = (char)temp3 + 48;
+        }
+    }
+    date[9] = (char)temp + 48;
+    membership_expiration = date;
 }
 
 // returns all member info string form

@@ -217,7 +217,7 @@ void Members_Container::upgrade_membership(const int &_membership_number, const 
 }
 
 /*****************************************************************************
-* Method add_bulk_members(const ifstream& file): Class Members_Container
+* Method add_bulk_members(const std::string& file_location): Class Members_Container
 *-----------------------------------------------------------------------------
 * This method ....
 *
@@ -261,6 +261,17 @@ void Members_Container::add_bulk_members(const std::string& file_location) {
     input.close();
 }
 
+/*****************************************************************************
+* Method outFile(std::string output): Class Members_Container
+*-----------------------------------------------------------------------------
+* This method ....
+*
+*-----------------------------------------------------------------------------
+* PRE-CONDITIONS
+*
+* POST-CONDITIONS
+*
+******************************************************************************/
 bool Members_Container::outFile(std::string output)
 {
     std::ofstream out(output);
@@ -283,6 +294,17 @@ bool Members_Container::outFile(std::string output)
     return true;
 }
 
+/*****************************************************************************
+* Method validateMemberFile(std::string file): Class Members_Container
+*-----------------------------------------------------------------------------
+* This method ....
+*
+*-----------------------------------------------------------------------------
+* PRE-CONDITIONS
+*
+* POST-CONDITIONS
+*
+******************************************************************************/
 bool Members_Container::validateMemberFile(std::string file) {
     std::ifstream input;
     input.open(file);
@@ -299,3 +321,22 @@ bool Members_Container::validateMemberFile(std::string file) {
     else {return false;}
 }
 
+/*****************************************************************************
+* Method extend_membership(int membership_number): Class Members_Container
+*-----------------------------------------------------------------------------
+* This method ....
+*
+*-----------------------------------------------------------------------------
+* PRE-CONDITIONS
+*
+* POST-CONDITIONS
+*
+******************************************************************************/
+void Members_Container::extend_membership(const int& _membership_number) {
+    for (int i = 0; i < get_members_count(); i++) {
+        if (members[i].get_membership_number() == _membership_number) {
+            if (members[i].is_premium_member())
+                members[i].extend_membership();
+        }
+    }
+}
