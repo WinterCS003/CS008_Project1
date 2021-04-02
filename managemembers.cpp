@@ -271,3 +271,28 @@ void manageMembers::on_displayButton_clicked() {
     else
         ui->display->setPlainText("Member with that ID does not exist.");
 }
+
+void manageMembers::on_membersConvToBasic_clicked()
+{
+    Members_Container memberList;
+
+    for (int i = 0; i < members->get_members_count(); i++)
+    {
+        // checks if the member's rebates is less than the difference in
+        // annual fees, if yes, add to temp container
+        if (members->operator[](i).get_total_rebates() < 15)
+        {
+            memberList.add_member(members->operator[](i));
+        }
+    }
+
+    std::string output = "";
+
+    // outputs temp container to display
+    for (int j = 0; j < memberList.get_members_count(); j++)
+    {
+        output += memberList[j].get_name() + std::to_string(memberList[j].get_membership_number()) + "\n";
+    }
+
+    ui->display->setText(QString::fromStdString(output));
+}
