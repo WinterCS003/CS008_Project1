@@ -54,6 +54,7 @@ public:
         return -1;
     }
     bool outFile(std::string name);
+    bool validateMemberFile(std::string file);
 
 private:
     Member *members;
