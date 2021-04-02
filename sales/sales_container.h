@@ -33,11 +33,13 @@ public:
                                                  //      object
     double getTotalRevenue() const;
     int find(const sales& s) const; // IN - sales to search for
+    int find(std::string name) const; // IN - sales to search for
+    int find(int id) const; // IN - sales to search for
     int getItemQuantity(std::string item) const; // item to search
     bool contains(sales& s) const;
     bool contains(int id) const;
     sales* begin(){return &my_list[0];}
-    sales* end(){return &my_list[my_size-1];}
+    sales* end(){return &my_list[my_size];}
 
 
     /**************

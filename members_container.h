@@ -34,6 +34,8 @@ public:
     int get_members_count() {return members_count;};
     Member& operator[](int index) { return members[index]; };
     Member _get_member(int i) {return members[i];};
+    Member* begin(){ return &members[0]; };
+    Member* end(){ return &members[members_count]; };
 
     Member get_member(int _memberid) {
         assert(this->contains(_memberid));

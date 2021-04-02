@@ -34,7 +34,7 @@ public:
     bool is_premium_member() const { return premium_member; };
     std::string get_membership_expiration() const { return membership_expiration; };
     double get_total_spend() const { return total_spend; };
-    double get_total_rebates() { if(premium_member){total_rebates *= 1.05;} return total_rebates; };
+    double get_total_rebates() { if(premium_member){total_rebates = total_spend*1.05;} return total_rebates; };
     std::string getInfo();
 
 private:

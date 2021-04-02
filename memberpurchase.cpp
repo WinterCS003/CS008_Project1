@@ -58,7 +58,7 @@ void memberPurchase::on_submit_clicked()
             for(size_t i = 0; i < all_sales->size(); i++)
             {
                 Member m1 = all_members->get_member((*all_sales)[i].getId());
-                if(m1.get_name() == name){
+                if(m1.get_membership_number() == id){
                     output.push_back((*all_sales)[i]);
                 }
             }
@@ -103,7 +103,7 @@ void memberPurchase::on_submit_clicked()
             report += "\n\n";
         }
         report += "Total amount spent $";
-        report += to_string(output.getTotalRevenue()).c_str();
+        report += to_string(output.getTotalRevenue()/1.875).c_str();
         report += "\n\n";
         report += "-----------End report---------";
         ui->report->setText(report);
@@ -116,18 +116,17 @@ void memberPurchase::allMemberReport()
     output = *all_sales;
 
     std::sort(output.begin(), output.end(), [](const sales& s1, const sales& s2)->bool{
-        return s1.getId() > s2.getId();
+        return s1.getId() < s2.getId();
     });
 
     double total = 0.0;
     QString report;
     report += "---------Begin Report---------\n\n";
     report += "Member: ";
+    report += all_members->get_member(output[0].getId()).get_name().c_str();
     report += "\n";
     report += "ID: ";
     report += to_string(output[0].getId()).c_str();
-    report += "\n\n";
-    report += all_members->get_member(output[0].getId()).get_name().c_str();
     report += "\n";
     report += "Date: ";
     report += output[0].getDate().c_str();
@@ -138,7 +137,7 @@ void memberPurchase::allMemberReport()
     report += "Item quantity: ";
     report += to_string(output[0].getQuantity()).c_str();
     report += "\n\n";
-    total += output[0].getRevenue();
+    total += output[0].getPrice()*output[0].getQuantity();
     for(int i = 1; i < output.size(); i++)
     {
         if(output[i-1].getId() != output[i].getId())
@@ -162,13 +161,13 @@ void memberPurchase::allMemberReport()
         report += "Item quantity: ";
         report += to_string(output[i].getQuantity()).c_str();
         report += "\n\n";
-        total += output[i].getRevenue();
+        total += output[i].getPrice()*output[i].getQuantity();
     }
     report += "Total purchases of member: $";
     report += to_string(total).c_str();
     report += "\n\n";
     report += "Grand total of all purchases: $";
-    report += to_string(output.getTotalRevenue()).c_str();
+    report += to_string(output.getTotalRevenue()/1.875).c_str();
     report += "\n\n---------End Report---------";
 
     ui->report->setText(report);

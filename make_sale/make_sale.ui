@@ -66,7 +66,11 @@
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="QSpinBox" name="Id"/>
+      <widget class="QSpinBox" name="Id">
+       <property name="maximum">
+        <number>9999999</number>
+       </property>
+      </widget>
      </item>
      <item row="2" column="0">
       <widget class="QLabel" name="nameLabel">
@@ -86,7 +90,11 @@
       </widget>
      </item>
      <item row="3" column="1">
-      <widget class="QSpinBox" name="quantity"/>
+      <widget class="QSpinBox" name="quantity">
+       <property name="maximum">
+        <number>100</number>
+       </property>
+      </widget>
      </item>
      <item row="4" column="1">
       <layout class="QHBoxLayout" name="submitLayout">

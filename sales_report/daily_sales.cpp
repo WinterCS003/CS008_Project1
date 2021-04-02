@@ -122,17 +122,19 @@ void daily_sales::generate_daily_daily_sales(std::string date, int flag)
         return;
     }
 
+    // only one copy of each item
     sales_container unique_sales;
     for(size_t i = 0; i < dailySale.size(); i++)
     {
-        if(unique_sales.find(dailySale[i]) == -1)
+        int index = unique_sales.find(dailySale[i].getItem());
+        if( index == -1)
         {
             unique_sales.push_back(dailySale[i]);
         }
         else
         {
             sales s1 = dailySale[i];
-            sales* s2 = &unique_sales[unique_sales.find(dailySale[i])];
+            sales* s2 = &unique_sales[index];
 
             s2->setQuantity(s1.getQuantity() + s2->getQuantity());
         }

@@ -121,14 +121,15 @@ void yearly_sales::on_submit_clicked()
     sales_container unique_sales;
     for(size_t i = 0; i < yearlySales.size(); i++)
     {
-        if(unique_sales.find(yearlySales[i]) == -1)
+        int index = unique_sales.find(yearlySales[i].getItem());
+        if(index == -1)
         {
             unique_sales.push_back(yearlySales[i]);
         }
         else
         {
             sales s1 = yearlySales[i];
-            sales* s2 = &unique_sales[unique_sales.find(yearlySales[i])];
+            sales* s2 = &unique_sales[index];
 
             s2->setQuantity(s1.getQuantity() + s2->getQuantity());
         }

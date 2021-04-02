@@ -1,9 +1,13 @@
 #ifndef MANAGEMEMBERS_H
 #define MANAGEMEMBERS_H
 
+#include <algorithm>
+
 #include <QMainWindow>
 #include <QMessageBox>
 #include "members_container.h"
+
+#include "sales/sales_container.h"
 
 namespace Ui {
 class manageMembers;
@@ -15,7 +19,7 @@ class manageMembers : public QMainWindow
 
 public:
     manageMembers(QWidget *parent = nullptr);
-    manageMembers(QWidget *parent, Members_Container* mc);
+    manageMembers(QWidget *parent, Members_Container* mc, sales_container* sc);
     ~manageMembers();
 
 private slots:
@@ -37,9 +41,12 @@ private slots:
 
     void on_membersConvToBasic_clicked();
 
+    void on_printTotalRebates_clicked();
+
 private:
     Ui::manageMembers *ui;
     Members_Container* members;
+    sales_container* all_sales;
 };
 
 #endif // MANAGEMEMBERS_H

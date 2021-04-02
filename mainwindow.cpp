@@ -48,7 +48,7 @@ void MainWindow::on_dailySales_clicked()
 void MainWindow::on_manageMembers_clicked()
 {
 //    Members_Container mc;
-    mM = new manageMembers(nullptr, &mc);
+    mM = new manageMembers(nullptr, &mc, &all_sales);
     mM->show();
 }
 

@@ -8,7 +8,7 @@ manageMembers::manageMembers(QWidget *parent) :
     ui->setupUi(this);
 }
 
-manageMembers::manageMembers(QWidget *parent, Members_Container* mc)
+manageMembers::manageMembers(QWidget *parent, Members_Container* mc, sales_container* sc)
     : QMainWindow(parent)
     , ui(new Ui::manageMembers)
 {
@@ -30,7 +30,7 @@ manageMembers::manageMembers(QWidget *parent, Members_Container* mc)
     ui->displayButton->hide();
     ui->submitFile->hide();
     members = mc;
-
+    all_sales = sc;
 }
 
 manageMembers::~manageMembers()
@@ -41,7 +41,11 @@ manageMembers::~manageMembers()
 // displays text fields to get user input
 void manageMembers::on_button_addMember_clicked()
 {
-
+    ui->input_1_name->clear();
+    ui->input_2_mem_ID->clear();
+    ui->input_4_exp_dat->clear();
+    ui->input_5_total_spend->clear();
+    ui->input_6_rebate_amt->clear();
     ui->label_1_name->hide();
     ui->label_2_mem_ID->hide();
     ui->label_3_prem->hide();
@@ -110,6 +114,11 @@ void manageMembers::on_submit_clicked()
 }
 
 void manageMembers::on_membersFromFile_clicked() {
+    ui->input_1_name->clear();
+    ui->input_2_mem_ID->clear();
+    ui->input_4_exp_dat->clear();
+    ui->input_5_total_spend->clear();
+    ui->input_6_rebate_amt->clear();
     ui->label_1_name->show();
     ui->input_1_name->show();
     ui->submitFile->show();
@@ -155,12 +164,16 @@ void manageMembers::on_submitFile_clicked() {
     }
     else
         ui->display->setPlainText("ERROR: Invalid file input.");
-
 }
 
 void manageMembers::on_button_delete_Member_clicked()
 {
 
+    ui->input_1_name->clear();
+    ui->input_2_mem_ID->clear();
+    ui->input_4_exp_dat->clear();
+    ui->input_5_total_spend->clear();
+    ui->input_6_rebate_amt->clear();
     ui->label_1_name->hide();
     ui->label_2_mem_ID->hide();
     ui->label_3_prem->hide();
@@ -213,7 +226,11 @@ void manageMembers::on_submitDelete_clicked()
 
 void manageMembers::on_viewMemberInfo_clicked()
 {
-
+    ui->input_1_name->clear();
+    ui->input_2_mem_ID->clear();
+    ui->input_4_exp_dat->clear();
+    ui->input_5_total_spend->clear();
+    ui->input_6_rebate_amt->clear();
     ui->label_1_name->hide();
     ui->label_2_mem_ID->hide();
     ui->label_3_prem->hide();
@@ -321,6 +338,11 @@ void manageMembers::on_displayButton_clicked() {
 
 void manageMembers::on_membersConvToBasic_clicked()
 {
+    ui->input_1_name->clear();
+    ui->input_2_mem_ID->clear();
+    ui->input_4_exp_dat->clear();
+    ui->input_5_total_spend->clear();
+    ui->input_6_rebate_amt->clear();
 
     ui->label_1_name->hide();
     ui->label_2_mem_ID->hide();
@@ -360,4 +382,83 @@ void manageMembers::on_membersConvToBasic_clicked()
     }
 
     ui->display->setText(QString::fromStdString(output));
+}
+
+void manageMembers::on_printTotalRebates_clicked()
+{
+    ui->label_1_name->hide();
+    ui->label_2_mem_ID->hide();
+    ui->label_3_prem->hide();
+    ui->label_4_exp_dat->hide();
+    ui->label_5_total_spend->hide();
+    ui->label_6_rebate_amt->hide();
+    ui->input_1_name->hide();
+    ui->input_2_mem_ID->hide();
+    ui->input_3_prem->hide();
+    ui->input_4_exp_dat->hide();
+    ui->input_5_total_spend->hide();
+    ui->input_6_rebate_amt->hide();
+    ui->submit->hide();
+    ui->submitDelete->hide();
+    ui->displayButton->hide();
+    ui->submitFile->hide();
+
+    ui->display->clear();
+
+    sales_container premiumOnly;
+    for(int i = 0; i < all_sales->size(); i++)
+    {
+        Member m1 = members->get_member((*all_sales)[i].getId());
+        if(m1.is_premium_member())
+        {
+            premiumOnly.push_back((*all_sales)[i]);
+        }
+    }
+
+    if(premiumOnly.size() == 0)
+    {
+        QMessageBox::warning(this, "Warning", "No members");
+        return;
+    }
+
+    // sort by ascending membership number
+    std::sort(premiumOnly.begin(), premiumOnly.end(), [](const sales& s1, const sales& s2)->bool{
+        return s1.getId() > s2.getId();
+    });
+
+
+    QString output = "----------Total Rebates---------\n\n";
+    double rebate = 0.0;
+    output += "Member: ";
+    output += members->get_member(premiumOnly[0].getId()).get_name().c_str();
+    output += "\n";
+    output += "ID: ";
+    output += to_string(premiumOnly[0].getId()).c_str();
+    output += "\n";
+    rebate += premiumOnly[0].getPrice()*premiumOnly[0].getQuantity();
+    for(int i = 1;i < premiumOnly.size(); i++)
+    {
+        if(premiumOnly[i-1].getId() != premiumOnly[i].getId())
+        {
+            output += "Rebate: $";
+            output += to_string(rebate*1.05).c_str();
+            output += "\n\n";
+            rebate = 0.0;
+            output += "Member: ";
+            output += members->get_member(premiumOnly[i].getId()).get_name().c_str();
+            output += "\n";
+            output += "ID: ";
+            output += to_string(premiumOnly[i].getId()).c_str();
+            output += "\n";
+        }
+        rebate += premiumOnly[i].getPrice()*premiumOnly[i].getQuantity();
+    }
+    output += "Rebate: $";
+    output += to_string(rebate*1.05).c_str();
+    output += "\n\n";
+    output += "Total Rebate given: $";
+    output += to_string((premiumOnly.getTotalRevenue()/1.875)*1.05).c_str();
+    output += "---------End Report---------";
+
+    ui->display->setText(output);
 }

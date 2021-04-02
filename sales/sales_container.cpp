@@ -188,6 +188,42 @@ int sales_container::find(const sales& s) const // IN - sales to search for
     return -1;
 }
 
+/****************************************************************
+ * int find(const sales& s) const;
+ *
+ *   Accessor; This method will return the index of the parameter
+ * --------------------------------------------------------------
+ *   Parameters: s (sales&) // IN - sales to search for
+ * --------------------------------------------------------------
+ *   Return: index (int) - index of the sales parameter to find
+ *                         -1 is returned if parameter not found
+ ***************************************************************/
+int sales_container::find(std::string name) const // IN - sales to search for
+{
+    for(unsigned int i = 0; i < my_size; i++)
+    {
+        if(my_list[i].getItem() ==name)
+        {
+            return i;
+        }
+    }
+
+    return -1;
+}
+
+int sales_container::find(int id) const // IN - sales to search for
+{
+    for(unsigned int i = 0; i < my_size; i++)
+    {
+        if(my_list[i].getId() == id)
+        {
+            return i;
+        }
+    }
+
+    return -1;
+}
+
 int sales_container::getItemQuantity(std::string item) const
 {
     int count = 0;
@@ -454,8 +490,6 @@ bool sales_container::readFile(QWidget* parent,
 
         sales temp(date, id, name, price, quantity); // make sale with above information
         this->push_back(parent, temp, inventory, members);
-        Item i = inventory[inventory.search(name)];
-        inventory[inventory.search(name)].set_quantity(i.get_quantity() - quantity);
     }
     in.close();
 

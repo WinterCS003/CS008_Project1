@@ -79,13 +79,16 @@ void item_reports::singleItemReport(std::string itemName)
     report += "Item Name: ";
     report += itemName.c_str();
     report += "\n";
-    report += "Item Quantity: ";
+    report += "Item Quantity sold: ";
     report += to_string(quantity).c_str();
+    report += "\n";
+    report += "Item Quantity in stock: ";
+    report += to_string((*all_items)[all_items->search(itemName)].get_quantity()).c_str();
     report += "\n\n";
     report += "Item price: ";
     report += to_string(output[0].getPrice()).c_str();
     report += "\n";
-    report += "Total price: ";
+    report += "Total revenue: ";
     report += to_string(price).c_str();
     report += "\n\n";
     report += "-------------End Report-------------";
@@ -127,13 +130,18 @@ void item_reports::allItemReport()
     QString output = "---------------Report--------------\n\n";
     for(size_t i = 0; i < unique_sales.size(); i++)
     {
+        int index = all_items->search(unique_sales[i].getItem());
         output += "Item name: ";
         output += unique_sales[i].getItem().c_str();
-        output += "Item quantity: ";
+        output += "\n";
+        output += "Item quantity sold: ";
         output += to_string(unique_sales[i].getQuantity()).c_str();
         output += "\n";
+        output += "Item quantity in Stock: ";
+        output += to_string((*all_items)[index].get_quantity()).c_str();
+        output += "\n\n";
     }
-    output += "\n\n------------End Report------------";
+    output += "------------End Report------------";
 
     ui->report->setText(output);
 }
