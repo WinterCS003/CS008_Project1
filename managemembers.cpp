@@ -84,11 +84,13 @@ void manageMembers::on_submit_clicked()
 
     mem_name = ui->input_1_name->text();
     mem_number = ui->input_2_mem_ID->text();
+    bool premium = ui->input_3_prem->isChecked();
+    std::string date = ui->input_4_exp_dat->date().toString("MM/dd/yyyy").toStdString();
 
     std::string name = mem_name.toStdString();
     int number = mem_number.toInt();
 
-    members->add_member(Member(name,number, false, ""));
+    members->add_member(Member(name,number, premium, date));
 
     ui->display->setPlainText(QString::fromStdString("Added! Total members: "));
     ui->display->setPlainText(QString::fromStdString("Added! Total members: ") + QString::number(members->get_members_count()));
@@ -141,6 +143,7 @@ void manageMembers::on_membersFromFile_clicked() {
 
 void manageMembers::on_submitFile_clicked() {
 
+    ui->input_1_name->clear();
     QString input;
     input =  ui->input_1_name->text();
     std::string file_name = input.toStdString();
