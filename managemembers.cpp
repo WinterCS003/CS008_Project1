@@ -28,6 +28,7 @@ manageMembers::manageMembers(QWidget *parent, Members_Container* mc)
     ui->submit->hide();
     ui->submitDelete->hide();
     ui->displayButton->hide();
+    ui->submitFile->hide();
     members = mc;
 
 }
@@ -56,8 +57,7 @@ void manageMembers::on_button_addMember_clicked()
     ui->submit->hide();
     ui->submitDelete->hide();
     ui->displayButton->hide();
-
-
+    ui->submitFile->hide();
 
     ui->label_1_name->show();
     ui->label_2_mem_ID->show();
@@ -132,23 +132,31 @@ void manageMembers::on_membersFromFile_clicked() {
 }
 
 void manageMembers::on_submitFile_clicked() {
-    int prev_total_members = members->get_members_count();
+
     QString input;
     input =  ui->input_1_name->toPlainText();
     std::string file_name = input.toStdString();
-    members->add_bulk_members(file_name);
 
-    int new_total_members = members->get_members_count();
-    int added_members = new_total_members - prev_total_members;
+    if (members->validateMemberFile(file_name)) {
 
-    QString msg_top = "New Members Added:";
-    QString msg;
+        members->add_bulk_members(file_name);
 
-    for (int i = members->get_members_count(); i > (members->get_members_count()-added_members); i-- ) {
-        msg = msg + QString::fromStdString("Name: " + members->_get_member(i-1).get_name() + "\t");
-        msg = msg + "ID: " + QString::number(members->_get_member(i-1).get_membership_number()) + "\n";
+        int prev_total_members = members->get_members_count();
+        int new_total_members = members->get_members_count();
+        int added_members = new_total_members - prev_total_members;
+
+        QString msg_top = "New Members Added:";
+        QString msg;
+
+        for (int i = members->get_members_count(); i > (members->get_members_count()-added_members); i-- ) {
+            msg = msg + QString::fromStdString("Name: " + members->_get_member(i-1).get_name() + "\t");
+            msg = msg + "ID: " + QString::number(members->_get_member(i-1).get_membership_number()) + "\n";
+        }
+        ui->display->setPlainText(msg_top + "\n" + msg);
     }
-    ui->display->setPlainText(msg_top + "\n" + msg);
+    else
+        ui->display->setPlainText("ERROR: Invalid file input.");
+
 }
 
 void manageMembers::on_button_delete_Member_clicked()
@@ -222,7 +230,7 @@ void manageMembers::on_viewMemberInfo_clicked()
     ui->submit->hide();
     ui->submitDelete->hide();
     ui->displayButton->hide();
-
+    ui->submitFile->hide();
 
     ui->display->clear();
     ui->label_1_name->show();
@@ -274,6 +282,24 @@ void manageMembers::on_displayButton_clicked() {
 
 void manageMembers::on_membersConvToBasic_clicked()
 {
+
+    ui->label_1_name->hide();
+    ui->label_2_mem_ID->hide();
+    ui->label_3_prem->hide();
+    ui->label_4_exp_dat->hide();
+    ui->label_5_total_spend->hide();
+    ui->label_6_rebate_amt->hide();
+    ui->input_1_name->hide();
+    ui->input_2_mem_ID->hide();
+    ui->input_3_prem->hide();
+    ui->input_4_exp_dat->hide();
+    ui->input_5_total_spend->hide();
+    ui->input_6_rebate_amt->hide();
+    ui->submit->hide();
+    ui->submitDelete->hide();
+    ui->displayButton->hide();
+    ui->submitFile->hide();
+
     Members_Container memberList;
 
     for (int i = 0; i < members->get_members_count(); i++)

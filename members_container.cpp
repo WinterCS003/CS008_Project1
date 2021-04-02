@@ -282,3 +282,20 @@ bool Members_Container::outFile(std::string output)
 
     return true;
 }
+
+bool Members_Container::validateMemberFile(std::string file) {
+    std::ifstream input;
+    input.open(file);
+    if (input.fail()) { return false; }
+
+    std::string get;
+    int line_count = 0;     //Proper file should have lines 4 lines per member.
+
+    while (getline(input, get)) {
+        line_count++;
+    }
+
+    if (line_count % 4 == 0) {return true;}
+    else {return false;}
+}
+
