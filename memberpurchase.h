@@ -30,15 +30,15 @@ private slots:
     void on_submit_clicked();
 
 private:
-    void singleMemberReport(unsigned int id);
+    void singleMemberReport(int id);
     void singleMemberReport(std::string name);
     void allMemberReport();
     void switchScreen();
 
     Ui::memberPurchase *ui;
     sales_container* all_sales;
-    inventory* all_items;
     Members_Container* all_members;
+    inventory* all_items;
 };
 
 #endif // MEMBERPURCHASE_H

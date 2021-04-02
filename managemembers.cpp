@@ -78,8 +78,8 @@ void manageMembers::on_submit_clicked()
     QString mem_number;
     QString mem_name;
 
-    mem_name = ui->input_1_name->toPlainText();
-    mem_number = ui->input_2_mem_ID->toPlainText();
+    mem_name = ui->input_1_name->text();
+    mem_number = ui->input_2_mem_ID->text();
 
     std::string name = mem_name.toStdString();
     int number = mem_number.toInt();
@@ -104,7 +104,6 @@ void manageMembers::on_submit_clicked()
     ui->submit->hide();
     ui->input_1_name->clear();
     ui->input_2_mem_ID->clear();
-    ui->input_3_prem->clear();
     ui->input_4_exp_dat->clear();
     ui->input_5_total_spend->clear();
     ui->input_6_rebate_amt->clear();
@@ -134,7 +133,7 @@ void manageMembers::on_membersFromFile_clicked() {
 void manageMembers::on_submitFile_clicked() {
 
     QString input;
-    input =  ui->input_1_name->toPlainText();
+    input =  ui->input_1_name->text();
     std::string file_name = input.toStdString();
 
     if (members->validateMemberFile(file_name)) {
@@ -192,8 +191,8 @@ void manageMembers::on_submitDelete_clicked()
     QString mem_number;
     QString mem_name;
 
-    mem_name = ui->input_1_name->toPlainText();
-    mem_number = ui->input_2_mem_ID->toPlainText();
+    mem_name = ui->input_1_name->text();
+    mem_number = ui->input_2_mem_ID->text();
 
     std::string name = mem_name.toStdString();
     int number = mem_number.toInt();
@@ -244,13 +243,18 @@ void manageMembers::on_displayButton_clicked() {
     QString mem_number;
     QString mem_name;
 
-    mem_name = ui->input_1_name->toPlainText();
-    mem_number = ui->input_2_mem_ID->toPlainText();
+    mem_name = ui->input_1_name->text();
+    mem_number = ui->input_2_mem_ID->text();
 
     int id_number = mem_number.toInt();
 
-    if (members->contains(id_number)) {
+    if(mem_name.length() == 0)
 
+    {
+        if(!members->contains(id_number)){
+            QMessageBox::warning(this, "Warning", "not a member id");
+            return;
+        }
         QString msg_top = "Member Information";
         QString msg_id = "ID#: ";
         QString msg_name = "Name: ";
@@ -273,11 +277,46 @@ void manageMembers::on_displayButton_clicked() {
                                    msg_id +  "\t" + "\t" + QString::number(id_number) + "\n" +
                                    msg_prem + "\t" + "\t" + prem_display + "\n" +
                                    msg_exp_date + "\t" + exp_date_display
-                                   );
+                                       );
     }
-
     else
-        ui->display->setPlainText("Member with that ID does not exist.");
+    {
+        if(!members->contains(mem_name.toStdString())){
+            QMessageBox::warning(this, "Warning", mem_name + " is not a member");
+            return;
+        }
+        QString msg_top = "Member Information";
+        QString msg_id = "ID#: ";
+        QString msg_name = "Name: ";
+        QString msg_prem = "Premium: ";
+        QString msg_exp_date = "Membership Expiration: ";
+
+        Member m1;
+        for(int i = 0; i < members->get_members_count(); i++)
+        {
+            if((*members)[i].get_name() == mem_name.toStdString())
+            {
+                m1 = (*members)[i];
+                break;
+            }
+        }
+        id_number = m1.get_membership_number();
+        QString prem_display = "N";
+        QString exp_date_display = "N/A";
+
+        if (members->get_member(id_number).is_premium_member()) {
+            prem_display = "Y";
+            std::string temp = members->get_member(id_number).get_membership_expiration();
+            exp_date_display = QString::fromStdString(temp);
+        }
+
+        ui->display->setPlainText( msg_top + "\n" +
+                                   msg_name + "\t" + "\t" + mem_name + "\n" +
+                                   msg_id +  "\t" + "\t" + QString::number(id_number) + "\n" +
+                                   msg_prem + "\t" + "\t" + prem_display + "\n" +
+                                   msg_exp_date + "\t" + exp_date_display
+                                       );
+    }
 }
 
 void manageMembers::on_membersConvToBasic_clicked()

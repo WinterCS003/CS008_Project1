@@ -2,6 +2,7 @@
 #define MANAGEMEMBERS_H
 
 #include <QMainWindow>
+#include <QMessageBox>
 #include "members_container.h"
 
 namespace Ui {

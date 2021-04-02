@@ -20,7 +20,7 @@
       <x>644</x>
       <y>0</y>
       <width>151</width>
-      <height>257</height>
+      <height>286</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -54,18 +54,6 @@
       <widget class="QPushButton" name="dailySales">
        <property name="text">
         <string>Daily Sales Report</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="login">
-       <property name="font">
-        <font>
-         <pointsize>6</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Log in?</string>
        </property>
       </widget>
      </item>
@@ -111,6 +99,13 @@
       <widget class="QPushButton" name="itemReport">
        <property name="text">
         <string>Item Reports</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="purchaseReports">
+       <property name="text">
+        <string>Purchase Reports</string>
        </property>
       </widget>
      </item>

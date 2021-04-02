@@ -16,6 +16,7 @@
 #include "member.h"
 #include "members_container.h"
 #include "managemembers.h"
+#include "memberpurchase.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -33,8 +34,6 @@ private slots:
     void on_quitButton_clicked();       // if user quits, program exits
     void on_manageInventory_clicked();        // if inventory is clicked
 
-    void on_loginButton_clicked();      // if user clicks 'login'
-
     void on_manageMembers_clicked(); // if manage members is clicked
 
     void on_makeSale_clicked();
@@ -42,6 +41,8 @@ private slots:
     void on_yearlySales_clicked();
 
     void on_itemReport_clicked();
+
+    void on_purchaseReports_clicked();
 
 private:
 
@@ -58,6 +59,7 @@ private:
     yearly_sales* yearlySale; // Sales report by year
     item_reports* ir;
     InventoryTracker* it;
+    memberPurchase* purchaseReport;
 };
 
 

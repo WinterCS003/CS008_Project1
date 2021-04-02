@@ -37,16 +37,6 @@ void MainWindow::on_quitButton_clicked()
     qApp->closeAllWindows();
 }
 
-
-
-void MainWindow::on_loginButton_clicked()
-{
-    // when 'login' button is clicked, appear a page where user can
-    //  input member id #,
-    // member class
-    // program reads from txt file of all members and sales?
-}
-
 void MainWindow::on_dailySales_clicked()
 {
     dailySale = new daily_sales(nullptr, &all_sales, &mc);
@@ -84,4 +74,10 @@ void MainWindow::on_itemReport_clicked()
 {
     ir = new item_reports(nullptr, &all_sales, &iv);
     ir->show();
+}
+
+void MainWindow::on_purchaseReports_clicked()
+{
+    purchaseReport = new memberPurchase(nullptr, &all_sales, &mc, &iv);
+    purchaseReport->show();
 }

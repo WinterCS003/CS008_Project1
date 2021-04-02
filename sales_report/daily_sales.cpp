@@ -152,7 +152,7 @@ void daily_sales::generate_daily_daily_sales(std::string date, int flag)
         report_output += "\n\n";
     }
     // total revenue of all sales on the given date
-    report_output += "Total Revenue: ";
+    report_output += "Total Revenue: $";
     report_output += to_string(unique_sales.getTotalRevenue()).c_str();
     report_output += "\n\n";
 

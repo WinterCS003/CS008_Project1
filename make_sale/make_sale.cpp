@@ -31,8 +31,6 @@ make_sale::make_sale(QWidget *parent, sales_container* sc, Members_Container* mc
     ui->itemName->hide();
     ui->quantityLabel->hide();
     ui->quantity->hide();
-    ui->priceLabel->hide();
-    ui->itemPrice->hide();
     ui->makePurchase->hide();
 
     ui->back->hide();
@@ -60,8 +58,6 @@ void make_sale::switchScreen()
         ui->itemName->hide();
         ui->quantityLabel->hide();
         ui->quantity->hide();
-        ui->priceLabel->hide();
-        ui->itemPrice->hide();
         ui->makePurchase->hide();
     }
     else
@@ -79,8 +75,6 @@ void make_sale::switchScreen()
         ui->itemName->show();
         ui->quantityLabel->show();
         ui->quantity->show();
-        ui->priceLabel->show();
-        ui->itemPrice->show();
         ui->makePurchase->show();
     }
 }
@@ -139,7 +133,13 @@ void make_sale::on_makePurchase_clicked()
     date = ui->date->date().toString("MM/dd/yyyy").toStdString();
     id = ui->Id->value();
     name = ui->itemName->text().toStdString();
-    price = ui->itemPrice->value();
+    int index = my_inventory->search(name);;
+    if(index == -1)
+    {
+        QMessageBox::warning(this, "Warning", "Item does not exist");
+        return;
+    }
+    price = (*my_inventory)[index].get_price();
     quantity = ui->quantity->value();
     sales mysale(date, id, name, price, quantity);
     all_sales->push_back(this, mysale, *my_inventory, *all_members);
@@ -148,6 +148,5 @@ void make_sale::on_makePurchase_clicked()
     ui->date->clear();
     ui->Id->clear();
     ui->itemName->clear();
-    ui->itemPrice->clear();
     ui->quantity->clear();
 }

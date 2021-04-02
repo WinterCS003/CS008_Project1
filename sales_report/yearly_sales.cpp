@@ -143,15 +143,14 @@ void yearly_sales::on_submit_clicked()
     {
         Item i1;
         i1 = (*all_items)[all_items->search(unique_sales[i].getItem())];
-        if(!best.contains(i1.get_item_name()))
-            best.push_back(i1);
+        best.push_back(i1);
     }
     // find 5 worst items by quantity
-    for(size_t i = unique_sales.size() - 1; i >= 0 && worst.size() < 5; i--)
+    for(int i = unique_sales.size() - 1; i >= 0 && worst.size() < 5; i--)
     {
         Item i1;
         i1 = (*all_items)[all_items->search(unique_sales[i].getItem())];
-        if(!worst.contains(i1.get_item_name()))
+        if(!best.contains(i1.get_item_name()))
             worst.push_back(i1);
     }
 
@@ -172,7 +171,7 @@ void yearly_sales::on_submit_clicked()
         output += "\n\n";
     }
     // total revenue of the year
-    output += "Total Revenue: ";
+    output += "Total Revenue: $";
     output += to_string(yearlySales.getTotalRevenue()).c_str();
     output+= "\n\n";
 
@@ -219,7 +218,7 @@ void yearly_sales::on_submit_clicked()
     }
     output += "\n";
     output += "worst items\n";
-    for(int i = 0; i < best.size(); i++)
+    for(int i = 0; i < worst.size(); i++)
     {
         output += worst[i].get_item_name().c_str();
         output += "\n";

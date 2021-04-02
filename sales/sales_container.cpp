@@ -490,6 +490,7 @@ bool sales_container::readFile(std::string name)
         this->push_back(temp);
     }
     in.close();
+    return true;
 }
 
 bool sales_container::outFile(std::string output)
@@ -512,6 +513,19 @@ bool sales_container::contains(sales &s) const
     for(size_t i = 0; i < my_size; i++)
     {
         if(my_list[i] == s)
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+bool sales_container::contains(int id) const
+{
+    for(size_t i = 0; i < my_size; i++)
+    {
+        if(my_list[i].getId() == id)
         {
             return true;
         }
