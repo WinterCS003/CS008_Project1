@@ -17,22 +17,58 @@
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>680</x>
-      <y>0</y>
-      <width>111</width>
-      <height>171</height>
+      <x>614</x>
+      <y>70</y>
+      <width>181</width>
+      <height>251</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <widget class="QPushButton" name="newMember">
+      <widget class="QPushButton" name="manageMembers">
        <property name="font">
         <font>
          <pointsize>6</pointsize>
         </font>
        </property>
        <property name="text">
-        <string>New Member?</string>
+        <string>Manage Members</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="makeSale">
+       <property name="font">
+        <font>
+         <pointsize>7</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Make Sale</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="yearlySales">
+       <property name="font">
+        <font>
+         <pointsize>7</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Yearly Sales Report</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="dailySales">
+       <property name="font">
+        <font>
+         <pointsize>7</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Daily Sales Report</string>
        </property>
       </widget>
      </item>
@@ -62,12 +98,67 @@
      </item>
      <item>
       <widget class="QPushButton" name="dailySales">
+       <property name="font">
+        <font>
+         <pointsize>7</pointsize>
+        </font>
+       </property>
        <property name="text">
         <string>Daily Sales Report</string>
        </property>
       </widget>
      </item>
+     <item>
+      <widget class="QPushButton" name="manageInventory">
+       <property name="font">
+        <font>
+         <family>MS Shell Dlg 2</family>
+         <pointsize>7</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Inventory Tracking</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="itemSold">
+       <property name="font">
+        <font>
+         <pointsize>7</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>All Item Sold Report</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="amountPerYear">
+       <property name="text">
+        <string>Amount Paid Per Year Report</string>
+       </property>
+      </widget>
+     </item>
     </layout>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>621</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>14</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Welcome to Our Super Wholesale Warehouse</string>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -76,7 +167,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>21</height>
+     <height>17</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuSuper_Wholesale_Warehouse">
