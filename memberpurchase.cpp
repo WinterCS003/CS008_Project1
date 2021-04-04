@@ -29,10 +29,10 @@ memberPurchase::memberPurchase(QWidget *parent) :
  *   Return: none
  ***************************************************************/
 
-memberPurchase::memberPurchase(QWidget *parent,
-                               sales_container* sc,
-                               Members_Container* mc,
-                               inventory* iv):
+memberPurchase::memberPurchase(QWidget *parent, // IN  - pointer to window
+                               sales_container* sc, // IN - pointer to all sales made
+                               Members_Container* mc, // IN - ponter to all members
+                               inventory* iv): // IN - pointer to all items in stock
     QWidget(parent),
     ui(new Ui::memberPurchase),
     all_sales(sc),

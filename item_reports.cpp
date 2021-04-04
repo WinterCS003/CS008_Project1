@@ -30,9 +30,11 @@ item_reports::item_reports(QWidget *parent) :
  *   Return: none
  ***************************************************************/
 
-item_reports::item_reports(QWidget *parent,
-                           sales_container* all_sales,
-                           inventory* all_items):
+item_reports::item_reports(QWidget *parent, // IN - pointer to window
+                           sales_container* all_sales, // IN - pointer to
+                                                       // all sales made
+                           inventory* all_items): // IN - pointer to all
+                                                  // items in stock
     QWidget(parent),
     ui(new Ui::item_reports),
     all_sales(all_sales),
@@ -116,7 +118,8 @@ void item_reports::on_back_clicked()
  *   Return: none - report on single item is generated
  ***************************************************************/
 
-void item_reports::singleItemReport(std::string itemName)
+void item_reports::singleItemReport(std::string itemName) // IN - name of item to
+                                                          //      report
 {
     sales_container output;
     for(size_t i = 0; i < all_sales->size(); i++)
