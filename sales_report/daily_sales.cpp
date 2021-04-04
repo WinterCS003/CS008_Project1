@@ -1,6 +1,12 @@
 #include "daily_sales.h"
 #include "ui_daily_sales.h"
 
+/****************************************************************
+ * daily_sales(QWidget* parent = nullptr);
+ *   Constructor; create a new window
+ *   Parameters: parent (QWidget*) // IN - pointer to widget
+ *   Return: none
+ ***************************************************************/
 daily_sales::daily_sales(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::daily_sales)
@@ -10,6 +16,17 @@ daily_sales::daily_sales(QWidget *parent)
     ui->goBack->hide();
 }
 
+/****************************************************************
+ *   daily_sales(QWidget *parent,
+ *               sales_container* sc,
+ *               Members_Container* mc);
+ *   Constructor; create a new window and initializes all member
+ *                attributes to the parameters.
+ *   Parameters: parent (QWidget*) // IN - pointer to window
+ *               sc (sales_container*) // IN - all sales made
+ *               mc (Members_Container*) // IN - container of members
+ *   Return: none
+ ***************************************************************/
 daily_sales::daily_sales(QWidget *parent, sales_container* sc, Members_Container* mc)
     : QWidget(parent)
     , ui(new Ui::daily_sales)
@@ -22,11 +39,28 @@ daily_sales::daily_sales(QWidget *parent, sales_container* sc, Members_Container
     members = mc;
 }
 
+/****************************************************************
+ * ~daily_sales();
+ *   Destructor; Frees memory used by the ui pointer
+ *   Parameters: none
+ *   Return: none
+ ***************************************************************/
 daily_sales::~daily_sales()
 {
     delete ui;
 }
 
+/****************************************************************
+ * void on_submit_clicked();
+ *
+ *   Accessor; This method will submit input from the user to
+ *             generate a report. generate_daily_daily_sales is
+ *             called
+ * --------------------------------------------------------------
+ *   Parameters: none
+ * --------------------------------------------------------------
+ *   Return: none
+ ***************************************************************/
 void daily_sales::on_submit_clicked()
 {
     switchScreen();
@@ -55,6 +89,30 @@ void daily_sales::on_submit_clicked()
     generate_daily_daily_sales(sdDate, flag);
 }
 
+/****************************************************************
+ * void on_goBack_clicked();
+ *
+ *   Accessor; This method will call switch screen
+ * --------------------------------------------------------------
+ *   Parameters: none
+ * --------------------------------------------------------------
+ *   Return: none
+ ***************************************************************/
+void daily_sales::on_goBack_clicked()
+{
+    switchScreen();
+}
+
+/****************************************************************
+ * void switchScreen();
+ *
+ *   Accessor; This method will toggle between the report and
+ *             input screens
+ * --------------------------------------------------------------
+ *   Parameters: none
+ * --------------------------------------------------------------
+ *   Return: none
+ ***************************************************************/
 void daily_sales::switchScreen()
 {
     if(ui->report->isHidden())
@@ -79,9 +137,23 @@ void daily_sales::switchScreen()
     }
 }
 
-// flag - 0 = Basic only
-//        1 = Preferred
-//        2 = both
+
+/****************************************************************
+ * void generate_daily_daily_sales(std::string date,
+ *                                 int flag);
+ *
+ *   Accessor; This method will create a report of all sales
+ *             made on the date. User can specify a flag to
+ *             toggle between member types
+ * --------------------------------------------------------------
+ *   Parameters: date (std::string) // IN - date of sales to find
+ *               flag (int) // IN - member type
+ *                          // 0 = basic
+ *                          // 1 = preferrred
+ *                          // 2 = both
+ * --------------------------------------------------------------
+ *   Return: none - report is output to the screen
+ ***************************************************************/
 void daily_sales::generate_daily_daily_sales(std::string date, int flag)
 {
     report_output = report_output.fromStdString(("----------Date: " + date + "----------\n\n"));
@@ -155,7 +227,8 @@ void daily_sales::generate_daily_daily_sales(std::string date, int flag)
     }
     // total revenue of all sales on the given date
     report_output += "Total Revenue: $";
-    report_output += to_string(unique_sales.getTotalRevenue()).c_str();
+    double revenue = std::ceil(unique_sales.getTotalRevenue()*100.0)/100.0;
+    report_output += to_string(revenue).c_str();
     report_output += "\n\n";
 
     report_output += "List of Members:\n";
@@ -195,9 +268,4 @@ void daily_sales::generate_daily_daily_sales(std::string date, int flag)
 
     ui->report->show();
     ui->report->setText(report_output);
-}
-
-void daily_sales::on_goBack_clicked()
-{
-    switchScreen();
 }

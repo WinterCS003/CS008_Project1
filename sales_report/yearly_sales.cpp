@@ -2,6 +2,15 @@
 #include "ui_yearly_sales.h"
 #include <algorithm>
 
+/****************************************************************
+ * explicit yearly_sales(QWidget *parent = nullptr);
+ *
+ *   Constructor; Initialize class attributes
+ *
+ *   Parameters: parent (QWidget*) // IN - pointer to window
+ *
+ *   Return: none
+ ***************************************************************/
 yearly_sales::yearly_sales(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::yearly_sales)
@@ -9,10 +18,24 @@ yearly_sales::yearly_sales(QWidget *parent) :
     ui->setupUi(this);
 }
 
-yearly_sales::yearly_sales(QWidget *parent,
-                           sales_container* all_sales,
-                           Members_Container* mc,
-                           inventory* iv):
+/****************************************************************
+ * yearly_sales(QWidget *parent,
+ *              sales_container* all_sales,
+ *              Members_Container* mc,
+ *              inventory* iv);
+ *
+ *   Constructor; Initialize class attributes, create new window
+ *
+ *   Parameters: QWidget *parent, // IN - pointer to window
+ *               sales_container* all_sales, // IN - all sales made
+ *               Members_Container* mc, // IN - all members
+ *               inventory* iv // IN - all items in stock
+ *   Return: none
+ ***************************************************************/
+yearly_sales::yearly_sales(QWidget *parent, // IN - pointer to window
+                           sales_container* all_sales, // IN - all sales made
+                           Members_Container* mc, // IN - all members
+                           inventory* iv): // IN - all items in stock
     QWidget(parent),
     ui(new Ui::yearly_sales)
 {
@@ -25,11 +48,42 @@ yearly_sales::yearly_sales(QWidget *parent,
     this->all_items = iv;
 }
 
+/****************************************************************
+ * ~yearly_sales();
+ *   Destructor; Frees memory used by ui, widget pointer
+ *   Parameters: none
+ *   Return: none
+ ***************************************************************/
 yearly_sales::~yearly_sales()
 {
     delete ui;
 }
 
+/****************************************************************
+ * void on_goBack_clicked();
+ *
+ *   Accessor; This method will call switch screen, and lets the
+ *             user toggle between the report and input
+ * --------------------------------------------------------------
+ *   Parameters: none
+ * --------------------------------------------------------------
+ *   Return: none
+ ***************************************************************/
+void yearly_sales::on_goBack_clicked()
+{
+    switchScreen();
+}
+
+/****************************************************************
+ * void switchScreen();
+ *
+ *   Accessor; This method will toggle between the report and
+ *             user input windows
+ * --------------------------------------------------------------
+ *   Parameters: none
+ * --------------------------------------------------------------
+ *   Return: none
+ ***************************************************************/
 void yearly_sales::switchScreen()
 {
     // if on input screen
@@ -56,17 +110,31 @@ void yearly_sales::switchScreen()
     }
 }
 
+/****************************************************************
+ * void clearInput();
+ *
+ *   Accessor; This method will clear all input from the user
+ * --------------------------------------------------------------
+ *   Parameters: none
+ * --------------------------------------------------------------
+ *   Return: none
+ ***************************************************************/
 void yearly_sales::clearInput()
 {
     ui->yearInput->clear();
     ui->yearlyReport->clear();
 }
 
-void yearly_sales::on_goBack_clicked()
-{
-    switchScreen();
-}
-
+/****************************************************************
+ * void on_submit_clicked();
+ *
+ *   Accessor; This method will take user input and generate a
+ *             report of all yearly sales made
+ * --------------------------------------------------------------
+ *   Parameters: none
+ * --------------------------------------------------------------
+ *   Return: none - report is output to window
+ ***************************************************************/
 void yearly_sales::on_submit_clicked()
 {
     int year = ui->yearInput->value();
@@ -159,21 +227,22 @@ void yearly_sales::on_submit_clicked()
     output += to_string(year).c_str();
     output += "---------------\n";
     // second pass, generate output for all sales in the year
-    for(unsigned int i = 0; i < yearlySales.size(); i++)
+    for(unsigned int i = 0; i < unique_sales.size(); i++)
     {
         // Item name
         output += "Item Name: ";
-        output += yearlySales[i].getItem().c_str();
+        output += unique_sales[i].getItem().c_str();
         output += "\n";
 
         // Item Quantity
         output += "Item Quantity: ";
-        output += to_string(yearlySales.getItemQuantity(yearlySales[i].getItem())).c_str();
+        output += to_string(unique_sales.getItemQuantity(unique_sales[i].getItem())).c_str();
         output += "\n\n";
     }
     // total revenue of the year
     output += "Total Revenue: $";
-    output += to_string(yearlySales.getTotalRevenue()).c_str();
+    double revenue = std::ceil(unique_sales.getTotalRevenue()*100.0)/100.0;
+    output += to_string(revenue).c_str();
     output+= "\n\n";
 
     // list of members
@@ -185,7 +254,7 @@ void yearly_sales::on_submit_clicked()
     // all members who shopped
     for(unsigned int i = 0; i < yearlySales.size(); i++)
     {
-        int index = all_members->get_member_index(unique_sales[i].getId());
+        int index = all_members->get_member_index(yearlySales[i].getId());
         temp = (*all_members)[index];
         memberName = temp.get_name().c_str();
         if(!output.contains(memberName))

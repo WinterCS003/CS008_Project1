@@ -35,7 +35,6 @@ HEADERS += \
     memberpurchase.h \
     sales_report/daily_sales.h \
     sales_report/yearly_sales.h \
-    vector.h \
     # sales classes
     sales/sales.h \
     sales/sales_container.h \

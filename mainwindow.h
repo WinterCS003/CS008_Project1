@@ -3,20 +3,26 @@
 
 #include <QMainWindow>
 
-#include "item_reports.h"
-#include "inventorytracker.h"
+// item libraries
 #include "item.h"
+#include "inventory.h"
 
 // sales libraries
-#include "sales_report/daily_sales.h"
-#include "sales_report/yearly_sales.h"
+#include "sales/sales.h"
+#include "sales/sales_container.h"
 #include "make_sale/make_sale.h"
 
-// member libraries
+// Member libraries
 #include "member.h"
 #include "members_container.h"
 #include "managemembers.h"
+
+// report libraries
 #include "memberpurchase.h"
+#include "item_reports.h"
+#include "inventorytracker.h"
+#include "sales_report/daily_sales.h"
+#include "sales_report/yearly_sales.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -61,7 +67,5 @@ private:
     InventoryTracker* it;
     memberPurchase* purchaseReport;
 };
-
-
 
 #endif // MAINWINDOW_H

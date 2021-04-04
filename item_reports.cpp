@@ -3,12 +3,32 @@
 
 #include <algorithm>
 
+/****************************************************************
+ * item_reports(QWidget* parent = nullptr);
+ *   Constructor; Initialize class attributes to null
+ *   Parameters: parent (QWidget*) // IN - pointer to window
+ *   Return: none
+ ***************************************************************/
+
 item_reports::item_reports(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::item_reports)
 {
     ui->setupUi(this);
 }
+
+/****************************************************************
+ * item_reports(QWidget *parent,
+                 sales_container* all_sales,
+                 inventory* all_items);
+ *   Constructor; Initialize class attributes
+ *   Parameters: parent (QWidget*) // IN - pointer to window
+                 all_sales (sales_container*) // IN - pointer to
+                                              // all sales made
+                 all_items (inventory*) // IN - pointer to all
+                                        // items in stock
+ *   Return: none
+ ***************************************************************/
 
 item_reports::item_reports(QWidget *parent,
                            sales_container* all_sales,
@@ -24,10 +44,28 @@ item_reports::item_reports(QWidget *parent,
     ui->back->hide();
 }
 
+/****************************************************************
+ * ~item_reports();
+ *   Destructor; Frees memory used by the window
+ *   Parameters: none
+ *   Return: none
+ ***************************************************************/
+
 item_reports::~item_reports()
 {
     delete ui;
 }
+
+/****************************************************************
+ * void on_submitButton_clicked();
+ *
+ *   Accessor; This method will generate a report of all items
+ *     or a single items based on user input.
+ * --------------------------------------------------------------
+ *   Parameters: none
+ * --------------------------------------------------------------
+ *   Return: none - report is generated
+ ***************************************************************/
 
 void item_reports::on_submitButton_clicked()
 {
@@ -49,6 +87,34 @@ void item_reports::on_submitButton_clicked()
         singleItemReport(itemName);
     }
 }
+
+/****************************************************************
+ * void on_back_clicked();
+ *
+ *   Accessor; This method will call switchScreen and allow the
+ *     user to toggle between input and report.
+ * --------------------------------------------------------------
+ *   Parameters: none
+ * --------------------------------------------------------------
+ *   Return: none - screen is changed
+ ***************************************************************/
+
+void item_reports::on_back_clicked()
+{
+    switchScreen();
+}
+
+/****************************************************************
+ *  void singleItemReport(std::string itemName);
+ *
+ *   Accessor; This method will generate a report on a single
+ *     item, sold and in stock based off of an itemName.
+ * --------------------------------------------------------------
+ *   Parameters: itemName (std::string) // IN - name of item to
+ *                                      //      report
+ * --------------------------------------------------------------
+ *   Return: none - report on single item is generated
+ ***************************************************************/
 
 void item_reports::singleItemReport(std::string itemName)
 {
@@ -95,6 +161,17 @@ void item_reports::singleItemReport(std::string itemName)
 
     ui->report->setText(report);
 }
+
+/****************************************************************
+ * void allItemReport();
+ *
+ *   Accessor; This method will generate a report on all items
+ *     in the all_items container.
+ * --------------------------------------------------------------
+ *   Parameters: none
+ * --------------------------------------------------------------
+ *   Return: none - report is generated
+ ***************************************************************/
 
 void item_reports::allItemReport()
 {
@@ -146,6 +223,18 @@ void item_reports::allItemReport()
     ui->report->setText(output);
 }
 
+/****************************************************************
+ * void switchScreen();
+ *
+ *   Accessor; This method will switch between the input and
+ *     report screens.
+ * --------------------------------------------------------------
+ *   Parameters: none
+ * --------------------------------------------------------------
+ *   Return: none - this method will allow the user to switch
+ *                  screens
+ ***************************************************************/
+
 void item_reports::switchScreen()
 {
     // input screen
@@ -171,7 +260,3 @@ void item_reports::switchScreen()
     }
 }
 
-void item_reports::on_back_clicked()
-{
-    switchScreen();
-}

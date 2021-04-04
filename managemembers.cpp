@@ -143,9 +143,9 @@ void manageMembers::on_membersFromFile_clicked() {
 
 void manageMembers::on_submitFile_clicked() {
 
-    ui->input_1_name->clear();
     QString input;
     input =  ui->input_1_name->text();
+    ui->input_1_name->clear();
     std::string file_name = input.toStdString();
 
     if (members->validateMemberFile(file_name)) {
@@ -216,6 +216,8 @@ void manageMembers::on_submitDelete_clicked()
     ui->label_2_mem_ID->hide();
     ui->input_2_mem_ID->hide();
     ui->submitDelete->hide();
+    ui->input_1_name->clear();
+    ui->input_2_mem_ID->clear();
 
     members->remove_member(number);
 
@@ -265,6 +267,8 @@ void manageMembers::on_displayButton_clicked() {
 
     mem_name = ui->input_1_name->text();
     mem_number = ui->input_2_mem_ID->text();
+    ui->input_1_name->clear();
+    ui->input_2_mem_ID->clear();
 
     int id_number = mem_number.toInt();
 
@@ -461,7 +465,7 @@ void manageMembers::on_printTotalRebates_clicked()
     output += "\n\n";
     output += "Total Rebate given: $";
     output += to_string((premiumOnly.getTotalRevenue()/1.875)*1.05).c_str();
-    output += "---------End Report---------";
+    output += "\n\n---------End Report---------";
 
     ui->display->setText(output);
 }

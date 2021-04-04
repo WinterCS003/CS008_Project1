@@ -10,6 +10,12 @@
     <height>600</height>
    </rect>
   </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
@@ -17,18 +23,21 @@
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>644</x>
-      <y>0</y>
+      <x>630</x>
+      <y>10</y>
       <width>151</width>
       <height>286</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
+     <property name="sizeConstraint">
+      <enum>QLayout::SetFixedSize</enum>
+     </property>
      <item>
       <widget class="QPushButton" name="manageMembers">
        <property name="font">
         <font>
-         <pointsize>6</pointsize>
+         <pointsize>10</pointsize>
         </font>
        </property>
        <property name="text">
@@ -38,6 +47,11 @@
      </item>
      <item>
       <widget class="QPushButton" name="makeSale">
+       <property name="font">
+        <font>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
        <property name="text">
         <string>Make Sale</string>
        </property>
@@ -45,6 +59,11 @@
      </item>
      <item>
       <widget class="QPushButton" name="yearlySales">
+       <property name="font">
+        <font>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
        <property name="text">
         <string>Yearly Sales Report</string>
        </property>
@@ -52,29 +71,9 @@
      </item>
      <item>
       <widget class="QPushButton" name="dailySales">
-       <property name="text">
-        <string>Daily Sales Report</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="quitButton">
        <property name="font">
         <font>
-         <pointsize>6</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Quit</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="dailySales">
-       <property name="font">
-        <font>
-         <family>MS Shell Dlg 2</family>
-         <pointsize>8</pointsize>
+         <pointsize>10</pointsize>
         </font>
        </property>
        <property name="text">
@@ -87,7 +86,7 @@
        <property name="font">
         <font>
          <family>MS Shell Dlg 2</family>
-         <pointsize>7</pointsize>
+         <pointsize>10</pointsize>
         </font>
        </property>
        <property name="text">
@@ -97,6 +96,11 @@
      </item>
      <item>
       <widget class="QPushButton" name="itemReport">
+       <property name="font">
+        <font>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
        <property name="text">
         <string>Item Reports</string>
        </property>
@@ -106,6 +110,18 @@
       <widget class="QPushButton" name="purchaseReports">
        <property name="text">
         <string>Purchase Reports</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="quitButton">
+       <property name="font">
+        <font>
+         <pointsize>6</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Quit</string>
        </property>
       </widget>
      </item>

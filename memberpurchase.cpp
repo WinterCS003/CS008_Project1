@@ -2,12 +2,32 @@
 #include "ui_memberpurchase.h"
 #include <algorithm>
 
+/****************************************************************
+ * memberPurchase(QWidget *parent = nullptr);
+ *   Constructor; Null initializes class attributes
+ *   Parameters: parent (QWidget*) // IN - pointer to window
+ *   Return: none
+ ***************************************************************/
+
 memberPurchase::memberPurchase(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::memberPurchase)
 {
     ui->setupUi(this);
 }
+
+/****************************************************************
+ * memberPurchase(QWidget* parent,
+                   sales_container* sc,
+                   Members_Container* mc,
+                   inventory* iv);
+ *   Constructor; Initialize class attributes
+ *   Parameters: parent (QWidget*) // IN  - pointer to window
+                   sc (sales_container*) // IN - pointer to all sales made
+                   mc (Members_Container*) // IN - ponter to all members
+                   iv (inventory*) // IN - pointer to all items in stock
+ *   Return: none
+ ***************************************************************/
 
 memberPurchase::memberPurchase(QWidget *parent,
                                sales_container* sc,
@@ -25,15 +45,44 @@ memberPurchase::memberPurchase(QWidget *parent,
     ui->back->hide();
 }
 
+/****************************************************************
+ * ~memberPurchase();
+ *   Destructor; Frees memory used by the window
+ *   Parameters: none
+ *   Return: none
+ ***************************************************************/
+
 memberPurchase::~memberPurchase()
 {
     delete ui;
 }
 
+/****************************************************************
+ * void on_back_clicked();
+ *
+ *   Accessor; This method will call the switchScreen method
+ *     and allows the user to toggle between input and report
+ * --------------------------------------------------------------
+ *   Parameters: none
+ * --------------------------------------------------------------
+ *   Return: none - screen is switched
+ ***************************************************************/
+
 void memberPurchase::on_back_clicked()
 {
     switchScreen();
 }
+
+/****************************************************************
+ * void singleMemberReport(int id);
+ *
+ *   Accessor; This method will generate a report of all sales
+ *     made by a single member based on their id number.
+ * --------------------------------------------------------------
+ *   Parameters: id (int) // IN - id number of member
+ * --------------------------------------------------------------
+ *   Return: none - report on a single user is generated
+ ***************************************************************/
 
 void memberPurchase::on_submit_clicked()
 {
@@ -110,6 +159,17 @@ void memberPurchase::on_submit_clicked()
     }
 }
 
+/****************************************************************
+ * void allMemberReport();
+ *
+ *   Accessor; This method will generate a report of all
+ *     sales made by every member in the all_members container.
+ * --------------------------------------------------------------
+ *   Parameters: none
+ * --------------------------------------------------------------
+ *   Return: none - report is generated for all members
+ ***************************************************************/
+
 void memberPurchase::allMemberReport()
 {
     sales_container output;
@@ -172,6 +232,18 @@ void memberPurchase::allMemberReport()
 
     ui->report->setText(report);
 }
+
+/****************************************************************
+ * void switchScreen();
+ *
+ *   Accessor; This method will allow the user to toggle between
+ *     input and report screens.
+ * --------------------------------------------------------------
+ *   Parameters: none
+ * --------------------------------------------------------------
+ *   Return: none - screen is switched
+ ***************************************************************/
+
 void memberPurchase::switchScreen()
 {
     // on report screen

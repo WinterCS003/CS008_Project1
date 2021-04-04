@@ -21,7 +21,7 @@ public:
     sales_container(unsigned int size,         // IN - size of new container
                     const sales& initial);     // IN - first sale object
     sales_container(const sales_container& v); // copy constructor
-    ~sales_container();  // destructor
+    ~sales_container();  // destructor - delete all sales
 
     /***************
      ** ACCESSORS **
@@ -38,8 +38,9 @@ public:
     int getItemQuantity(std::string item) const; // item to search
     bool contains(sales& s) const;
     bool contains(int id) const;
-    sales* begin(){return &my_list[0];}
-    sales* end(){return &my_list[my_size];}
+    sales* begin() const {return &my_list[0];}
+    sales* end() const {return &my_list[my_size];}
+    bool outFile(std::string output) const;
 
 
     /**************
@@ -67,7 +68,6 @@ public:
                   inventory& inventory,
                   Members_Container& members);
     bool readFile(std::string name);
-    bool outFile(std::string output);
 
 private:
     unsigned int my_capacity; // IN - allocated size of container
@@ -200,6 +200,103 @@ private:
  *                         -1 is returned if parameter not found
  ***************************************************************/
 
+/****************************************************************
+ * int find(std::string name) const;
+ *
+ *   Accessor; This method will return the index of the first
+ *             instance found of sale of passed item name.
+ * --------------------------------------------------------------
+ *   Parameters: name (std::string) // IN - item name to search
+ *                                          for
+ * --------------------------------------------------------------
+ *   Return: index (int) - index of the item name to find
+ *                         -1 is returned if parameter not found
+ ***************************************************************/
+
+/****************************************************************
+ * int find(int id) const;
+ *
+ *   Accessor; This method will return the index of the first
+ *             sale made by the passed member id
+ * --------------------------------------------------------------
+ *   Parameters: id (int) // IN - member id to search for
+ * --------------------------------------------------------------
+ *   Return: index (int) - index of the member id to find
+ *                         -1 is returned if parameter not found
+ ***************************************************************/
+
+/****************************************************************
+ * int getItemQuantity(std::string item) const;
+ *
+ *   Accessor; This method will return the total number of item
+ *             stored in the container.
+ * --------------------------------------------------------------
+ *   Parameters: item (std::string) // IN - item name to search
+ *                                          for
+ * --------------------------------------------------------------
+ *   Return: (int) - total number of item name passed from
+ *                   parameter found in the container.
+ ***************************************************************/
+
+/****************************************************************
+ * bool contains(sales& s) const;
+ *
+ *   Accessor; This method will return true if passed sale can
+ *             be found in the sales container.
+ * --------------------------------------------------------------
+ *   Parameters: s (sales&) // IN - sale to search for
+ * --------------------------------------------------------------
+ *   Return: (bool) - true if sale found in sales container, false
+ *                    otherwise.
+ ***************************************************************/
+
+/****************************************************************
+ * bool contains(int id) const;
+ *
+ *   Accessor; This method will return true if the sales container
+ *             has a sale by member with the passed id.
+ * --------------------------------------------------------------
+ *   Parameters: id (int) // IN - member id to seach for
+ * --------------------------------------------------------------
+ *   Return: (bool) - true if id found in sales container, false
+ *                    otherwise.
+ ***************************************************************/
+
+/****************************************************************
+ * sales* begin() const
+ *
+ *   Accessor; This method will return a pointer to the first
+ *             element
+ * --------------------------------------------------------------
+ *   Parameters: none
+ * --------------------------------------------------------------
+ *   Return: sales (sales*) - pointer to the first element
+ ***************************************************************/
+
+/****************************************************************
+ * sales* end() const
+ *
+ *   Accessor; This method will return a pointer to the position
+ *             after the last element
+ * --------------------------------------------------------------
+ *   Parameters: none
+ * --------------------------------------------------------------
+ *   Return: sales (sales*) - pointer to the position after the
+ *                            last element
+ ***************************************************************/
+
+/****************************************************************
+ *   bool outFile(std::string output) const;
+ *
+ *   Accessor; This method will print all sales in the container
+ *             into a txt file
+ * --------------------------------------------------------------
+ *   Parameters: output (std::string)// IN - file name to output
+ *                                           to
+ * --------------------------------------------------------------
+ *   Return: (bool) - true on success, false otherwise
+ ***************************************************************/
+
 /**************
  ** MUTATORS **
  **************/
@@ -211,6 +308,24 @@ private:
  *   object
  *------------------------------------------------------------------
  *   Parameter: value (sales&) // IN – sales to add to end of object
+ *------------------------------------------------------------------
+ *   Return: none
+ *******************************************************************/
+
+/*******************************************************************
+ * void sales_container::push_back(QWidget* parent,
+ *                                 const sales& value,
+ *                                 inventory& inventory,
+ *                                 Members_Container& all_members)
+ *
+ *   Mutator; This method will add the parameter to the end of the
+ *   object
+ *------------------------------------------------------------------
+ *   Parameter: parent (QWidget*) // IN - QWidget to print errors to
+ *              value (const sales&) // IN - sale to add to container
+ *              inventory (inventory&) // IN - container of all items
+ *              members (Members_Container&) // IN - container of
+ *                                               all members, for errors
  *------------------------------------------------------------------
  *   Return: none
  *******************************************************************/
@@ -260,17 +375,6 @@ private:
  *******************************************************************/
 
 /*******************************************************************
- * sales_container& operator+=(const sales& item);
- *
- *   Mutator; This method will append the sales from the parameter
- *   into this object
- *------------------------------------------------------------------
- *   Parameter: item (sales&) // IN – new sales to add to object
- *------------------------------------------------------------------
- *   Return: reference to this object
- *******************************************************************/
-
-/*******************************************************************
  * sales_container& operator=(const sales_container& s);
  *
  *   Mutator; This method will override the assignment operator and
@@ -312,4 +416,34 @@ private:
  *   Parameter: none
  *------------------------------------------------------------------
  *   Return: none
+ *******************************************************************/
+
+/*******************************************************************
+ * bool readFile(QWidget* parent,
+                  std::string input,
+                  inventory& inventory,
+                  Members_Container& members);
+ *
+ *   Mutator; This method will read sales from a txt file and save
+ *            them into the container. Inventory is updated and
+ *            error handling is put in place.
+ *------------------------------------------------------------------
+ *   Parameter: parent (QWidget*) // IN - QWidget to print errors to
+ *              input (std::string) // IN - txt file to read from
+ *              inventory (inventory&) // IN - container of all items
+ *              members (Members_Container&) // IN - container of
+                                                all members, for errors
+ *------------------------------------------------------------------
+ *   Return: bool - true on success, false otherwise
+ *******************************************************************/
+
+/*******************************************************************
+ * bool readFile(std::string name)
+ *
+ *   Mutator; This method will read sales from a txt file and save
+ *            them into the container without updating the inventory
+ *------------------------------------------------------------------
+ *   Parameter: name (std::string) // IN - name of txt file to read
+ *------------------------------------------------------------------
+ *   Return: bool - true on success, false otherwise
  *******************************************************************/
