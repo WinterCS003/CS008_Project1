@@ -43,7 +43,7 @@
      <rect>
       <x>290</x>
       <y>140</y>
-      <width>241</width>
+      <width>263</width>
       <height>244</height>
      </rect>
     </property>
@@ -158,16 +158,6 @@
     </property>
     <property name="text">
      <string>Back</string>
-    </property>
-   </widget>
-   <widget class="QTextBrowser" name="textBrowser">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>140</y>
-      <width>256</width>
-      <height>192</height>
-     </rect>
     </property>
    </widget>
   </widget>

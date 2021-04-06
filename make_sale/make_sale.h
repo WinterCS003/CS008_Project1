@@ -45,7 +45,6 @@ private slots:
 
 
 private:
-    void printReport();
     void switchScreen();
 
     Ui::make_sale *ui; // IN - pointer to the window

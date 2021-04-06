@@ -99,37 +99,6 @@ void make_sale::on_back_clicked()
 }
 
 /****************************************************************
- * void printReport();
- *
- *   Accessor; This method will print a report of all sales made
- *             mainly for debugging purposes
- * --------------------------------------------------------------
- *   Parameters: none
- * --------------------------------------------------------------
- *   Return: none - output to widget
- ***************************************************************/
-void make_sale::printReport()
-{
-    QString report;
-    report += to_string((*all_sales).size()).c_str();
-    report += " Sales made\n";
-    for(unsigned int i = 0; i < (*all_sales).size(); i++)
-    {
-        report += (*all_sales)[i].getDate().c_str();
-        report += "\n";
-        report += to_string((*all_sales)[i].getId()).c_str();
-        report += "\n";
-        report += (*all_sales)[i].getItem().c_str();
-        report += "\n";
-        report += to_string((*all_sales)[i].getPrice()).c_str();
-        report += "\n";
-        report += to_string((*all_sales)[i].getQuantity()).c_str();
-        report += "\n\n";
-    }
-    ui->textBrowser->setText(report);
-}
-
-/****************************************************************
  * void switchScreen();
  *
  *   Accessor; This method will switch the screen between
@@ -196,8 +165,6 @@ void make_sale::on_fileInput_clicked()
         QMessageBox::warning(this, "Warning", "Cannot open file");
         return;
     }
-
-    printReport();
 }
 
 /*******************************************************************
@@ -245,7 +212,6 @@ void make_sale::on_makePurchase_clicked()
     quantity = ui->quantity->value();
     sales mysale(date, id, name, price, quantity);
     all_sales->push_back(this, mysale, *my_inventory, *all_members);
-    printReport();
 
     ui->date->clear();
     ui->Id->clear();
