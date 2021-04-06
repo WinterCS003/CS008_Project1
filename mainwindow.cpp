@@ -6,7 +6,7 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
-    // update containers to have all previous sales
+    // update containers to have all previous info
     iv.readFile("all-items.txt");
     mc.add_bulk_members("all-members.txt");
     all_sales.readFile("all-sales.txt");
@@ -22,10 +22,6 @@ MainWindow::~MainWindow()
     mc.outFile("all-members.txt");
 
     // deallocate all pointers
-    delete mM;
-    delete dailySale;
-    delete yearlySale;
-    delete ms;
     delete ui;
     delete it;
     delete ir;
@@ -33,7 +29,11 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_quitButton_clicked()
 {
-    all_sales.outFile("./containers/all-sales.txt");
+    // save contents of containers for next execution
+    all_sales.outFile("all-sales.txt");
+    iv.outFile("all-items.txt");
+    mc.outFile("all-members.txt");
+
     qApp->closeAllWindows();
 }
 

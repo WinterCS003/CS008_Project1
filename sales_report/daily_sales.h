@@ -34,10 +34,7 @@ private slots:
      ***************/
     void on_submit_clicked();
 
-    void on_goBack_clicked();
-
 private:
-    void switchScreen();
     void generate_daily_daily_sales(std::string date,
                                     int flag);
 

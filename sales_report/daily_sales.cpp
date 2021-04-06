@@ -12,8 +12,6 @@ daily_sales::daily_sales(QWidget *parent)
     , ui(new Ui::daily_sales)
 {
     ui->setupUi(this);
-    ui->report->hide();
-    ui->goBack->hide();
 }
 
 /****************************************************************
@@ -32,8 +30,6 @@ daily_sales::daily_sales(QWidget *parent, sales_container* sc, Members_Container
     , ui(new Ui::daily_sales)
 {
     ui->setupUi(this);
-    ui->report->hide();
-    ui->goBack->hide();
 
     report = sc;
     members = mc;
@@ -63,8 +59,7 @@ daily_sales::~daily_sales()
  ***************************************************************/
 void daily_sales::on_submit_clicked()
 {
-    switchScreen();
-
+    ui->report->clear();
     QDate date = ui->dateEdit->date();
     QString sDate = date.toString("MM/dd/yyyy");
     std::string sdDate = sDate.toStdString();
@@ -90,55 +85,6 @@ void daily_sales::on_submit_clicked()
 }
 
 /****************************************************************
- * void on_goBack_clicked();
- *
- *   Accessor; This method will call switch screen
- * --------------------------------------------------------------
- *   Parameters: none
- * --------------------------------------------------------------
- *   Return: none
- ***************************************************************/
-void daily_sales::on_goBack_clicked()
-{
-    switchScreen();
-}
-
-/****************************************************************
- * void switchScreen();
- *
- *   Accessor; This method will toggle between the report and
- *             input screens
- * --------------------------------------------------------------
- *   Parameters: none
- * --------------------------------------------------------------
- *   Return: none
- ***************************************************************/
-void daily_sales::switchScreen()
-{
-    if(ui->report->isHidden())
-    {
-        ui->date->hide();
-        ui->dateEdit->hide();
-        ui->preferred->hide();
-        ui->basic->hide();
-        ui->submit->hide();
-        ui->report->show();
-        ui->goBack->show();
-    }
-    else
-    {
-        ui->report->hide();
-        ui->date->show();
-        ui->dateEdit->show();
-        ui->preferred->show();
-        ui->basic->show();
-        ui->submit->show();
-        ui->goBack->hide();
-    }
-}
-
-
-/****************************************************************
  * void generate_daily_daily_sales(std::string date,
  *                                 int flag);
  *
@@ -156,6 +102,7 @@ void daily_sales::switchScreen()
  ***************************************************************/
 void daily_sales::generate_daily_daily_sales(std::string date, int flag)
 {
+    ui->report->clear();
     report_output = report_output.fromStdString(("----------Date: " + date + "----------\n\n"));
     sales_container dailySale;
 
@@ -174,7 +121,7 @@ void daily_sales::generate_daily_daily_sales(std::string date, int flag)
             }
             else if(flag == 1) // only preferred members
             {
-                if(!(*members)[index].is_premium_member())
+                if((*members)[index].is_premium_member())
                 {
                     dailySale.push_back((*report)[i]);
                 }
@@ -190,7 +137,6 @@ void daily_sales::generate_daily_daily_sales(std::string date, int flag)
     {
         QString warning = date.c_str();
         QMessageBox::warning(this, "Warning", "No sales made on: " + warning);
-        switchScreen();
         return;
     }
 

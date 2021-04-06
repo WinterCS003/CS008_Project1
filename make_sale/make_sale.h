@@ -25,27 +25,23 @@ class make_sale : public QMainWindow
 
 public:
     make_sale(QWidget *parent = nullptr);
-    make_sale(QWidget *parent, sales_container* sc, Members_Container* mc, inventory* i);
+    make_sale(QWidget *parent,
+              sales_container* sc,
+              Members_Container* mc,
+              inventory* i);
     ~make_sale();
 
 private slots:
-    /***************
-     ** ACCESSORS **
-     ***************/
-    void on_back_clicked();
-
     /***************
      ** MUTATORS **
      ***************/
     void on_fileInput_clicked();
 
-    void on_manualSale_clicked();
-
     void on_makePurchase_clicked();
 
 
 private:
-    void switchScreen();
+    void printReport();
 
     Ui::make_sale *ui; // IN - pointer to the window
     sales_container* all_sales; // IN - all sales made

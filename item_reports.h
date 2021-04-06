@@ -27,12 +27,9 @@ private slots:
      ***************/
     void on_submitButton_clicked();
 
-    void on_back_clicked();
-
 private:
     void singleItemReport(std::string itemName);
     void allItemReport();
-    void switchScreen();
 
     Ui::item_reports *ui;
     sales_container* all_sales;

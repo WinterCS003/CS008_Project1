@@ -40,9 +40,6 @@ memberPurchase::memberPurchase(QWidget *parent, // IN  - pointer to window
     all_items(iv)
 {
     ui->setupUi(this);
-
-    ui->report->hide();
-    ui->back->hide();
 }
 
 /****************************************************************
@@ -58,22 +55,6 @@ memberPurchase::~memberPurchase()
 }
 
 /****************************************************************
- * void on_back_clicked();
- *
- *   Accessor; This method will call the switchScreen method
- *     and allows the user to toggle between input and report
- * --------------------------------------------------------------
- *   Parameters: none
- * --------------------------------------------------------------
- *   Return: none - screen is switched
- ***************************************************************/
-
-void memberPurchase::on_back_clicked()
-{
-    switchScreen();
-}
-
-/****************************************************************
  * void singleMemberReport(int id);
  *
  *   Accessor; This method will generate a report of all sales
@@ -86,7 +67,7 @@ void memberPurchase::on_back_clicked()
 
 void memberPurchase::on_submit_clicked()
 {
-    switchScreen();
+    ui->report->clear();
     if(ui->allMembers->isChecked())
     {
         allMemberReport();
@@ -101,7 +82,6 @@ void memberPurchase::on_submit_clicked()
             if(!all_members->contains(id))
             {
                 QMessageBox::warning(this, "Warning", "Member not found");
-                switchScreen();
                 return;
             }
             for(size_t i = 0; i < all_sales->size(); i++)
@@ -132,7 +112,6 @@ void memberPurchase::on_submit_clicked()
         if(output.size() == 0)
         {
             QMessageBox::warning(this, "Warning", "No sales made by member");
-            switchScreen();
             return;
         }
 
@@ -152,7 +131,8 @@ void memberPurchase::on_submit_clicked()
             report += "\n\n";
         }
         report += "Total amount spent $";
-        report += to_string(output.getTotalRevenue()/1.875).c_str();
+        double revenue = std::ceil((output.getTotalRevenue()/1.875)*100.0)/100.0;
+        report += to_string(revenue).c_str();
         report += "\n\n";
         report += "-----------End report---------";
         ui->report->setText(report);
@@ -172,6 +152,7 @@ void memberPurchase::on_submit_clicked()
 
 void memberPurchase::allMemberReport()
 {
+    ui->report->clear();
     sales_container output;
     output = *all_sales;
 
@@ -202,6 +183,7 @@ void memberPurchase::allMemberReport()
     {
         if(output[i-1].getId() != output[i].getId())
         {
+            total = std::ceil(total*100.0)/100.0;
             report += "Total purchases of member: $";
             report += to_string(total).c_str();
             total = 0.0;
@@ -224,52 +206,13 @@ void memberPurchase::allMemberReport()
         total += output[i].getPrice()*output[i].getQuantity();
     }
     report += "Total purchases of member: $";
+    total = std::ceil(total*100.0)/100.0;
     report += to_string(total).c_str();
     report += "\n\n";
     report += "Grand total of all purchases: $";
-    report += to_string(output.getTotalRevenue()/1.875).c_str();
+    double revenue = std::ceil((output.getTotalRevenue()/1.875)*100.0)/100.0;
+    report += to_string(revenue).c_str();
     report += "\n\n---------End Report---------";
 
     ui->report->setText(report);
-}
-
-/****************************************************************
- * void switchScreen();
- *
- *   Accessor; This method will allow the user to toggle between
- *     input and report screens.
- * --------------------------------------------------------------
- *   Parameters: none
- * --------------------------------------------------------------
- *   Return: none - screen is switched
- ***************************************************************/
-
-void memberPurchase::switchScreen()
-{
-    // on report screen
-    if(ui->submit->isHidden())
-    {
-        ui->report->hide();
-        ui->back->hide();
-        ui->nameInput->clear();
-        ui->nameLabel->show();
-        ui->nameInput->show();
-        ui->idLabel->show();
-        ui->id->show();
-        ui->id->clear();
-        ui->allMembers->show();
-        ui->submit->show();
-    }
-    else
-    {
-        ui->report->clear();
-        ui->report->show();
-        ui->back->show();
-        ui->nameLabel->hide();
-        ui->nameInput->hide();
-        ui->idLabel->hide();
-        ui->id->hide();
-        ui->allMembers->hide();
-        ui->submit->hide();
-    }
 }

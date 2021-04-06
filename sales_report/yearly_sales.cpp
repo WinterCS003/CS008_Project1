@@ -40,8 +40,6 @@ yearly_sales::yearly_sales(QWidget *parent, // IN - pointer to window
     ui(new Ui::yearly_sales)
 {
     ui->setupUi(this);
-    ui->yearlyReport->hide();
-    ui->goBack->hide();
 
     this->all_sales = all_sales;
     this->all_members = mc;
@@ -57,57 +55,6 @@ yearly_sales::yearly_sales(QWidget *parent, // IN - pointer to window
 yearly_sales::~yearly_sales()
 {
     delete ui;
-}
-
-/****************************************************************
- * void on_goBack_clicked();
- *
- *   Accessor; This method will call switch screen, and lets the
- *             user toggle between the report and input
- * --------------------------------------------------------------
- *   Parameters: none
- * --------------------------------------------------------------
- *   Return: none
- ***************************************************************/
-void yearly_sales::on_goBack_clicked()
-{
-    switchScreen();
-}
-
-/****************************************************************
- * void switchScreen();
- *
- *   Accessor; This method will toggle between the report and
- *             user input windows
- * --------------------------------------------------------------
- *   Parameters: none
- * --------------------------------------------------------------
- *   Return: none
- ***************************************************************/
-void yearly_sales::switchScreen()
-{
-    // if on input screen
-    if(ui->yearlyReport->isHidden())
-    {
-        ui->year->hide();
-        ui->yearInput->hide();
-        ui->preferred->hide();
-        ui->basic->hide();
-        ui->submit->hide();
-        ui->yearlyReport->show();
-        ui->goBack->show();
-    }
-    // if on report screen
-    else
-    {
-        ui->year->show();
-        ui->yearInput->show();
-        ui->preferred->show();
-        ui->basic->show();
-        ui->submit->show();
-        ui->yearlyReport->hide();
-        ui->goBack->hide();
-    }
 }
 
 /****************************************************************
@@ -143,7 +90,6 @@ void yearly_sales::on_submit_clicked()
         QMessageBox::warning(this, "Warning", "Please input a valid Year");
         return;
     }
-    switchScreen();
     clearInput();
 
     sales_container yearlySales;
@@ -182,7 +128,6 @@ void yearly_sales::on_submit_clicked()
     {
         QString Qyear = to_string(year).c_str();
         QMessageBox::warning(this, "Warning", "No sales found for: " + Qyear);
-        switchScreen();
         return;
     }
     // find all unique sales, dont repeat names
@@ -280,14 +225,14 @@ void yearly_sales::on_submit_clicked()
     output += to_string(countPremium).c_str();
     output += "\n\n";
     // best and worst items
-    output += "best items\n";
+    output += "----------best items-----------\n";
     for(int i = 0; i < best.size(); i++)
     {
         output += best[i].get_item_name().c_str();
         output += "\n";
     }
     output += "\n";
-    output += "worst items\n";
+    output += "----------worst items----------\n";
     for(int i = 0; i < worst.size(); i++)
     {
         output += worst[i].get_item_name().c_str();

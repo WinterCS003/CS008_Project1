@@ -41,9 +41,6 @@ item_reports::item_reports(QWidget *parent, // IN - pointer to window
     all_items(all_items)
 {
     ui->setupUi(this);
-
-    ui->report->hide();
-    ui->back->hide();
 }
 
 /****************************************************************
@@ -71,7 +68,7 @@ item_reports::~item_reports()
 
 void item_reports::on_submitButton_clicked()
 {
-    switchScreen();
+    ui->report->clear();
     if(ui->allItems->isChecked())
     {
         allItemReport();
@@ -91,22 +88,6 @@ void item_reports::on_submitButton_clicked()
 }
 
 /****************************************************************
- * void on_back_clicked();
- *
- *   Accessor; This method will call switchScreen and allow the
- *     user to toggle between input and report.
- * --------------------------------------------------------------
- *   Parameters: none
- * --------------------------------------------------------------
- *   Return: none - screen is changed
- ***************************************************************/
-
-void item_reports::on_back_clicked()
-{
-    switchScreen();
-}
-
-/****************************************************************
  *  void singleItemReport(std::string itemName);
  *
  *   Accessor; This method will generate a report on a single
@@ -121,6 +102,7 @@ void item_reports::on_back_clicked()
 void item_reports::singleItemReport(std::string itemName) // IN - name of item to
                                                           //      report
 {
+    ui->report->clear();
     sales_container output;
     for(size_t i = 0; i < all_sales->size(); i++)
     {
@@ -154,10 +136,10 @@ void item_reports::singleItemReport(std::string itemName) // IN - name of item t
     report += "Item Quantity in stock: ";
     report += to_string((*all_items)[all_items->search(itemName)].get_quantity()).c_str();
     report += "\n\n";
-    report += "Item price: ";
+    report += "Item price: $";
     report += to_string(output[0].getPrice()).c_str();
     report += "\n";
-    report += "Total revenue: ";
+    report += "Total revenue: $";
     report += to_string(price).c_str();
     report += "\n\n";
     report += "-------------End Report-------------";
@@ -178,6 +160,7 @@ void item_reports::singleItemReport(std::string itemName) // IN - name of item t
 
 void item_reports::allItemReport()
 {
+    ui->report->clear();
     // quantity sorted by name
     sales_container unique_sales;
     for(size_t i = 0; i < all_sales->size(); i++)
@@ -198,7 +181,6 @@ void item_reports::allItemReport()
     if(unique_sales.size() == 0)
     {
         QMessageBox::warning(this, "Warning", "No sales made for item");
-        switchScreen();
         return;
     }
 
@@ -225,41 +207,3 @@ void item_reports::allItemReport()
 
     ui->report->setText(output);
 }
-
-/****************************************************************
- * void switchScreen();
- *
- *   Accessor; This method will switch between the input and
- *     report screens.
- * --------------------------------------------------------------
- *   Parameters: none
- * --------------------------------------------------------------
- *   Return: none - this method will allow the user to switch
- *                  screens
- ***************************************************************/
-
-void item_reports::switchScreen()
-{
-    // input screen
-    if(ui->report->isHidden())
-    {
-        ui->report->clear();
-        ui->nameInput->hide();
-        ui->nameLabel->hide();
-        ui->allItems->hide();
-        ui->submitButton->hide();
-        ui->report->show();
-        ui->back->show();
-    }
-    else
-    {
-        ui->nameInput->clear();
-        ui->nameInput->show();
-        ui->nameLabel->show();
-        ui->allItems->show();
-        ui->submitButton->show();
-        ui->report->hide();
-        ui->back->hide();
-    }
-}
-

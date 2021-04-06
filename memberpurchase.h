@@ -28,13 +28,10 @@ private slots:
     /***************
      ** ACCESSORS **
      ***************/
-    void on_back_clicked();
-
     void on_submit_clicked();
 
 private:
     void allMemberReport();
-    void switchScreen();
 
     Ui::memberPurchase *ui;
     sales_container* all_sales;

@@ -30,11 +30,9 @@ private slots:
     /***************
      ** ACCESSORS **
      ***************/
-    void on_goBack_clicked();
     void on_submit_clicked();
 
 private:
-    void switchScreen();
     void clearInput();
 
     Ui::yearly_sales *ui;
