@@ -3,19 +3,28 @@
 
 #include <QMainWindow>
 
-#include "item_reports.h"
-#include "inventorytracker.h"
+// item libraries
 #include "item.h"
+#include "inventory.h"
 
 // sales libraries
-#include "sales_report/daily_sales.h"
-#include "sales_report/yearly_sales.h"
+#include "sales/sales.h"
+#include "sales/sales_container.h"
 #include "make_sale/make_sale.h"
 
-// member libraries
+// Member libraries
 #include "member.h"
 #include "members_container.h"
 #include "managemembers.h"
+
+// report libraries
+#include "memberpurchase.h"
+#include "item_reports.h"
+#include "inventorytracker.h"
+#include "sales_report/daily_sales.h"
+#include "sales_report/yearly_sales.h"
+
+#include "amount_paid_yearly.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -33,8 +42,6 @@ private slots:
     void on_quitButton_clicked();       // if user quits, program exits
     void on_manageInventory_clicked();        // if inventory is clicked
 
-    void on_loginButton_clicked();      // if user clicks 'login'
-
     void on_manageMembers_clicked(); // if manage members is clicked
 
     void on_makeSale_clicked();
@@ -42,6 +49,10 @@ private slots:
     void on_yearlySales_clicked();
 
     void on_itemReport_clicked();
+
+    void on_purchaseReports_clicked();
+
+    void on_pushButton_clicked();
 
 private:
 
@@ -58,8 +69,8 @@ private:
     yearly_sales* yearlySale; // Sales report by year
     item_reports* ir;
     InventoryTracker* it;
+    memberPurchase* purchaseReport;
+    amount_paid_yearly* dues;
 };
-
-
 
 #endif // MAINWINDOW_H
