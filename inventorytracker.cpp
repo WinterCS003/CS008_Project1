@@ -1,6 +1,12 @@
 #include "inventorytracker.h"
 #include "ui_inventorytracker.h"
 
+/****************************************************************
+ * InventoryTracker(QWidget *parent = 0);
+ *   Constructor; Initialize class attributes to null
+ *   Parameters: parent (QWidget*) // IN - pointer to widget
+ *   Return: none
+ ***************************************************************/
 InventoryTracker::InventoryTracker(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::InventoryTracker)
@@ -8,6 +14,16 @@ InventoryTracker::InventoryTracker(QWidget *parent) :
     ui->setupUi(this);
 }
 
+/****************************************************************
+ * InventoryTracker(QWidget *parent,
+ *                  inventory* iv,
+ *                  sales_container* sales);
+ *   Constructor; Initialize class attributes to parameters
+ *   Parameters: QWidget *parent, // IN - pointer to widget window
+ *               inventory* iv, // IN - inventory pointer
+ *               sales_container* sales); // IN - sales container pointer
+ *   Return: none
+ ***************************************************************/
 InventoryTracker::InventoryTracker(QWidget *parent, inventory* iv, sales_container* sales)
     : QDialog(parent), ui(new Ui::InventoryTracker)
 {
@@ -44,22 +60,57 @@ InventoryTracker::InventoryTracker(QWidget *parent, inventory* iv, sales_contain
     ui->table->show();
 }
 
+/****************************************************************
+ * ~InventoryTracker();
+ *   Destructor; Deletes ui pointer
+ *   Parameters: none
+ *   Return: none
+ ***************************************************************/
 InventoryTracker::~InventoryTracker()
 {
     delete ui;
 }
 
+/****************************************************************
+ * void on_exit_clicked();
+ *
+ *   Accessor; This method will close the window
+ * --------------------------------------------------------------
+ *   Parameters: none
+ * --------------------------------------------------------------
+ *   Return: none
+ ***************************************************************/
 void InventoryTracker::on_exit_clicked()
 {
     ui->~InventoryTracker();
     InventoryTracker::close();
 }
 
+/****************************************************************
+ * void empty();
+ *
+ *   Accessor; This method will notify the user if the
+ *   inventory is empty
+ * --------------------------------------------------------------
+ *   Parameters: none
+ * --------------------------------------------------------------
+ *   Return: none
+ ***************************************************************/
 void InventoryTracker::empty()
 {
     ui->text->setText("Inventory List = 0 ");
 }
 
+/****************************************************************
+ void generate_inventory_list();
+ *
+ *   Accessor; This method will create a report of all items
+ *   in stock and how many were sold
+ * --------------------------------------------------------------
+ *   Parameters: none
+ * --------------------------------------------------------------
+ *   Return: none - report is printed
+ ***************************************************************/
 void InventoryTracker::generate_inventory_list()
 {
     QString out = " ";
@@ -70,7 +121,7 @@ void InventoryTracker::generate_inventory_list()
     sales_container unique_sales;
     for(size_t i = 0; i < all_sales->size(); i++)
     {
-        int index = unique_sales.find((*all_sales)[i]);
+        int index = unique_sales.find((*all_sales)[i].getItem());
         if(index == -1)
         {
             unique_sales.push_back((*all_sales)[i]);
