@@ -171,7 +171,7 @@ void item_reports::allItemReport()
     sales_container unique_sales;
     for(size_t i = 0; i < all_sales->size(); i++)
     {
-        int index = unique_sales.find((*all_sales)[i]);
+        int index = unique_sales.find((*all_sales)[i].getItem());
         if(index == -1)
         {
             unique_sales.push_back((*all_sales)[i]);
@@ -191,8 +191,8 @@ void item_reports::allItemReport()
     }
 
     // alphabetically sort, a .. z
-    std::sort(unique_sales.begin(), unique_sales.end(), [](const sales& s1, const sales& s2) -> bool{
-        return s1.getItem() < s2.getItem();
+    std::sort(all_items->begin(), all_items->end(), [](const Item& s1, const Item& s2) -> bool{
+        return s1.get_item_name() < s2.get_item_name();
     });
 
     QString output = "---------------Report--------------\n\n";
