@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>755</width>
+    <height>601</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -295,18 +295,154 @@
      <string>Submit File</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="membersConvToBasic">
+   <widget class="QWidget" name="formLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>150</y>
-      <width>231</width>
-      <height>31</height>
+      <x>340</x>
+      <y>10</y>
+      <width>301</width>
+      <height>161</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Members who should convert to basic</string>
+    <layout class="QFormLayout" name="formLayout">
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_1_name">
+       <property name="text">
+        <string>Name</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLineEdit" name="input_1_name"/>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_2_mem_ID">
+       <property name="text">
+        <string>Member ID</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QSpinBox" name="input_2_mem_ID">
+       <property name="maximum">
+        <number>999999</number>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="label_3_prem">
+       <property name="text">
+        <string>Premium? (Y/N)</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QCheckBox" name="input_3_prem">
+       <property name="text">
+        <string>Premium?</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="label_4_exp_dat">
+       <property name="text">
+        <string>Member Exp Date (MM/YYYY)</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QDateEdit" name="input_4_exp_dat"/>
+     </item>
+     <item row="4" column="0">
+      <widget class="QLabel" name="label_5_total_spend">
+       <property name="text">
+        <string>Total Amount Spent</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="QDoubleSpinBox" name="input_5_total_spend">
+       <property name="maximum">
+        <double>100000.000000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="0">
+      <widget class="QLabel" name="label_6_rebate_amt">
+       <property name="text">
+        <string>Rebate Amount</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="1">
+      <widget class="QSpinBox" name="input_6_rebate_amt">
+       <property name="maximum">
+        <number>100000</number>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="verticalLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>10</y>
+      <width>190</width>
+      <height>199</height>
+     </rect>
     </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QPushButton" name="button_addMember">
+       <property name="text">
+        <string>Add Member</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="membersFromFile">
+       <property name="text">
+        <string>Add Members from file</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="button_delete_Member">
+       <property name="text">
+        <string>Delete Member</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="viewMemberInfo">
+       <property name="text">
+        <string>View Member Info</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="printTotalRebates">
+       <property name="text">
+        <string>Print Total Rebates</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="printTotalDues">
+       <property name="text">
+        <string>Print Total Dues</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="membersConvToBasic">
+       <property name="text">
+        <string>Members who should convert to basic</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
    <widget class="QPushButton" name="button_renew_membership">
     <property name="geometry">

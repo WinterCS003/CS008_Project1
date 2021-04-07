@@ -188,6 +188,66 @@ int sales_container::find(const sales& s) const // IN - sales to search for
     return -1;
 }
 
+/****************************************************************
+ * int find(std::string name) const;
+ *
+ *   Accessor; This method will return the index of the parameter
+ *   if found, -1 otherwise
+ * --------------------------------------------------------------
+ *   Parameters: name (std::string) // IN - item to search for
+ * --------------------------------------------------------------
+ *   Return: index (int) - index of the item parameter to find
+ *                         -1 is returned if parameter not found
+ ***************************************************************/
+int sales_container::find(std::string name) const // IN - item to search for
+{
+    for(unsigned int i = 0; i < my_size; i++)
+    {
+        if(my_list[i].getItem() == name)
+        {
+            return i;
+        }
+    }
+
+    return -1;
+}
+
+/****************************************************************
+ * int find(int id) const;
+ *
+ *   Accessor; This method will return the index of the first
+ *             instance of the sale made by member with id.
+ * --------------------------------------------------------------
+ *   Parameters: id (int)// IN - member id to look for
+ * --------------------------------------------------------------
+ *   Return: index (int) - index of the member id to find
+ *                         -1 is returned if id is not found
+ ***************************************************************/
+int sales_container::find(int id) const // IN - sales to search for
+{
+    for(unsigned int i = 0; i < my_size; i++)
+    {
+        if(my_list[i].getId() == id)
+        {
+            return i;
+        }
+    }
+
+    return -1;
+}
+
+/****************************************************************
+ * int getItemQuantity(std::string item) const;
+ *
+ *   Accessor; This method will return the total number of item
+ *             stored in the container.
+ * --------------------------------------------------------------
+ *   Parameters: item (std::string) // IN - item name to search
+ *                                          for
+ * --------------------------------------------------------------
+ *   Return: (int) - total number of item name passed from
+ *                   parameter found in the container.
+ ***************************************************************/
 int sales_container::getItemQuantity(std::string item) const
 {
     int count = 0;
@@ -202,6 +262,81 @@ int sales_container::getItemQuantity(std::string item) const
 
     return count;
 }
+
+/****************************************************************
+ * bool contains(sales& s) const;
+ *
+ *   Accessor; This method will return true if passed sale can
+ *             be found in the sales container.
+ * --------------------------------------------------------------
+ *   Parameters: s (sales&) // IN - sale to search for
+ * --------------------------------------------------------------
+ *   Return: (bool) - true if sale found in sales container, false
+ *                    otherwise.
+ ***************************************************************/
+bool sales_container::contains(sales &s) const
+{
+    for(size_t i = 0; i < my_size; i++)
+    {
+        if(my_list[i] == s)
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+/****************************************************************
+ * bool contains(int id) const;
+ *
+ *   Accessor; This method will return true if the sales container
+ *             has a sale by member with the passed id.
+ * --------------------------------------------------------------
+ *   Parameters: id (int) // IN - member id to seach for
+ * --------------------------------------------------------------
+ *   Return: (bool) - true if id found in sales container, false
+ *                    otherwise.
+ ***************************************************************/
+bool sales_container::contains(int id) const
+{
+    for(size_t i = 0; i < my_size; i++)
+    {
+        if(my_list[i].getId() == id)
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+/****************************************************************
+ *   bool outFile(std::string output) const;
+ *
+ *   Accessor; This method will print all sales in the container
+ *             into a txt file
+ * --------------------------------------------------------------
+ *   Parameters: output (std::string)// IN - file name to output
+ *                                           to
+ * --------------------------------------------------------------
+ *   Return: (bool) - true on success, false otherwise
+ ***************************************************************/
+bool sales_container::outFile(std::string output) const
+{
+    std::ofstream out(output);
+    for(size_t i = 0; i < this->size(); i++)
+    {
+        sales temp = (*this)[i];
+        out << temp.getDate() << "\n";
+        out << temp.getId() << "\n";
+        out << temp.getItem() << "\n";
+        out << temp.getPrice() << " " << temp.getQuantity() << "\n";
+    }
+
+    return true;
+}
+
 
 /*******************************************************************
  * void push_back(const sales& value);
@@ -222,16 +357,51 @@ void sales_container::push_back(const sales &value)
     my_list[my_size++] = value;
 }
 
-void sales_container::push_back(QWidget* parent,
-                                const sales& value,
-                                inventory& inventory,
-                                Members_Container& all_members) // IN – sales to add to end of object
+/*******************************************************************
+ * void sales_container::push_back(QWidget* parent,
+ *                                 const sales& value,
+ *                                 inventory& inventory,
+ *                                 Members_Container& all_members)
+ *
+ *   Mutator; This method will add the parameter to the end of the
+ *   object
+ *------------------------------------------------------------------
+ *   Parameter: parent (QWidget*) // IN - QWidget to print errors to
+ *              value (const sales&) // IN - sale to add to container
+ *              inventory (inventory&) // IN - container of all items
+ *              members (Members_Container&) // IN - container of
+ *                                               all members, for errors
+ *------------------------------------------------------------------
+ *   Return: none
+ *******************************************************************/
+void sales_container::push_back(QWidget* parent, // IN - QWidget to print errors to
+                                const sales& value, // IN - sale to add to container
+                                inventory& inventory, // IN - container of all items
+                                Members_Container& all_members) // IN - container of
+                                                                //      all members, for errors
 {
+    std::string date = value.getDate();
+    if(date.length() != 10)
+    {
+        QMessageBox::warning(parent, "Warning", "Not a valid date");
+        return;
+    }
+    int month = std::stoi(date.substr(0,2));
+    int day = std::stoi(date.substr(3,2));
+    int year = std::stoi(date.substr(6,4));
+    QDate temp(year, month, day);
+    if(!temp.isValid())
+    {
+        QMessageBox::warning(parent, "Warning", "Not a valid date");
+        return;
+    }
+
     if(value.getQuantity() > 100)
     {
         QMessageBox::warning(parent, "Warning", "Sale exceeds 100");
         return;
     }
+
     if(!all_members.contains(value.getId()))
     {
         QString id;
@@ -239,12 +409,14 @@ void sales_container::push_back(QWidget* parent,
         QMessageBox::warning(parent, "Warning", "No member exists at id: " + id);
         return;
     }
+
     if(!inventory.contains(value.getItem()))
     {
         QString name = value.getItem().c_str();
         QMessageBox::warning(parent, "Warning", "Item " + name + " does not exist");
         return;
     }
+
     Item i = inventory[inventory.search(value.getItem())];
     if(i.get_quantity() < value.getQuantity())
     {
@@ -425,10 +597,30 @@ void sales_container::clear()
     my_capacity = 0;
 }
 
-bool sales_container::readFile(QWidget* parent,
-                               std::string input,
-                               inventory& inventory,
-                               Members_Container& members)
+/*******************************************************************
+ * bool readFile(QWidget* parent,
+                  std::string input,
+                  inventory& inventory,
+                  Members_Container& members);
+ *
+ *   Mutator; This method will read sales from a txt file and save
+ *            them into the container. Inventory is updated and
+ *            error handling is put in place.
+ *------------------------------------------------------------------
+ *   Parameter: parent (QWidget*) // IN - QWidget to print errors to
+                input (std::string) // IN - txt file to read from
+                inventory (inventory&) // IN - container of all items
+                members (Members_Container&) // IN - container of
+                                                all members, for errors
+ *------------------------------------------------------------------
+ *   Return: bool - true on success, false otherwise
+ *******************************************************************/
+
+bool sales_container::readFile(QWidget* parent, // IN - QWidget to print errors to
+                               std::string input, // IN - txt file to read from
+                               inventory& inventory, // IN - container of all items
+                               Members_Container& members)// IN - container of
+                                                          //      all members, for errors
 {
     ifstream in(input);
     if(!in.is_open())
@@ -454,15 +646,23 @@ bool sales_container::readFile(QWidget* parent,
 
         sales temp(date, id, name, price, quantity); // make sale with above information
         this->push_back(parent, temp, inventory, members);
-        Item i = inventory[inventory.search(name)];
-        inventory[inventory.search(name)].set_quantity(i.get_quantity() - quantity);
     }
     in.close();
 
     return true;
 }
 
-bool sales_container::readFile(std::string name)
+/*******************************************************************
+ * bool readFile(std::string name)
+ *
+ *   Mutator; This method will read sales from a txt file and save
+ *            them into the container without updating the inventory
+ *------------------------------------------------------------------
+ *   Parameter: name (std::string) // IN - name of txt file to read
+ *------------------------------------------------------------------
+ *   Return: bool - true on success, false otherwise
+ *******************************************************************/
+bool sales_container::readFile(std::string name) // IN - name of txt file to read
 {
     ifstream in(name);
     if(!in.is_open())
@@ -490,32 +690,5 @@ bool sales_container::readFile(std::string name)
         this->push_back(temp);
     }
     in.close();
-}
-
-bool sales_container::outFile(std::string output)
-{
-    std::ofstream out(output);
-    for(size_t i = 0; i < this->size(); i++)
-    {
-        sales temp = (*this)[i];
-        out << temp.getDate() << "\n";
-        out << temp.getId() << "\n";
-        out << temp.getItem() << "\n";
-        out << temp.getPrice() << " " << temp.getQuantity() << "\n";
-    }
-
     return true;
-}
-
-bool sales_container::contains(sales &s) const
-{
-    for(size_t i = 0; i < my_size; i++)
-    {
-        if(my_list[i] == s)
-        {
-            return true;
-        }
-    }
-
-    return false;
 }

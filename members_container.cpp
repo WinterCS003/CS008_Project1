@@ -249,6 +249,7 @@ void Members_Container::add_bulk_members(const std::string& file_location) {
         input >> get;
 
         std::cout << get + "\n";
+        premium = false;
         if (get == "Preferred") premium = true;
         input >> get;
         input.ignore();

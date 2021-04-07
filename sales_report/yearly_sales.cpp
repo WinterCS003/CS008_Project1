@@ -2,6 +2,15 @@
 #include "ui_yearly_sales.h"
 #include <algorithm>
 
+/****************************************************************
+ * explicit yearly_sales(QWidget *parent = nullptr);
+ *
+ *   Constructor; Initialize class attributes
+ *
+ *   Parameters: parent (QWidget*) // IN - pointer to window
+ *
+ *   Return: none
+ ***************************************************************/
 yearly_sales::yearly_sales(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::yearly_sales)
@@ -9,64 +18,70 @@ yearly_sales::yearly_sales(QWidget *parent) :
     ui->setupUi(this);
 }
 
-yearly_sales::yearly_sales(QWidget *parent,
-                           sales_container* all_sales,
-                           Members_Container* mc,
-                           inventory* iv):
+/****************************************************************
+ * yearly_sales(QWidget *parent,
+ *              sales_container* all_sales,
+ *              Members_Container* mc,
+ *              inventory* iv);
+ *
+ *   Constructor; Initialize class attributes, create new window
+ *
+ *   Parameters: QWidget *parent, // IN - pointer to window
+ *               sales_container* all_sales, // IN - all sales made
+ *               Members_Container* mc, // IN - all members
+ *               inventory* iv // IN - all items in stock
+ *   Return: none
+ ***************************************************************/
+yearly_sales::yearly_sales(QWidget *parent, // IN - pointer to window
+                           sales_container* all_sales, // IN - all sales made
+                           Members_Container* mc, // IN - all members
+                           inventory* iv): // IN - all items in stock
     QWidget(parent),
     ui(new Ui::yearly_sales)
 {
     ui->setupUi(this);
-    ui->yearlyReport->hide();
-    ui->goBack->hide();
 
     this->all_sales = all_sales;
     this->all_members = mc;
     this->all_items = iv;
 }
 
+/****************************************************************
+ * ~yearly_sales();
+ *   Destructor; Frees memory used by ui, widget pointer
+ *   Parameters: none
+ *   Return: none
+ ***************************************************************/
 yearly_sales::~yearly_sales()
 {
     delete ui;
 }
 
-void yearly_sales::switchScreen()
-{
-    // if on input screen
-    if(ui->yearlyReport->isHidden())
-    {
-        ui->year->hide();
-        ui->yearInput->hide();
-        ui->preferred->hide();
-        ui->basic->hide();
-        ui->submit->hide();
-        ui->yearlyReport->show();
-        ui->goBack->show();
-    }
-    // if on report screen
-    else
-    {
-        ui->year->show();
-        ui->yearInput->show();
-        ui->preferred->show();
-        ui->basic->show();
-        ui->submit->show();
-        ui->yearlyReport->hide();
-        ui->goBack->hide();
-    }
-}
-
+/****************************************************************
+ * void clearInput();
+ *
+ *   Accessor; This method will clear all input from the user
+ * --------------------------------------------------------------
+ *   Parameters: none
+ * --------------------------------------------------------------
+ *   Return: none
+ ***************************************************************/
 void yearly_sales::clearInput()
 {
     ui->yearInput->clear();
     ui->yearlyReport->clear();
 }
 
-void yearly_sales::on_goBack_clicked()
-{
-    switchScreen();
-}
-
+/****************************************************************
+ * void on_submit_clicked();
+ *
+ *   Accessor; This method will take user input and generate a
+ *             report of all yearly sales made
+ * --------------------------------------------------------------
+ *   Parameters: none
+ * --------------------------------------------------------------
+ *   Return: none - report is output to window
+ ***************************************************************/
 void yearly_sales::on_submit_clicked()
 {
     int year = ui->yearInput->value();
@@ -75,7 +90,6 @@ void yearly_sales::on_submit_clicked()
         QMessageBox::warning(this, "Warning", "Please input a valid Year");
         return;
     }
-    switchScreen();
     clearInput();
 
     sales_container yearlySales;
@@ -114,21 +128,21 @@ void yearly_sales::on_submit_clicked()
     {
         QString Qyear = to_string(year).c_str();
         QMessageBox::warning(this, "Warning", "No sales found for: " + Qyear);
-        switchScreen();
         return;
     }
     // find all unique sales, dont repeat names
     sales_container unique_sales;
     for(size_t i = 0; i < yearlySales.size(); i++)
     {
-        if(unique_sales.find(yearlySales[i]) == -1)
+        int index = unique_sales.find(yearlySales[i].getItem());
+        if(index == -1)
         {
             unique_sales.push_back(yearlySales[i]);
         }
         else
         {
             sales s1 = yearlySales[i];
-            sales* s2 = &unique_sales[unique_sales.find(yearlySales[i])];
+            sales* s2 = &unique_sales[index];
 
             s2->setQuantity(s1.getQuantity() + s2->getQuantity());
         }
@@ -143,15 +157,14 @@ void yearly_sales::on_submit_clicked()
     {
         Item i1;
         i1 = (*all_items)[all_items->search(unique_sales[i].getItem())];
-        if(!best.contains(i1.get_item_name()))
-            best.push_back(i1);
+        best.push_back(i1);
     }
     // find 5 worst items by quantity
-    for(size_t i = unique_sales.size() - 1; i >= 0 && worst.size() < 5; i--)
+    for(int i = unique_sales.size() - 1; i >= 0 && worst.size() < 5; i--)
     {
         Item i1;
         i1 = (*all_items)[all_items->search(unique_sales[i].getItem())];
-        if(!worst.contains(i1.get_item_name()))
+        if(!best.contains(i1.get_item_name()))
             worst.push_back(i1);
     }
 
@@ -159,21 +172,24 @@ void yearly_sales::on_submit_clicked()
     output += to_string(year).c_str();
     output += "---------------\n";
     // second pass, generate output for all sales in the year
-    for(unsigned int i = 0; i < yearlySales.size(); i++)
+    for(unsigned int i = 0; i < unique_sales.size(); i++)
     {
         // Item name
         output += "Item Name: ";
-        output += yearlySales[i].getItem().c_str();
+        output += unique_sales[i].getItem().c_str();
         output += "\n";
 
         // Item Quantity
         output += "Item Quantity: ";
-        output += to_string(yearlySales.getItemQuantity(yearlySales[i].getItem())).c_str();
+        output += to_string(unique_sales.getItemQuantity(unique_sales[i].getItem())).c_str();
         output += "\n\n";
     }
     // total revenue of the year
-    output += "Total Revenue: ";
-    output += to_string(yearlySales.getTotalRevenue()).c_str();
+    output += "Total Revenue: $";
+    double revenue = std::ceil(unique_sales.getTotalRevenue()*100.0)/100.0;
+    std::string rev = to_string(revenue);
+    rev = rev.substr(0, rev.find(".")+3);
+    output += QString::fromStdString(rev);
     output+= "\n\n";
 
     // list of members
@@ -185,7 +201,7 @@ void yearly_sales::on_submit_clicked()
     // all members who shopped
     for(unsigned int i = 0; i < yearlySales.size(); i++)
     {
-        int index = all_members->get_member_index(unique_sales[i].getId());
+        int index = all_members->get_member_index(yearlySales[i].getId());
         temp = (*all_members)[index];
         memberName = temp.get_name().c_str();
         if(!output.contains(memberName))
@@ -211,20 +227,20 @@ void yearly_sales::on_submit_clicked()
     output += to_string(countPremium).c_str();
     output += "\n\n";
     // best and worst items
-    output += "best items\n";
+    output += "----------best items-----------\n";
     for(int i = 0; i < best.size(); i++)
     {
         output += best[i].get_item_name().c_str();
         output += "\n";
     }
     output += "\n";
-    output += "worst items\n";
-    for(int i = 0; i < best.size(); i++)
+    output += "----------worst items----------\n";
+    for(int i = 0; i < worst.size(); i++)
     {
         output += worst[i].get_item_name().c_str();
         output += "\n";
     }
-    output += "---------------End of Report---------------";
+    output += "\n\n---------------End of Report---------------";
 
     ui->yearlyReport->setText(output);
 }

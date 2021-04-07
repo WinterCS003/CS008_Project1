@@ -6,7 +6,7 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
-    // update containers to have all previous sales
+    // update containers to have all previous info
     iv.readFile("all-items.txt");
     mc.add_bulk_members("all-members.txt");
     all_sales.readFile("all-sales.txt");
@@ -22,29 +22,17 @@ MainWindow::~MainWindow()
     mc.outFile("all-members.txt");
 
     // deallocate all pointers
-    delete mM;
-    delete dailySale;
-    delete yearlySale;
-    delete ms;
     delete ui;
-    delete it;
-    delete ir;
 }
 
 void MainWindow::on_quitButton_clicked()
 {
-    all_sales.outFile("./containers/all-sales.txt");
+    // save contents of containers for next execution
+    all_sales.outFile("all-sales.txt");
+    iv.outFile("all-items.txt");
+    mc.outFile("all-members.txt");
+
     qApp->closeAllWindows();
-}
-
-
-
-void MainWindow::on_loginButton_clicked()
-{
-    // when 'login' button is clicked, appear a page where user can
-    //  input member id #,
-    // member class
-    // program reads from txt file of all members and sales?
 }
 
 void MainWindow::on_dailySales_clicked()
@@ -58,7 +46,7 @@ void MainWindow::on_dailySales_clicked()
 void MainWindow::on_manageMembers_clicked()
 {
 //    Members_Container mc;
-    mM = new manageMembers(nullptr, &mc);
+    mM = new manageMembers(nullptr, &mc, &all_sales);
     mM->show();
 }
 
@@ -76,7 +64,7 @@ void MainWindow::on_yearlySales_clicked()
 
 void MainWindow::on_manageInventory_clicked()
 {
-    it = new InventoryTracker(nullptr, &iv);
+    it = new InventoryTracker(nullptr, &iv, &all_sales);
     it->show();
 }
 
@@ -84,4 +72,10 @@ void MainWindow::on_itemReport_clicked()
 {
     ir = new item_reports(nullptr, &all_sales, &iv);
     ir->show();
+}
+
+void MainWindow::on_purchaseReports_clicked()
+{
+    purchaseReport = new memberPurchase(nullptr, &all_sales, &mc, &iv);
+    purchaseReport->show();
 }
