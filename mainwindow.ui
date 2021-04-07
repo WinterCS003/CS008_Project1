@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>898</width>
+    <height>535</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,13 +17,25 @@
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>614</x>
-      <y>70</y>
-      <width>181</width>
-      <height>251</height>
+      <x>670</x>
+      <y>0</y>
+      <width>221</width>
+      <height>331</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QPushButton" name="login">
+       <property name="font">
+        <font>
+         <pointsize>6</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Log in?</string>
+       </property>
+      </widget>
+     </item>
      <item>
       <widget class="QPushButton" name="manageMembers">
        <property name="font">
@@ -73,14 +85,22 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="login">
+      <widget class="QPushButton" name="manageInventory">
        <property name="font">
         <font>
-         <pointsize>6</pointsize>
+         <family>MS Shell Dlg 2</family>
+         <pointsize>7</pointsize>
         </font>
        </property>
        <property name="text">
-        <string>Log in?</string>
+        <string>Inventory Tracking</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="amountPerYear">
+       <property name="text">
+        <string>Amount Paid Per Year Report</string>
        </property>
       </widget>
      </item>
@@ -96,50 +116,6 @@
        </property>
       </widget>
      </item>
-     <item>
-      <widget class="QPushButton" name="dailySales">
-       <property name="font">
-        <font>
-         <pointsize>7</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Daily Sales Report</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="manageInventory">
-       <property name="font">
-        <font>
-         <family>MS Shell Dlg 2</family>
-         <pointsize>7</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Inventory Tracking</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="itemSold">
-       <property name="font">
-        <font>
-         <pointsize>7</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>All Item Sold Report</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="amountPerYear">
-       <property name="text">
-        <string>Amount Paid Per Year Report</string>
-       </property>
-      </widget>
-     </item>
     </layout>
    </widget>
    <widget class="QLabel" name="label">
@@ -148,7 +124,7 @@
       <x>10</x>
       <y>10</y>
       <width>621</width>
-      <height>51</height>
+      <height>61</height>
      </rect>
     </property>
     <property name="font">
@@ -166,7 +142,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>898</width>
      <height>17</height>
     </rect>
    </property>
