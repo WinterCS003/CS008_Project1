@@ -85,66 +85,6 @@ inventory::~inventory()
 }
 
 /***************************************************
- * int getItemNumber()
- *
- * Accessor: This method returns item number from
- * Item class.
- * -------------------------------------------------
- *   Parameter: none
- * -------------------------------------------------
- *   Returns: int
-****************************************************/
-int inventory::getItemNumber()
-{
-    return item->get_ID();
-}
-
-/***************************************************
- * int getItemQuantity()
- *
- * Accessor: This method returns the quantity in stock
- * from Item class.
- * -------------------------------------------------
- *   Parameter: none
- * -------------------------------------------------
- *   Returns: int
-****************************************************/
-int inventory::getItemQuantity()
-{
-    return item->get_quantity();
-}
-
-/***************************************************
- * int getItemName()
- *
- * Accessor; This method returns the item name from
- * the Item class.
- * -------------------------------------------------
- *   Parameter: none
- * -------------------------------------------------
- *   Returns: string
-****************************************************/
-string inventory::getItemName()
-{
-    return item->get_item_name();
-}
-
-/***************************************************
- * int getItemPrice()
- *
- * Accessor; This method returns the item price from
- * the Item class.
- * -------------------------------------------------
- *   Parameter: none
- * -------------------------------------------------
- *   Returns: double
-****************************************************/
-double inventory::getItemPrice()
-{
-    return item->get_price();
-}
-
-/***************************************************
  * int capacity() const
  *
  * Accessor: returns member _capacity
