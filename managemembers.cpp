@@ -532,22 +532,51 @@ void manageMembers::on_membersConvToBasic_clicked()
     ui->submitDate->hide();
 
     Members_Container memberList;
-    for (int i = 0; i < members->get_members_count(); i++)
+    for(int i = 0; i < members->get_members_count(); i++)
     {
-        // checks if the member's rebates is less than the difference in
-        // annual fees, if yes, add to temp container
-        if (members->operator[](i).get_total_rebates() < 15)
+        if((*members)[i].is_premium_member())
         {
-            if (members->_get_member(i).is_premium_member())
-                memberList.add_member(members->operator[](i));
+            memberList.add_member((*members)[i]);
+        }
+    }
+
+    for(int i = 0; i < memberList.get_members_count(); i++)
+    {
+        for(int j = 0; j < all_sales->size(); j++)
+        {
+            if(memberList[i].get_membership_number() == (*all_sales)[j].getId())
+            {
+                memberList[i].add_total((*all_sales)[j].getPrice()*(*all_sales)[j].getQuantity());
+            }
+        }
+    }
+
+    for (int i = 0; i < memberList.get_members_count(); i++)
+    {
+        // checks if the member's rebates is less than or equal to
+        // annual fees, if yes, add to temp container
+        if (memberList[i].get_total_rebates() > 15)
+        {
+            memberList.remove_member((memberList[i].get_membership_number()));
+            i--;
         }
     }
     std::string output = "";
     // outputs temp container to display
     for (int j = 0; j < memberList.get_members_count(); j++)
     {
-        output += "Name: " + memberList[j].get_name() + "\t\t" +
-                "ID: " + std::to_string(memberList[j].get_membership_number()) + "\n";
+        output += "Name: ";
+        output += memberList[j].get_name().c_str();
+        output += "\n";
+        output += "ID: ";
+        output += std::to_string(memberList[j].get_membership_number()).c_str();
+        output += "\n";
+        output += "Rebates Received: $";
+        double r = std::ceil(memberList[j].get_total_rebates()*100.0)/100.0;
+        std::string rebate = to_string(r);
+        rebate = rebate.substr(0, rebate.find(".")+3);
+        output += rebate;
+        output += "\n\n";
     }
     ui->display->setText(QString::fromStdString(output));
 }
@@ -708,8 +737,8 @@ void manageMembers::on_submitDate_clicked() {
         else {dues = "60.00";}
 
         output += "Name: " + memberList[j].get_name() + "\t\t" +
-                "ID: " + std::to_string(memberList[j].get_membership_number()) + "\t\t" +
-                "Member Dues: " + dues + "\n";
+                  "ID: " + std::to_string(memberList[j].get_membership_number()) + "\t\t" +
+                  "Member Dues: " + dues + "\n";
     }
 
     ui->display->setText(QString::fromStdString(output));
@@ -788,7 +817,10 @@ void manageMembers::on_printTotalRebates_clicked()
         if(premiumOnly[i-1].getId() != premiumOnly[i].getId())
         {
             output += "Rebate: $";
-            output += to_string(rebate*1.05).c_str();
+            rebate = std::ceil((rebate*.05)*100.0)/100.0;
+            std::string r2 = to_string(rebate);
+            r2 = r2.substr(0, r2.find(".")+3);
+            output += QString::fromStdString(r2);
             output += "\n\n";
             rebate = 0.0;
             output += "Member: ";
@@ -801,10 +833,15 @@ void manageMembers::on_printTotalRebates_clicked()
         rebate += premiumOnly[i].getPrice()*premiumOnly[i].getQuantity();
     }
     output += "Rebate: $";
-    output += to_string(rebate*1.05).c_str();
+    rebate = std::ceil((rebate*.05)*100.0)/100.0;
+    std::string r2 = to_string(rebate);
+    r2 = r2.substr(0, r2.find(".")+3);
+    output += QString::fromStdString(r2);
     output += "\n\n";
     output += "Total Rebate given: $";
-    output += to_string((premiumOnly.getTotalRevenue()/1.875)*1.05).c_str();
+    r2 = to_string((premiumOnly.getTotalRevenue()/1.875)*.05);
+    r2 = r2.substr(0, r2.find(".")+3);
+    output += QString::fromStdString(r2);
     output += "\n\n---------End Report---------";
 
     ui->display->setText(output);
@@ -821,7 +858,6 @@ void manageMembers::on_printTotalRebates_clicked()
 void manageMembers::on_BasicToPremium_clicked()
 {
     // members convert from basic to premium clicked:
-
     ui->label_1_name->hide();
     ui->label_2_mem_ID->hide();
     ui->label_3_prem->hide();
@@ -840,37 +876,43 @@ void manageMembers::on_BasicToPremium_clicked()
     ui->submitFile->hide();
     ui->submitRenew->hide();
 
-    // convert one or all members-
-    ui->convertOne->show();
-    ui->convertAll->show();
-
     int box = 0; // if user checks converts one - box = 1; user checks converts all - box = 2
-    if (ui->convertOne->isDown())
+    Members_Container basic;
+    for(int i = 0; i < members->get_members_count(); i++)
     {
-        box = 1;
-    }
-    else if (ui->convertAll->isDown())
-    {
-        box = 2;
-    }
-    else
-    {
-        box = 0; // does nothing
+        if(!(*members)[i].is_premium_member())
+        {
+            basic.add_member((*members)[i]);
+        }
     }
 
-    if (box == 1)
+    for(int i = 0; i < basic.get_members_count(); i++)
     {
-        on_convertOne_clicked();
+        for(int j = 0; j < all_sales->size(); j++)
+        {
+            if((*all_sales)[j].getId() == basic[i].get_membership_number())
+            {
+                basic[i].add_total((*all_sales)[j].getQuantity()*(*all_sales)[j].getPrice());
+            }
+        }
     }
-    else if (box == 2)
+
+    for(int i = 0; i < basic.get_members_count(); i++)
     {
-        on_convertAll_clicked();
+        if((basic[i].get_total_spend()*.05) <= 15)
+        {
+            basic.remove_member(basic[i].get_membership_number());
+            i--;
+        }
     }
-    else
+
+    if(basic.get_members_count() == 0)
     {
+        QMessageBox::warning(this, "Warning", "No members to convert");
         return;
     }
 
+    printReport(basic);
 }
 
 /********************************************************************************
@@ -883,6 +925,10 @@ void manageMembers::on_BasicToPremium_clicked()
  ********************************************************************************/
 void manageMembers::printReport(Members_Container& mc)
 {
+    // convert one or all members-
+    ui->convertOne->show();
+    ui->convertAll->show();
+
     ui->display->clear();
     QString output = "----------Members who should Convert---------";
     output += "\n\n";
@@ -893,9 +939,16 @@ void manageMembers::printReport(Members_Container& mc)
         output += "\n";
         output += "Id: ";
         output += to_string(mc[i].get_membership_number()).c_str();
+        output += "\n";
+        output += "Possible Rebates received: $";
+        double r = std::ceil((mc[i].get_total_spend()*0.05)*100.0)/100.0;
+        std::string rebate = to_string(r);
+        rebate = rebate.substr(0, rebate.find(".")+3);
+        output += QString::fromStdString(rebate);
         output += "\n\n";
     }
     output += "---------------End Report--------------";
+    ui->display->setText(output);
 }
 
 /********************************************************************************
@@ -913,7 +966,7 @@ void manageMembers::on_convertOne_clicked()
     // sees if basic members are eligible for premium
     for (int i=0; i < members->get_members_count(); i++)
     {
-        if (members->get_member(i).get_total_spend() > 75.0)
+        if ((*members)[i].get_total_spend() > 75.0)
         {
             member_list.add_member(members->operator[](i));
         }
@@ -980,7 +1033,7 @@ void manageMembers::on_convertAll_clicked()
     // sees if basic members are eligible for premium
     for (int i=0; i < members->get_members_count(); i++)
     {
-        if (members->get_member(i).get_total_spend() > 75.0)
+        if ((*members)[i].get_total_spend() > 75.0)
         {
             member_list.add_member(members->operator[](i));
         }
