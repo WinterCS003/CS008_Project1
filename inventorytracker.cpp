@@ -105,6 +105,6 @@ void InventoryTracker::generate_inventory_list()
         QModelIndex i5 = model->index(row, 4, QModelIndex());
         model->setData(i5, total);
     }
-//    model->setSortRole(Qt::UserRole);
+
     model->sort(0);
 }

@@ -187,7 +187,9 @@ void yearly_sales::on_submit_clicked()
     // total revenue of the year
     output += "Total Revenue: $";
     double revenue = std::ceil(unique_sales.getTotalRevenue()*100.0)/100.0;
-    output += to_string(revenue).c_str();
+    std::string rev = to_string(revenue);
+    rev = rev.substr(0, rev.find(".")+3);
+    output += QString::fromStdString(rev);
     output+= "\n\n";
 
     // list of members
@@ -238,7 +240,7 @@ void yearly_sales::on_submit_clicked()
         output += worst[i].get_item_name().c_str();
         output += "\n";
     }
-    output += "---------------End of Report---------------";
+    output += "\n\n---------------End of Report---------------";
 
     ui->yearlyReport->setText(output);
 }

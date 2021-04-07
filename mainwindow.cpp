@@ -23,8 +23,6 @@ MainWindow::~MainWindow()
 
     // deallocate all pointers
     delete ui;
-    delete it;
-    delete ir;
 }
 
 void MainWindow::on_quitButton_clicked()

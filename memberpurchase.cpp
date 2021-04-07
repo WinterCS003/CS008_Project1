@@ -132,7 +132,9 @@ void memberPurchase::on_submit_clicked()
         }
         report += "Total amount spent $";
         double revenue = std::ceil((output.getTotalRevenue()/1.875)*100.0)/100.0;
-        report += to_string(revenue).c_str();
+        std::string rev = to_string(revenue);
+        rev = rev.substr(0, rev.find(".")+3);
+        report += QString::fromStdString(rev);
         report += "\n\n";
         report += "-----------End report---------";
         ui->report->setText(report);
@@ -185,7 +187,9 @@ void memberPurchase::allMemberReport()
         {
             total = std::ceil(total*100.0)/100.0;
             report += "Total purchases of member: $";
-            report += to_string(total).c_str();
+            std::string revenue = to_string(total);
+            revenue = revenue.substr(0, revenue.find(".")+3);
+            report += QString::fromStdString(revenue);
             total = 0.0;
             report += "\n\nMember: ";
             report += all_members->get_member(output[i].getId()).get_name().c_str();
@@ -206,12 +210,15 @@ void memberPurchase::allMemberReport()
         total += output[i].getPrice()*output[i].getQuantity();
     }
     report += "Total purchases of member: $";
-    total = std::ceil(total*100.0)/100.0;
-    report += to_string(total).c_str();
+    std::string revenue = to_string(total);
+    revenue = revenue.substr(0, revenue.find(".")+3);
+    report += QString::fromStdString(revenue);
     report += "\n\n";
     report += "Grand total of all purchases: $";
-    double revenue = std::ceil((output.getTotalRevenue()/1.875)*100.0)/100.0;
-    report += to_string(revenue).c_str();
+    double rev = std::ceil((output.getTotalRevenue()/1.875)*100.0)/100.0;
+    revenue = to_string(rev);
+    revenue = revenue.substr(0, revenue.find(".")+3);
+    report += QString::fromStdString(revenue);
     report += "\n\n---------End Report---------";
 
     ui->report->setText(report);

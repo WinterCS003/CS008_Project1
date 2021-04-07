@@ -137,10 +137,16 @@ void item_reports::singleItemReport(std::string itemName) // IN - name of item t
     report += to_string((*all_items)[all_items->search(itemName)].get_quantity()).c_str();
     report += "\n\n";
     report += "Item price: $";
-    report += to_string(output[0].getPrice()).c_str();
+    double revenue = std::ceil(output[0].getPrice()*100.0)/100.0;
+    std::string rev = to_string(revenue);
+    rev = rev.substr(0, rev.find(".")+3);
+    report += QString::fromStdString(rev);
     report += "\n";
     report += "Total revenue: $";
-    report += to_string(price).c_str();
+    revenue = std::ceil(price*100.0)/100.0;
+    rev = to_string(revenue);
+    rev = rev.substr(0, rev.find(".")+3);
+    report += QString::fromStdString(rev);
     report += "\n\n";
     report += "-------------End Report-------------";
 

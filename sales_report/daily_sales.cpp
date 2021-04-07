@@ -174,7 +174,9 @@ void daily_sales::generate_daily_daily_sales(std::string date, int flag)
     // total revenue of all sales on the given date
     report_output += "Total Revenue: $";
     double revenue = std::ceil(unique_sales.getTotalRevenue()*100.0)/100.0;
-    report_output += to_string(revenue).c_str();
+    std::string rev = to_string(revenue);
+    rev = rev.substr(0, rev.find(".")+3);
+    report_output += QString::fromStdString(rev);
     report_output += "\n\n";
 
     report_output += "List of Members:\n";
