@@ -70,7 +70,15 @@ void memberPurchase::on_submit_clicked()
     ui->report->clear();
     if(ui->allMembers->isChecked())
     {
-        allMemberReport();
+        allMemberReport(0);
+    }
+    else if(ui->basicOnly->isChecked())
+    {
+        allMemberReport(1);
+    }
+    else if(ui->preferredOnly->isChecked())
+    {
+        allMemberReport(2);
     }
     else
     {
@@ -152,79 +160,85 @@ void memberPurchase::on_submit_clicked()
  *   Return: none - report is generated for all members
  ***************************************************************/
 
-void memberPurchase::allMemberReport()
+void memberPurchase::allMemberReport(int flag)
 {
     ui->report->clear();
-    sales_container output;
-    output = *all_sales;
 
-    if(output.size() == 0)
+    if(all_sales->size() == 0)
     {
         QMessageBox::warning(this, "Warning", "No sales");
         return;
     }
 
-    std::sort(output.begin(), output.end(), [](const sales& s1, const sales& s2)->bool{
-        return s1.getId() < s2.getId();
+    Members_Container mc;
+    for(int i = 0; i < all_members->get_members_count(); i++)
+    {
+        if(flag == 1)
+        {
+            if(!(*all_members)[i].is_premium_member())
+            {
+                mc.add_member((*all_members)[i]);
+            }
+        }
+        else if(flag == 2)
+        {
+            if((*all_members)[i].is_premium_member())
+            {
+                mc.add_member((*all_members)[i]);
+            }
+        }
+        else
+        {
+            mc.add_member((*all_members)[i]);
+        }
+    }
+
+    for(int i = 0; i < mc.get_members_count(); i++)
+    {
+        for(int j = 0; j < all_sales->size(); j++)
+        {
+            if((*all_sales)[j].getId() == mc[i].get_membership_number())
+            {
+                double total = (*all_sales)[j].getQuantity()*(*all_sales)[j].getPrice();
+                mc[i].add_total(total);
+            }
+        }
+    }
+
+    if(mc.get_members_count() == 0)
+    {
+        QMessageBox::warning(this, "Warning", "No Members");
+        return;
+    }
+
+    std::sort(all_members->begin(), all_members->end(), [](const Member& m1, const Member& m2)->bool{
+        return m1.get_membership_number() < m2.get_membership_number();
     });
 
     double total = 0.0;
+    double grandTotal = 0.0;
+    std::string sTotal;
     QString report;
     report += "---------Begin Report---------\n\n";
-    report += "Member: ";
-    report += all_members->get_member(output[0].getId()).get_name().c_str();
-    report += "\n";
-    report += "ID: ";
-    report += to_string(output[0].getId()).c_str();
-    report += "\n";
-    report += "Date: ";
-    report += output[0].getDate().c_str();
-    report += "\n";
-    report += "Item name: ";
-    report += output[0].getItem().c_str();
-    report += "\n";
-    report += "Item quantity: ";
-    report += to_string(output[0].getQuantity()).c_str();
-    report += "\n\n";
-    total += output[0].getPrice()*output[0].getQuantity();
-    for(int i = 1; i < output.size(); i++)
+    for(int i = 0; i < mc.get_members_count(); i++)
     {
-        if(output[i-1].getId() != output[i].getId())
-        {
-            total = std::ceil(total*100.0)/100.0;
-            report += "Total purchases of member: $";
-            std::string revenue = to_string(total);
-            revenue = revenue.substr(0, revenue.find(".")+3);
-            report += QString::fromStdString(revenue);
-            total = 0.0;
-            report += "\n\nMember: ";
-            report += all_members->get_member(output[i].getId()).get_name().c_str();
-            report += "\n";
-            report += "ID: ";
-            report += to_string(output[i].getId()).c_str();
-            report += "\n\n";
-        }
-        report += "Date: ";
-        report += output[i].getDate().c_str();
+        report += "Member: ";
+        report += QString::fromStdString(mc[i].get_name());
         report += "\n";
-        report += "Item name: ";
-        report += output[i].getItem().c_str();
-        report += "\n";
-        report += "Item quantity: ";
-        report += to_string(output[i].getQuantity()).c_str();
+        report += "Total Purchase amount: $";
+        total = mc[i].get_total_spend();
+        grandTotal += total;
+        total = std::ceil(total*100.0)/100.0;
+        sTotal = to_string(total);
+        sTotal = sTotal.substr(0, sTotal.find(".")+3);
+        report += QString::fromStdString(sTotal);
         report += "\n\n";
-        total += output[i].getPrice()*output[i].getQuantity();
     }
-    report += "Total purchases of member: $";
-    std::string revenue = to_string(total);
-    revenue = revenue.substr(0, revenue.find(".")+3);
-    report += QString::fromStdString(revenue);
-    report += "\n\n";
-    report += "Grand total of all purchases: $";
-    double rev = std::ceil((output.getTotalRevenue()/1.875)*100.0)/100.0;
-    revenue = to_string(rev);
-    revenue = revenue.substr(0, revenue.find(".")+3);
-    report += QString::fromStdString(revenue);
+    report += "Grand Total of Purchases: $";
+    grandTotal = std::ceil(grandTotal*100.0)/100.0;
+    sTotal = to_string(grandTotal);
+    sTotal = sTotal.substr(0, sTotal.find(".")+3);
+    report += QString::fromStdString(sTotal);
     report += "\n\n---------End Report---------";
 
     ui->report->setText(report);
