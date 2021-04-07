@@ -31,7 +31,7 @@ private slots:
     void on_submit_clicked();
 
 private:
-    void allMemberReport();
+    void allMemberReport(int flag);
 
     Ui::memberPurchase *ui;
     sales_container* all_sales;
