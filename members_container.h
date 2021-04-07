@@ -25,6 +25,9 @@ public:
     void remove_member(const int& _membership_number);
     void upgrade_membership(const std::string& _name, const std::string& _date);
     void upgrade_membership(const int& _membership_number, const std::string& _date);
+    //void upgrade_membership(const std::string& _name);
+    void extend_membership(const int& _membership_number);
+
 
     /***************
      ** ACCESSORS **

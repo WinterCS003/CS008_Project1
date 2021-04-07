@@ -9,9 +9,9 @@
 class Member
 {
 public:
-    /****************
-    ** CONSTRUCTOR **
-    *****************/
+    /*****************
+    ** CONSTRUCTORS **
+    ******************/
     Member();
     Member(std::string name);
     Member(std::string _name, int _membership_number, bool _premium_member, std::string _membership_expiration);
@@ -51,9 +51,7 @@ private:
 
 /*****************************************************************************
  * Member Class
- *
- *
- *
+ *  creates a member object.
  *****************************************************************************/
 
 /*****************
@@ -61,7 +59,7 @@ private:
  *****************/
 
 /*****************************************************************************
- * Member();
+ * Member()
  *    Constructor; initializes total_spend, total_rebates to 0.
  *    Parameters: none
  *    Return: none

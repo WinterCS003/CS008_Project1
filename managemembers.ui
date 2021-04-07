@@ -13,26 +13,232 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
   <widget class="QWidget" name="centralwidget">
+   <widget class="QPushButton" name="button_addMember">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>131</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Add Member</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="button_delete_Member">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>60</y>
+      <width>131</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Delete Member</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="printTotalRebates">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>240</y>
+      <width>131</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Print Total Rebates</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="printTotalDues">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>240</y>
+      <width>131</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Print Total Dues</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="viewMemberInfo">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>90</y>
+      <width>131</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>View Member Info</string>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="input_1_name">
+    <property name="geometry">
+     <rect>
+      <x>450</x>
+      <y>0</y>
+      <width>241</width>
+      <height>31</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="input_2_mem_ID">
+    <property name="geometry">
+     <rect>
+      <x>450</x>
+      <y>30</y>
+      <width>241</width>
+      <height>31</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="input_3_prem">
+    <property name="geometry">
+     <rect>
+      <x>450</x>
+      <y>60</y>
+      <width>241</width>
+      <height>31</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="input_4_exp_dat">
+    <property name="geometry">
+     <rect>
+      <x>450</x>
+      <y>90</y>
+      <width>241</width>
+      <height>31</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="input_5_total_spend">
+    <property name="geometry">
+     <rect>
+      <x>450</x>
+      <y>160</y>
+      <width>241</width>
+      <height>31</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="input_6_rebate_amt">
+    <property name="geometry">
+     <rect>
+      <x>450</x>
+      <y>190</y>
+      <width>241</width>
+      <height>31</height>
+     </rect>
+    </property>
+   </widget>
    <widget class="QPushButton" name="submit">
     <property name="geometry">
      <rect>
-      <x>660</x>
-      <y>10</y>
-      <width>80</width>
-      <height>25</height>
+      <x>690</x>
+      <y>0</y>
+      <width>101</width>
+      <height>31</height>
      </rect>
     </property>
     <property name="text">
      <string>Submit</string>
     </property>
    </widget>
+   <widget class="QLabel" name="label_1_name">
+    <property name="geometry">
+     <rect>
+      <x>410</x>
+      <y>0</y>
+      <width>41</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Name</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2_mem_ID">
+    <property name="geometry">
+     <rect>
+      <x>390</x>
+      <y>30</y>
+      <width>61</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Member ID</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3_prem">
+    <property name="geometry">
+     <rect>
+      <x>380</x>
+      <y>60</y>
+      <width>71</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Premium? (Y/N)</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4_exp_dat">
+    <property name="geometry">
+     <rect>
+      <x>290</x>
+      <y>90</y>
+      <width>161</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Member Exp Date (MM/DD/YYYY)</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_5_total_spend">
+    <property name="geometry">
+     <rect>
+      <x>350</x>
+      <y>160</y>
+      <width>101</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Total Amount Spent</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_6_rebate_amt">
+    <property name="geometry">
+     <rect>
+      <x>370</x>
+      <y>190</y>
+      <width>81</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Rebate Amount</string>
+    </property>
+   </widget>
    <widget class="QTextBrowser" name="display">
     <property name="geometry">
      <rect>
-      <x>15</x>
-      <y>251</y>
-      <width>721</width>
+      <x>-5</x>
+      <y>271</y>
+      <width>801</width>
       <height>291</height>
      </rect>
     </property>
@@ -40,10 +246,10 @@
    <widget class="QPushButton" name="submitDelete">
     <property name="geometry">
      <rect>
-      <x>660</x>
-      <y>50</y>
-      <width>80</width>
-      <height>25</height>
+      <x>690</x>
+      <y>0</y>
+      <width>101</width>
+      <height>31</height>
      </rect>
     </property>
     <property name="text">
@@ -53,22 +259,35 @@
    <widget class="QPushButton" name="displayButton">
     <property name="geometry">
      <rect>
-      <x>660</x>
-      <y>50</y>
-      <width>80</width>
-      <height>25</height>
+      <x>690</x>
+      <y>0</y>
+      <width>101</width>
+      <height>31</height>
      </rect>
     </property>
     <property name="text">
      <string>Display</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="membersFromFile">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>30</y>
+      <width>131</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Add Members from file</string>
+    </property>
+   </widget>
    <widget class="QPushButton" name="submitFile">
     <property name="geometry">
      <rect>
-      <x>660</x>
-      <y>10</y>
-      <width>80</width>
+      <x>690</x>
+      <y>0</y>
+      <width>101</width>
       <height>31</height>
      </rect>
     </property>
@@ -225,14 +444,88 @@
      </item>
     </layout>
    </widget>
+   <widget class="QPushButton" name="button_renew_membership">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>120</y>
+      <width>131</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Renew Membership</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="submitRenew">
+    <property name="geometry">
+     <rect>
+      <x>690</x>
+      <y>30</y>
+      <width>101</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Submit</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="membershipExpirations">
+    <property name="geometry">
+     <rect>
+      <x>-1</x>
+      <y>210</y>
+      <width>231</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Membership Expirations</string>
+    </property>
+   </widget>
+   <widget class="QWidget" name="formLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>260</x>
+      <y>210</y>
+      <width>181</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <layout class="QFormLayout" name="formLayout">
+     <item row="1" column="1">
+      <widget class="QPushButton" name="submitDate">
+       <property name="text">
+        <string>Submit</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QDateEdit" name="dateEdit"/>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QLabel" name="label_filename">
+    <property name="geometry">
+     <rect>
+      <x>390</x>
+      <y>0</y>
+      <width>61</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Filename</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>755</width>
-     <height>21</height>
+     <width>800</width>
+     <height>20</height>
     </rect>
    </property>
   </widget>
