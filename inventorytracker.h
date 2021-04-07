@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include "inventory.h"
+#include "sales/sales_container.h"
 #include <QTableView>
 #include <QItemDelegate>
 #include <QStandardItemModel>
@@ -17,7 +18,7 @@ class InventoryTracker : public QDialog
 
 public:
     explicit InventoryTracker(QWidget *parent = 0);
-    InventoryTracker(QWidget *parent, inventory* iv);
+    InventoryTracker(QWidget *parent, inventory* iv, sales_container* sales);
     ~InventoryTracker();
 
 private slots:
@@ -29,6 +30,7 @@ private:
 
     Ui::InventoryTracker *ui;
     inventory* list;
+    sales_container* all_sales;
     QTableView itemTable;
     QStandardItemModel *model;
     QLineEdit *text;
