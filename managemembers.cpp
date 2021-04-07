@@ -29,7 +29,7 @@ manageMembers::manageMembers(QWidget *parent) :
 *    Initializes the UI.
 *    Hides the labels and inputs.
 ******************************************************************************/
-manageMembers::manageMembers(QWidget *parent, Members_Container* mc)
+manageMembers::manageMembers(QWidget *parent, Members_Container* mc, sales_container* sc)
     : QMainWindow(parent)
     , ui(new Ui::manageMembers)
 {
@@ -53,12 +53,16 @@ manageMembers::manageMembers(QWidget *parent, Members_Container* mc)
     ui->submitRenew->hide();
     ui->dateEdit->hide();
     ui->submitDate->hide();
-    ui->printTotalDues->hide();
-    ui->printTotalRebates->hide();
-    ui->label_filename->hide();
+    ui->convertToPremium->hide();
+    ui->id->hide();
+    ui->idInput->hide();
+    ui->name->hide();
+    ui->nameInput->hide();
+    ui->convertAll->hide();
+    ui->convertOne->hide();
 
     members = mc;
-
+    all_sales = sc;
 }
 
 
@@ -88,7 +92,11 @@ manageMembers::~manageMembers()
 ******************************************************************************/
 void manageMembers::on_button_addMember_clicked()
 {
-
+    ui->input_1_name->clear();
+    ui->input_2_mem_ID->clear();
+    ui->input_4_exp_dat->clear();
+    ui->input_5_total_spend->clear();
+    ui->input_6_rebate_amt->clear();
     ui->label_1_name->hide();
     ui->label_2_mem_ID->hide();
     ui->label_3_prem->hide();
@@ -108,7 +116,13 @@ void manageMembers::on_button_addMember_clicked()
     ui->submitRenew->hide();
     ui->dateEdit->hide();
     ui->submitDate->hide();
-    ui->label_filename->hide();
+    ui->convertToPremium->hide();
+    ui->id->hide();
+    ui->idInput->hide();
+    ui->name->hide();
+    ui->nameInput->hide();
+    ui->convertAll->hide();
+    ui->convertOne->hide();
 
     ui->label_1_name->show();
     ui->label_2_mem_ID->show();
@@ -138,13 +152,15 @@ void manageMembers::on_submit_clicked()
     QString mem_number;
     QString mem_name;
 
-    mem_name = ui->input_1_name->toPlainText();
-    mem_number = ui->input_2_mem_ID->toPlainText();
+    mem_name = ui->input_1_name->text();
+    mem_number = ui->input_2_mem_ID->text();
+    bool premium = ui->input_3_prem->isChecked();
+    std::string date = ui->input_4_exp_dat->date().toString("MM/dd/yyyy").toStdString();
 
     std::string name = mem_name.toStdString();
     int number = mem_number.toInt();
 
-    members->add_member(Member(name,number, false, ""));
+    members->add_member(Member(name,number, premium, date));
 
     ui->display->setPlainText(QString::fromStdString("Added! Total members: "));
     ui->display->setPlainText(QString::fromStdString("Added! Total members: ") + QString::number(members->get_members_count()));
@@ -164,7 +180,6 @@ void manageMembers::on_submit_clicked()
     ui->submit->hide();
     ui->input_1_name->clear();
     ui->input_2_mem_ID->clear();
-    ui->input_3_prem->clear();
     ui->input_4_exp_dat->clear();
     ui->input_5_total_spend->clear();
     ui->input_6_rebate_amt->clear();
@@ -183,8 +198,11 @@ void manageMembers::on_submit_clicked()
 void manageMembers::on_membersFromFile_clicked() {
     ui->display->clear();
     ui->label_1_name->hide();
-    ui->input_1_name->show();
-    ui->submitFile->show();
+    ui->input_1_name->clear();
+    ui->input_2_mem_ID->clear();
+    ui->input_4_exp_dat->clear();
+    ui->input_5_total_spend->clear();
+    ui->input_6_rebate_amt->clear();
     ui->label_2_mem_ID->hide();
     ui->label_3_prem->hide();
     ui->label_4_exp_dat->hide();
@@ -201,7 +219,17 @@ void manageMembers::on_membersFromFile_clicked() {
     ui->submitRenew->hide();
     ui->dateEdit->hide();
     ui->submitDate->hide();
-    ui->label_filename->show();
+    ui->convertToPremium->hide();
+    ui->id->hide();
+    ui->idInput->hide();
+    ui->name->hide();
+    ui->nameInput->hide();
+    ui->convertAll->hide();
+    ui->convertOne->hide();
+
+    ui->label_1_name->show();
+    ui->input_1_name->show();
+    ui->submitFile->show();
 
 }
 
@@ -217,7 +245,8 @@ void manageMembers::on_membersFromFile_clicked() {
 ******************************************************************************/
 void manageMembers::on_submitFile_clicked() {
     QString input;
-    input =  ui->input_1_name->toPlainText();
+    input =  ui->input_1_name->text();
+    ui->input_1_name->clear();
     std::string file_name = input.toStdString();
 
     if (members->validateMemberFile(file_name)) {
@@ -251,6 +280,11 @@ void manageMembers::on_submitFile_clicked() {
 void manageMembers::on_button_delete_Member_clicked()
 {
     ui->display->clear();
+    ui->input_1_name->clear();
+    ui->input_2_mem_ID->clear();
+    ui->input_4_exp_dat->clear();
+    ui->input_5_total_spend->clear();
+    ui->input_6_rebate_amt->clear();
     ui->label_1_name->hide();
     ui->label_2_mem_ID->hide();
     ui->label_3_prem->hide();
@@ -270,10 +304,17 @@ void manageMembers::on_button_delete_Member_clicked()
     ui->submitRenew->hide();
     ui->dateEdit->hide();
     ui->submitDate->hide();
-    ui->label_filename->hide();
+    ui->convertToPremium->hide();
+    ui->id->hide();
+    ui->idInput->hide();
+    ui->name->hide();
+    ui->nameInput->hide();
+    ui->convertAll->hide();
+    ui->convertOne->hide();
+
     ui->label_1_name->show();
-    ui->label_2_mem_ID->show();
     ui->input_1_name->show();
+    ui->label_2_mem_ID->show();
     ui->input_2_mem_ID->show();
     ui->submitDelete->show();
 }
@@ -290,15 +331,21 @@ void manageMembers::on_button_delete_Member_clicked()
 ******************************************************************************/
 void manageMembers::on_submitDelete_clicked()
 {
-    QString mem_number;
+    int number;
     QString mem_name;
-    mem_name = ui->input_1_name->toPlainText();
-    mem_number = ui->input_2_mem_ID->toPlainText();
+
+    mem_name = ui->input_1_name->text();
+    number = ui->input_2_mem_ID->value();
+  
     std::string name = mem_name.toStdString();
-    int number = mem_number.toInt();
+
     ui->label_2_mem_ID->hide();
     ui->input_2_mem_ID->hide();
     ui->submitDelete->hide();
+
+    ui->input_1_name->clear();
+    ui->input_2_mem_ID->clear();
+
     members->remove_member(number);
     int count = members->get_members_count();
     QString msg = "Deleted! Total members: ";
@@ -317,6 +364,11 @@ void manageMembers::on_submitDelete_clicked()
 ******************************************************************************/
 void manageMembers::on_viewMemberInfo_clicked()
 {
+    ui->input_1_name->clear();
+    ui->input_2_mem_ID->clear();
+    ui->input_4_exp_dat->clear();
+    ui->input_5_total_spend->clear();
+    ui->input_6_rebate_amt->clear();
     ui->label_1_name->hide();
     ui->label_2_mem_ID->hide();
     ui->label_3_prem->hide();
@@ -336,8 +388,17 @@ void manageMembers::on_viewMemberInfo_clicked()
     ui->submitRenew->hide();
     ui->dateEdit->hide();
     ui->submitDate->hide();
-    ui->label_filename->hide();
+    ui->convertToPremium->hide();
+    ui->id->hide();
+    ui->idInput->hide();
+    ui->name->hide();
+    ui->nameInput->hide();
+    ui->convertAll->hide();
+    ui->convertOne->hide();
+
     ui->display->clear();
+    ui->label_1_name->show();
+    ui->input_1_name->show();
     ui->label_2_mem_ID->show();
     ui->input_2_mem_ID->show();
     ui->displayButton->show();
@@ -356,10 +417,21 @@ void manageMembers::on_viewMemberInfo_clicked()
 void manageMembers::on_displayButton_clicked() {
     QString mem_number;
     QString mem_name;
-    mem_name = ui->input_1_name->toPlainText();
-    mem_number = ui->input_2_mem_ID->toPlainText();
+
+    mem_name = ui->input_1_name->text();
+    mem_number = ui->input_2_mem_ID->text();
+    ui->input_1_name->clear();
+    ui->input_2_mem_ID->clear();
+
     int id_number = mem_number.toInt();
-    if (members->contains(id_number)) {
+
+    if(mem_name.length() == 0)
+
+    {
+        if(!members->contains(id_number)){
+            QMessageBox::warning(this, "Warning", "not a member id");
+            return;
+        }
         QString msg_top = "Member Information";
         QString msg_id = "ID#: ";
         QString msg_name = "Name: ";
@@ -379,10 +451,46 @@ void manageMembers::on_displayButton_clicked() {
                                    msg_id +  "\t" + "\t" + QString::number(id_number) + "\n" +
                                    msg_prem + "\t" + "\t" + prem_display + "\n" +
                                    msg_exp_date + "\t" + exp_date_display
-                                   );
+                                       );
     }
     else
-        ui->display->setPlainText("Member with that ID does not exist.");
+    {
+        if(!members->contains(mem_name.toStdString())){
+            QMessageBox::warning(this, "Warning", mem_name + " is not a member");
+            return;
+        }
+        QString msg_top = "Member Information";
+        QString msg_id = "ID#: ";
+        QString msg_name = "Name: ";
+        QString msg_prem = "Premium: ";
+        QString msg_exp_date = "Membership Expiration: ";
+
+        Member m1;
+        for(int i = 0; i < members->get_members_count(); i++)
+        {
+            if((*members)[i].get_name() == mem_name.toStdString())
+            {
+                m1 = (*members)[i];
+                break;
+            }
+        }
+        id_number = m1.get_membership_number();
+        QString prem_display = "N";
+        QString exp_date_display = "N/A";
+
+        if (members->get_member(id_number).is_premium_member()) {
+            prem_display = "Y";
+            std::string temp = members->get_member(id_number).get_membership_expiration();
+            exp_date_display = QString::fromStdString(temp);
+        }
+
+        ui->display->setPlainText( msg_top + "\n" +
+                                   msg_name + "\t" + "\t" + mem_name + "\n" +
+                                   msg_id +  "\t" + "\t" + QString::number(id_number) + "\n" +
+                                   msg_prem + "\t" + "\t" + prem_display + "\n" +
+                                   msg_exp_date + "\t" + exp_date_display
+                                       );
+    }
 }
 
 /*****************************************************************************
@@ -397,6 +505,12 @@ void manageMembers::on_displayButton_clicked() {
 ******************************************************************************/
 void manageMembers::on_membersConvToBasic_clicked()
 {
+    ui->input_1_name->clear();
+    ui->input_2_mem_ID->clear();
+    ui->input_4_exp_dat->clear();
+    ui->input_5_total_spend->clear();
+    ui->input_6_rebate_amt->clear();
+
     ui->label_1_name->hide();
     ui->label_2_mem_ID->hide();
     ui->label_3_prem->hide();
@@ -416,7 +530,7 @@ void manageMembers::on_membersConvToBasic_clicked()
     ui->submitRenew->hide();
     ui->dateEdit->hide();
     ui->submitDate->hide();
-    ui->label_filename->hide();
+
     Members_Container memberList;
     for (int i = 0; i < members->get_members_count(); i++)
     {
@@ -452,13 +566,11 @@ void manageMembers::on_button_renew_membership_clicked() {
 
     ui->display->clear();
     ui->label_1_name->hide();
-    ui->label_2_mem_ID->show();
     ui->label_3_prem->hide();
     ui->label_4_exp_dat->hide();
     ui->label_5_total_spend->hide();
     ui->label_6_rebate_amt->hide();
     ui->input_1_name->hide();
-    ui->input_2_mem_ID->show();
     ui->input_3_prem->hide();
     ui->input_4_exp_dat->hide();
     ui->input_5_total_spend->hide();
@@ -467,8 +579,17 @@ void manageMembers::on_button_renew_membership_clicked() {
     ui->submitDelete->hide();
     ui->displayButton->hide();
     ui->submitFile->hide();
-    ui->submitRenew->show();
+    ui->convertToPremium->hide();
+    ui->id->hide();
+    ui->idInput->hide();
+    ui->name->hide();
+    ui->nameInput->hide();
+    ui->convertAll->hide();
+    ui->convertOne->hide();
 
+    ui->label_2_mem_ID->show();
+    ui->input_2_mem_ID->show();
+    ui->submitRenew->show();
 }
 
 /*****************************************************************************
@@ -482,9 +603,9 @@ void manageMembers::on_button_renew_membership_clicked() {
 *    Extends member's membership by one year.
 ******************************************************************************/
 void manageMembers::on_submitRenew_clicked() {
-    QString mem_number;
-    mem_number = ui->input_2_mem_ID->toPlainText();
-    int id_number = mem_number.toInt();
+    int id_number;
+    id_number = ui->input_2_mem_ID->value();
+
     if (members->contains(id_number)) {
         members->extend_membership(id_number);
 
@@ -545,11 +666,16 @@ void manageMembers::on_membershipExpirations_clicked() {
     ui->displayButton->hide();
     ui->submitFile->hide();
     ui->submitRenew->hide();
+    ui->convertToPremium->hide();
+    ui->id->hide();
+    ui->idInput->hide();
+    ui->name->hide();
+    ui->nameInput->hide();
+    ui->convertAll->hide();
+    ui->convertOne->hide();
+
     ui->dateEdit->show();
     ui->submitDate->show();
-    ui->label_filename->hide();
-
-
 }
 
 /*****************************************************************************
@@ -594,3 +720,245 @@ void manageMembers::on_submitDate_clicked() {
     ui->display->setText(QString::fromStdString(output));
 
 }
+
+void manageMembers::on_printTotalRebates_clicked()
+{
+    ui->label_1_name->hide();
+    ui->label_2_mem_ID->hide();
+    ui->label_3_prem->hide();
+    ui->label_4_exp_dat->hide();
+    ui->label_5_total_spend->hide();
+    ui->label_6_rebate_amt->hide();
+    ui->input_1_name->hide();
+    ui->input_2_mem_ID->hide();
+    ui->input_3_prem->hide();
+    ui->input_4_exp_dat->hide();
+    ui->input_5_total_spend->hide();
+    ui->input_6_rebate_amt->hide();
+    ui->submit->hide();
+    ui->submitDelete->hide();
+    ui->displayButton->hide();
+    ui->submitFile->hide();
+    ui->convertToPremium->hide();
+    ui->id->hide();
+    ui->idInput->hide();
+    ui->name->hide();
+    ui->nameInput->hide();
+    ui->convertAll->hide();
+    ui->convertOne->hide();
+
+    ui->display->clear();
+
+    sales_container premiumOnly;
+    for(int i = 0; i < all_sales->size(); i++)
+    {
+        Member m1 = members->get_member((*all_sales)[i].getId());
+        if(m1.is_premium_member())
+        {
+            premiumOnly.push_back((*all_sales)[i]);
+        }
+    }
+
+    if(premiumOnly.size() == 0)
+    {
+        QMessageBox::warning(this, "Warning", "No members");
+        return;
+    }
+
+    // sort by ascending membership number
+    std::sort(premiumOnly.begin(), premiumOnly.end(), [](const sales& s1, const sales& s2)->bool{
+        return s1.getId() > s2.getId();
+    });
+
+
+    QString output = "----------Total Rebates---------\n\n";
+    double rebate = 0.0;
+    output += "Member: ";
+    output += members->get_member(premiumOnly[0].getId()).get_name().c_str();
+    output += "\n";
+    output += "ID: ";
+    output += to_string(premiumOnly[0].getId()).c_str();
+    output += "\n";
+    rebate += premiumOnly[0].getPrice()*premiumOnly[0].getQuantity();
+    for(int i = 1;i < premiumOnly.size(); i++)
+    {
+        if(premiumOnly[i-1].getId() != premiumOnly[i].getId())
+        {
+            output += "Rebate: $";
+            output += to_string(rebate*1.05).c_str();
+            output += "\n\n";
+            rebate = 0.0;
+            output += "Member: ";
+            output += members->get_member(premiumOnly[i].getId()).get_name().c_str();
+            output += "\n";
+            output += "ID: ";
+            output += to_string(premiumOnly[i].getId()).c_str();
+            output += "\n";
+        }
+        rebate += premiumOnly[i].getPrice()*premiumOnly[i].getQuantity();
+    }
+    output += "Rebate: $";
+    output += to_string(rebate*1.05).c_str();
+    output += "\n\n";
+    output += "Total Rebate given: $";
+    output += to_string((premiumOnly.getTotalRevenue()/1.875)*1.05).c_str();
+    output += "\n\n---------End Report---------";
+
+    ui->display->setText(output);
+}
+
+void manageMembers::on_BasicToPremium_clicked()
+{
+    // members convert from basic to premium clicked:
+
+    ui->label_1_name->hide();
+    ui->label_2_mem_ID->hide();
+    ui->label_3_prem->hide();
+    ui->label_4_exp_dat->hide();
+    ui->label_5_total_spend->hide();
+    ui->label_6_rebate_amt->hide();
+    ui->input_1_name->hide();
+    ui->input_2_mem_ID->hide();
+    ui->input_3_prem->hide();
+    ui->input_4_exp_dat->hide();
+    ui->input_5_total_spend->hide();
+    ui->input_6_rebate_amt->hide();
+    ui->submit->hide();
+    ui->submitDelete->hide();
+    ui->displayButton->hide();
+    ui->submitFile->hide();
+    ui->submitRenew->hide();
+
+    // convert one or all members-
+    ui->convertOne->show();
+    ui->convertAll->show();
+
+    int box = 0; // if user checks converts one - box = 1; user checks converts all - box = 2
+    if (ui->convertOne->isDown())
+    {
+        box = 1;
+    }
+    else if (ui->convertAll->isDown())
+    {
+        box = 2;
+    }
+    else
+    {
+        box = 0; // does nothing
+    }
+
+    if (box == 1)
+    {
+        on_convertOne_clicked();
+    }
+    else if (box == 2)
+    {
+        on_convertAll_clicked();
+    }
+    else
+    {
+        return;
+    }
+
+}
+
+void manageMembers::on_convertOne_clicked()
+{
+    Members_Container member_list;
+
+    // sees if basic members are eligible for premium
+    for (int i=0; i < members->get_members_count(); i++)
+    {
+        if (members->get_member(i).get_total_spend() > 75.0)
+        {
+            member_list.add_member(members->operator[](i));
+        }
+    }
+
+    ui->convertAll->hide();
+    ui->convertOne->hide();
+
+    ui->nameInput->show();
+    ui->name->show();
+    ui->id->show();
+    ui->idInput->show();
+
+    QString mem_number;
+    QString mem_name;
+    std::string output = "";
+
+    mem_name = ui->nameInput->text();
+    mem_number = ui->idInput->text();
+    int id_number = mem_number.toInt();
+    ui->convertToPremium->show();
+
+    if (member_list.contains(id_number))
+    {
+        QMessageBox::StandardButtons confirm;
+        confirm = QMessageBox::question(this, "Confirmation",
+                                        "Confirm- you want to convert? ",
+                                        QMessageBox::Yes|QMessageBox::No);
+
+        if (confirm == QMessageBox::Yes)
+        {
+            std::string output = "";
+            std::string name = "";
+            name = member_list.get_member(id_number).get_name();
+            output += "Now Premium member: " + name;
+            output += std::to_string(id_number) + "\n";
+        }
+    }
+
+    else
+    {
+        output += "Member not found. \n";
+    }
+
+    ui->display->setText(QString::fromStdString(output));
+
+}
+
+void manageMembers::on_convertAll_clicked()
+{
+    Members_Container member_list;
+
+    // sees if basic members are eligible for premium
+    for (int i=0; i < members->get_members_count(); i++)
+    {
+        if (members->get_member(i).get_total_spend() > 75.0)
+        {
+            member_list.add_member(members->operator[](i));
+        }
+    }
+
+    ui->convertAll->hide();
+    ui->convertOne->hide();
+
+    QMessageBox::StandardButtons confirm;
+    confirm = QMessageBox::question(this, "Confirmation",
+                                    "Confirm- you want to convert? ",
+                                    QMessageBox::Yes|QMessageBox::No);
+    std::string output = "";
+    double newTotalSpent = 0;
+    double rebateReceived = 0;
+
+    if (confirm == QMessageBox::Yes)
+    {
+        for (int i=0; i < member_list.get_members_count(); i++)
+        {
+            member_list.upgrade_membership(member_list[i].get_name(), member_list[i].get_membership_expiration());
+            output += member_list[i].get_name() + std::to_string(member_list[i].get_membership_number()) += "\n";
+            newTotalSpent = member_list.get_member(i).get_total_spend() + 15.0;
+            rebateReceived = newTotalSpent * .05;
+            output += " Membership Total Amount: " + std::to_string(newTotalSpent) + "\n";
+            output += " Rebate amount receives: " + std::to_string(rebateReceived) + "\n\n";
+        }
+    }
+    else
+    {
+        return;
+    }
+
+    ui->display->setText(QString::fromStdString(output));
+}
+
