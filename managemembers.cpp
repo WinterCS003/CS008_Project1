@@ -432,20 +432,20 @@ void manageMembers::on_displayButton_clicked() {
             QMessageBox::warning(this, "Warning", "not a member id");
             return;
         }
+        Member m = members->get_member(id_number);
         QString msg_top = "Member Information";
         QString msg_id = "ID#: ";
         QString msg_name = "Name: ";
         QString msg_prem = "Premium: ";
         QString msg_exp_date = "Membership Expiration: ";
-        std::string name = members->get_member(id_number).get_name();
+        std::string name = m.get_name();
         QString name_display = QString::fromStdString(name);
         QString prem_display = "N";
         QString exp_date_display = "N/A";
-        if (members->get_member(id_number).is_premium_member()) {
+        if (m.is_premium_member()) {
             prem_display = "Y";
-            std::string temp = members->get_member(id_number).get_membership_expiration();
-            exp_date_display = QString::fromStdString(temp);
         }
+        exp_date_display = QString::fromStdString(m.get_membership_expiration());
         ui->display->setPlainText( msg_top + "\n" +
                                    msg_name + "\t" + "\t" + name_display + "\n" +
                                    msg_id +  "\t" + "\t" + QString::number(id_number) + "\n" +
@@ -636,7 +636,6 @@ void manageMembers::on_submitRenew_clicked() {
     }
 }
 
-
 /*****************************************************************************
 * Method on_membershipExpirations_clicked(): Class manageMembers
 *  Receives no arguments.
@@ -697,11 +696,7 @@ void manageMembers::on_submitDate_clicked() {
 
     for (int i=0; i<members->get_members_count(); i++) {
         std::string d = members->_get_member(i).get_membership_expiration();
-        if (d[6] == expDate[6] &&
-            d[7] == expDate[7] &&
-            d[8] == expDate[8] &&
-            d[9] == expDate[9] &&
-            d[0] == expDate[0] && d[1] == expDate[1])
+        if (d[0] == expDate[0] && d[1] == expDate[1])
             memberList.add_member(members->_get_member(i));
     }
     std::string output = "";
@@ -721,6 +716,14 @@ void manageMembers::on_submitDate_clicked() {
 
 }
 
+/********************************************************************************
+ *   void on_printTotalRebates_clicked();
+ *    Mutator; displays the rebates given to all premium members
+ *-------------------------------------------------------------------------------
+ *    Parameter: none
+ *-------------------------------------------------------------------------------
+ *    Return: none
+ ********************************************************************************/
 void manageMembers::on_printTotalRebates_clicked()
 {
     ui->label_1_name->hide();
@@ -807,6 +810,14 @@ void manageMembers::on_printTotalRebates_clicked()
     ui->display->setText(output);
 }
 
+/********************************************************************************
+ *  void on_BasicToPremium_clicked();
+ *    Mutator; changes members from basic to premium
+ *-------------------------------------------------------------------------------
+ *    Parameter: none
+ *-------------------------------------------------------------------------------
+ *    Return: none
+ ********************************************************************************/
 void manageMembers::on_BasicToPremium_clicked()
 {
     // members convert from basic to premium clicked:
@@ -862,6 +873,39 @@ void manageMembers::on_BasicToPremium_clicked()
 
 }
 
+/********************************************************************************
+ *   void printReport(Members_Container&);
+ *    Mutator; Prints a report of all members who should convert to premium
+ *-------------------------------------------------------------------------------
+ *    Parameter: none
+ *-------------------------------------------------------------------------------
+ *    Return: none
+ ********************************************************************************/
+void manageMembers::printReport(Members_Container& mc)
+{
+    ui->display->clear();
+    QString output = "----------Members who should Convert---------";
+    output += "\n\n";
+    for(int i = 0; i < mc.get_members_count(); i++)
+    {
+        output += "Member: ";
+        output += mc[i].get_name().c_str();
+        output += "\n";
+        output += "Id: ";
+        output += to_string(mc[i].get_membership_number()).c_str();
+        output += "\n\n";
+    }
+    output += "---------------End Report--------------";
+}
+
+/********************************************************************************
+ * void on_convertOne_clicked();
+ *    Mutator; converts a single member from basic to premium
+ *-------------------------------------------------------------------------------
+ *    Parameter: none
+ *-------------------------------------------------------------------------------
+ *    Return: none
+ ********************************************************************************/
 void manageMembers::on_convertOne_clicked()
 {
     Members_Container member_list;
@@ -874,6 +918,8 @@ void manageMembers::on_convertOne_clicked()
             member_list.add_member(members->operator[](i));
         }
     }
+
+
 
     ui->convertAll->hide();
     ui->convertOne->hide();
@@ -917,6 +963,15 @@ void manageMembers::on_convertOne_clicked()
     ui->display->setText(QString::fromStdString(output));
 
 }
+
+/********************************************************************************
+ *   void on_convertAll_clicked();
+ *    Mutator; converts all members from basic to premium
+ *-------------------------------------------------------------------------------
+ *    Parameter: none
+ *-------------------------------------------------------------------------------
+ *    Return: none
+ ********************************************************************************/
 
 void manageMembers::on_convertAll_clicked()
 {
