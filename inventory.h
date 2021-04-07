@@ -27,6 +27,8 @@ public:
     int search(const Item& t) const;       // searches for an item
     int search(std::string name);
     Item& operator [](int index) const;
+    Item* begin(){ return &item[0]; };
+    Item* end(){ return &item[_size]; };
 
     // MUTATORS
     void push_back(const Item& it);         // push back item to end of array
