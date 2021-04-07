@@ -22,7 +22,7 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>101</width>
+      <width>131</width>
       <height>31</height>
      </rect>
     </property>
@@ -35,7 +35,7 @@
      <rect>
       <x>0</x>
       <y>60</y>
-      <width>101</width>
+      <width>131</width>
       <height>31</height>
      </rect>
     </property>
@@ -46,8 +46,8 @@
    <widget class="QPushButton" name="printTotalRebates">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>190</y>
+      <x>130</x>
+      <y>240</y>
       <width>131</width>
       <height>31</height>
      </rect>
@@ -60,7 +60,7 @@
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>220</y>
+      <y>240</y>
       <width>131</width>
       <height>31</height>
      </rect>
@@ -74,7 +74,7 @@
      <rect>
       <x>0</x>
       <y>90</y>
-      <width>101</width>
+      <width>131</width>
       <height>31</height>
      </rect>
     </property>
@@ -237,9 +237,9 @@
     <property name="geometry">
      <rect>
       <x>-5</x>
-      <y>251</y>
+      <y>271</y>
       <width>801</width>
-      <height>311</height>
+      <height>291</height>
      </rect>
     </property>
    </widget>
@@ -299,8 +299,8 @@
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>120</y>
-      <width>211</width>
+      <y>150</y>
+      <width>231</width>
       <height>31</height>
      </rect>
     </property>
@@ -311,9 +311,9 @@
    <widget class="QPushButton" name="button_renew_membership">
     <property name="geometry">
      <rect>
-      <x>-1</x>
-      <y>150</y>
-      <width>101</width>
+      <x>0</x>
+      <y>120</y>
+      <width>131</width>
       <height>31</height>
      </rect>
     </property>
@@ -333,6 +333,54 @@
     <property name="text">
      <string>Submit</string>
     </property>
+   </widget>
+   <widget class="QPushButton" name="membersConvToPremium">
+    <property name="geometry">
+     <rect>
+      <x>-1</x>
+      <y>180</y>
+      <width>231</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Members who should convert to premium</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="membershipExpirations">
+    <property name="geometry">
+     <rect>
+      <x>-1</x>
+      <y>210</y>
+      <width>231</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Membership Expirations</string>
+    </property>
+   </widget>
+   <widget class="QWidget" name="formLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>260</x>
+      <y>210</y>
+      <width>181</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <layout class="QFormLayout" name="formLayout">
+     <item row="0" column="1">
+      <widget class="QDateEdit" name="dateEdit"/>
+     </item>
+     <item row="1" column="1">
+      <widget class="QPushButton" name="submitDate">
+       <property name="text">
+        <string>Submit</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
