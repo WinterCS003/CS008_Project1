@@ -45,8 +45,6 @@ public:
     double getRevenue() const;
     bool operator==(const sales& s) const; // IN - sales to compare to
 
-    friend QTextStream& operator>>(QTextStream& in, sales& s);
-
 private:
     const double sales_tax = 0.875; // CONST - sales tax rate
     std::string item_name;          // IN - name of item
@@ -116,6 +114,60 @@ private:
  *   Return: reference to this object is returned
  *******************************************************************/
 
+/*******************************************************************
+ * bool setItemName(std::string name);
+ *
+ *   Mutator; This method will set the name of the item sold to the
+ *            parameter
+ *------------------------------------------------------------------
+ *   Parameter: name (std::string) // IN – item name to set to
+ *------------------------------------------------------------------
+ *   Return: bool - true on success, false otherwise
+ *******************************************************************/
+
+/*******************************************************************
+ * bool setDate(std::string date);
+ *
+ *   Mutator; This method will set the date of the sale, to the
+ *            parameter
+ *------------------------------------------------------------------
+ *   Parameter: date (std::string) // IN – date to update sale to
+ *------------------------------------------------------------------
+ *   Return: bool - true on success, false otherwise
+ *******************************************************************/
+
+/*******************************************************************
+ * bool setPrice(double price);
+ *
+ *   Mutator; This method will assign set the price of the item
+ *            sold to the parameter
+ *------------------------------------------------------------------
+ *   Parameter: price (double) // IN – price to update sale to
+ *------------------------------------------------------------------
+ *   Return: bool - true on success, false otherwise
+ *******************************************************************/
+
+/*******************************************************************
+ * bool setQuantity(int quantity);
+ *
+ *   Mutator; This method will set the quantity sold to the parameter
+ *------------------------------------------------------------------
+ *   Parameter: quantity (int) // IN – quantity sold to update to
+ *------------------------------------------------------------------
+ *   Return: bool - true on success, false otherwise
+ *******************************************************************/
+
+/*******************************************************************
+ * bool setId(int id);
+ *
+ *   Mutator; This method will set the member id who bought the item
+ *            to the parameter
+ *------------------------------------------------------------------
+ *   Parameter: id (int) // IN – member id to update to
+ *------------------------------------------------------------------
+ *   Return: bool - true on success, false otherwise
+ *******************************************************************/
+
 
  /***************
   ** ACCESSORS **
@@ -183,27 +235,6 @@ private:
  *   Parameters: none
  * --------------------------------------------------------------
  *   Return: revenue (double)
- ***************************************************************/
-
-/****************************************************************
- * std::string getCustomer() const;
- *
- *   Accessor; This method will return the name of the customer
- * --------------------------------------------------------------
- *   Parameters: none
- * --------------------------------------------------------------
- *   Return: customer_name (std::string) - name of customer
- ***************************************************************/
-
-/****************************************************************
- * bool member_type() const;
- *
- *   Accessor; This method will return the membership type of
- *   the customer
- * --------------------------------------------------------------
- *   Parameters: none
- * --------------------------------------------------------------
- *   Return: isPreferred (bool) - returns membership type
  ***************************************************************/
 
 /****************************************************************
