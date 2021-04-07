@@ -34,6 +34,7 @@ manageMembers::manageMembers(QWidget *parent, Members_Container* mc)
     ui->submitDate->hide();
     ui->printTotalDues->hide();
     ui->printTotalRebates->hide();
+    ui->label_filename->hide();
 
     members = mc;
 
@@ -67,6 +68,7 @@ void manageMembers::on_button_addMember_clicked()
     ui->submitRenew->hide();
     ui->dateEdit->hide();
     ui->submitDate->hide();
+    ui->label_filename->hide();
 
     ui->label_1_name->show();
     ui->label_2_mem_ID->show();
@@ -120,7 +122,8 @@ void manageMembers::on_submit_clicked()
 }
 
 void manageMembers::on_membersFromFile_clicked() {
-    ui->label_1_name->show();
+    ui->display->clear();
+    ui->label_1_name->hide();
     ui->input_1_name->show();
     ui->submitFile->show();
 
@@ -141,6 +144,7 @@ void manageMembers::on_membersFromFile_clicked() {
     ui->submitRenew->hide();
     ui->dateEdit->hide();
     ui->submitDate->hide();
+    ui->label_filename->show();
 
 }
 
@@ -175,6 +179,7 @@ void manageMembers::on_submitFile_clicked() {
 void manageMembers::on_button_delete_Member_clicked()
 {
 
+    ui->display->clear();
     ui->label_1_name->hide();
     ui->label_2_mem_ID->hide();
     ui->label_3_prem->hide();
@@ -194,6 +199,7 @@ void manageMembers::on_button_delete_Member_clicked()
     ui->submitRenew->hide();
     ui->dateEdit->hide();
     ui->submitDate->hide();
+    ui->label_filename->hide();
 
 
     ui->label_1_name->show();
@@ -250,6 +256,7 @@ void manageMembers::on_viewMemberInfo_clicked()
     ui->submitRenew->hide();
     ui->dateEdit->hide();
     ui->submitDate->hide();
+    ui->label_filename->hide();
 
     ui->display->clear();
     //ui->label_1_name->show();
@@ -321,6 +328,7 @@ void manageMembers::on_membersConvToBasic_clicked()
     ui->submitRenew->hide();
     ui->dateEdit->hide();
     ui->submitDate->hide();
+    ui->label_filename->hide();
 
     Members_Container memberList;
 
@@ -349,6 +357,7 @@ void manageMembers::on_membersConvToBasic_clicked()
 
 void manageMembers::on_button_renew_membership_clicked() {
 
+    ui->display->clear();
     ui->label_1_name->hide();
     ui->label_2_mem_ID->show();
     ui->label_3_prem->hide();
@@ -403,55 +412,9 @@ void manageMembers::on_submitRenew_clicked() {
     }
 }
 
-void manageMembers::on_membersConvToPremium_clicked() {
-    ui->label_1_name->hide();
-    ui->label_2_mem_ID->hide();
-    ui->label_3_prem->hide();
-    ui->label_4_exp_dat->hide();
-    ui->label_5_total_spend->hide();
-    ui->label_6_rebate_amt->hide();
-    ui->input_1_name->hide();
-    ui->input_2_mem_ID->hide();
-    ui->input_3_prem->hide();
-    ui->input_4_exp_dat->hide();
-    ui->input_5_total_spend->hide();
-    ui->input_6_rebate_amt->hide();
-    ui->submit->hide();
-    ui->submitDelete->hide();
-    ui->displayButton->hide();
-    ui->submitFile->hide();
-    ui->submitRenew->hide();
-    ui->dateEdit->hide();
-    ui->submitDate->hide();
-
-    Members_Container memberList;
-
-    for (int i = 0; i < members->get_members_count(); i++)
-    {
-        // checks if the member's rebates is greater than the difference in
-        // annual fees, if yes, add to temp container
-        if (members->operator[](i).get_total_rebates() > 15)
-        {
-            if (!members->_get_member(i).is_premium_member())
-                memberList.add_member(members->operator[](i));
-        }
-    }
-
-    std::string output = "";
-
-    // outputs temp container to display
-    for (int j = 0; j < memberList.get_members_count(); j++)
-    {
-        output += "Name: " + memberList[j].get_name() + "\t\t" +
-                "ID: " + std::to_string(memberList[j].get_membership_number()) + "\n";
-    }
-
-    ui->display->setText(QString::fromStdString(output));
-
-
-}
 
 void manageMembers::on_membershipExpirations_clicked() {
+    ui->display->clear();
     ui->label_1_name->hide();
     ui->label_2_mem_ID->hide();
     ui->label_3_prem->hide();
@@ -471,6 +434,7 @@ void manageMembers::on_membershipExpirations_clicked() {
     ui->submitRenew->hide();
     ui->dateEdit->show();
     ui->submitDate->show();
+    ui->label_filename->hide();
 
 
 }

@@ -36,7 +36,7 @@ private slots:
 
     void on_membersConvToBasic_clicked();
 
-    void on_membersConvToPremium_clicked();
+
 
     void on_button_renew_membership_clicked();
 
