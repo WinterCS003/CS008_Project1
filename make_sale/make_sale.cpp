@@ -145,7 +145,7 @@ void make_sale::on_makePurchase_clicked()
     date = ui->date->date().toString("MM/dd/yyyy").toStdString();
     id = ui->Id->value();
     name = ui->itemName->text().toStdString();
-    int index = my_inventory->search(name);;
+    int index = my_inventory->search(name);
     if(index == -1)
     {
         QMessageBox::warning(this, "Warning", "Item does not exist");
