@@ -8,18 +8,17 @@ InventoryTracker::InventoryTracker(QWidget *parent) :
     ui->setupUi(this);
 }
 
-InventoryTracker::InventoryTracker(QWidget *parent, inventory* iv)
+InventoryTracker::InventoryTracker(QWidget *parent, inventory* iv, sales_container* sales)
     : QDialog(parent), ui(new Ui::InventoryTracker)
 {
     ui->setupUi(this);
     ui->title->show();
     ui->exit->show();
     this->list = iv;
+    this->all_sales = sales;
 
     QStandardItem *name = new QStandardItem;
     name->setText("Item Name");
-    QStandardItem *id = new QStandardItem;
-    id->setText("Item ID");
     QStandardItem *sold = new QStandardItem;
     sold->setText("Amount sold");
     QStandardItem *stock = new QStandardItem;
@@ -32,13 +31,12 @@ InventoryTracker::InventoryTracker(QWidget *parent, inventory* iv)
     ui->table->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
     // QStandardItemModel(int rows, int cols, *parent)
-    model = new QStandardItemModel(5, 6, this);
+    model = new QStandardItemModel(0, 5, this);
     model->setHorizontalHeaderItem(0, name);
-    model->setHorizontalHeaderItem(1, id);
-    model->setHorizontalHeaderItem(2, sold);
-    model->setHorizontalHeaderItem(3, stock);
-    model->setHorizontalHeaderItem(4, price);
-    model->setHorizontalHeaderItem(5, total);
+    model->setHorizontalHeaderItem(1, sold);
+    model->setHorizontalHeaderItem(2, stock);
+    model->setHorizontalHeaderItem(3, price);
+    model->setHorizontalHeaderItem(4, total);
 
     // attach model to view
     ui->table->setModel(model);
@@ -69,23 +67,44 @@ void InventoryTracker::generate_inventory_list()
         empty();
     }
 
+    sales_container unique_sales;
+    for(size_t i = 0; i < all_sales->size(); i++)
+    {
+        int index = unique_sales.find((*all_sales)[i]);
+        if(index == -1)
+        {
+            unique_sales.push_back((*all_sales)[i]);
+        }
+        else
+        {
+            int s1 = unique_sales[index].getQuantity();
+            int s2 = (*all_sales)[i].getQuantity();
+            unique_sales[index].setQuantity(s1 + s2);
+        }
+    }
+
+    int sold = 0;
     for (int row = 0; row < list->size(); row++) {
+        int i = unique_sales.find((*list)[row].get_item_name());
+        i != -1 ? sold = unique_sales[i].getQuantity() : sold = 0;
+        double total = std::ceil(sold*(*list)[row].get_price()*100.0)/100.0;
+
+        model->insertRow(row, QModelIndex());
         QModelIndex index = model->index(row, 0, QModelIndex());
         model->setData(index, out.fromStdString((*list)[row].get_item_name()));
 
         QModelIndex i2 = model->index(row, 1, QModelIndex());
-        model->setData(i2, (*list)[row].get_ID());
+        model->setData(i2, sold);
 
         QModelIndex i3 = model->index(row, 2, QModelIndex());
-        model->setData(i3, 0);
+        model->setData(i3, (*list)[row].get_quantity());
 
         QModelIndex i4 = model->index(row, 3, QModelIndex());
-        model->setData(i4, (*list)[row].get_quantity());
+        model->setData(i4, (*list)[row].get_price());
 
         QModelIndex i5 = model->index(row, 4, QModelIndex());
-        model->setData(i5, (*list)[row].get_price());
-
-        QModelIndex i6 = model->index(row, 5, QModelIndex());
-        model->setData(i6, 0);
+        model->setData(i5, total);
     }
+//    model->setSortRole(Qt::UserRole);
+    model->sort(0);
 }

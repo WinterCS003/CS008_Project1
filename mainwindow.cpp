@@ -66,7 +66,7 @@ void MainWindow::on_yearlySales_clicked()
 
 void MainWindow::on_manageInventory_clicked()
 {
-    it = new InventoryTracker(nullptr, &iv);
+    it = new InventoryTracker(nullptr, &iv, &all_sales);
     it->show();
 }
 

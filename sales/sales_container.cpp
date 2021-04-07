@@ -189,20 +189,21 @@ int sales_container::find(const sales& s) const // IN - sales to search for
 }
 
 /****************************************************************
- * int find(const sales& s) const;
+ * int find(std::string name) const;
  *
  *   Accessor; This method will return the index of the parameter
+ *   if found, -1 otherwise
  * --------------------------------------------------------------
- *   Parameters: s (sales&) // IN - sales to search for
+ *   Parameters: name (std::string) // IN - item to search for
  * --------------------------------------------------------------
- *   Return: index (int) - index of the sales parameter to find
+ *   Return: index (int) - index of the item parameter to find
  *                         -1 is returned if parameter not found
  ***************************************************************/
-int sales_container::find(std::string name) const // IN - sales to search for
+int sales_container::find(std::string name) const // IN - item to search for
 {
     for(unsigned int i = 0; i < my_size; i++)
     {
-        if(my_list[i].getItem() ==name)
+        if(my_list[i].getItem() == name)
         {
             return i;
         }
@@ -379,11 +380,28 @@ void sales_container::push_back(QWidget* parent, // IN - QWidget to print errors
                                 Members_Container& all_members) // IN - container of
                                                                 //      all members, for errors
 {
+    std::string date = value.getDate();
+    if(date.length() != 10)
+    {
+        QMessageBox::warning(parent, "Warning", "Not a valid date");
+        return;
+    }
+    int month = std::stoi(date.substr(0,2));
+    int day = std::stoi(date.substr(3,2));
+    int year = std::stoi(date.substr(6,4));
+    QDate temp(year, month, day);
+    if(!temp.isValid())
+    {
+        QMessageBox::warning(parent, "Warning", "Not a valid date");
+        return;
+    }
+
     if(value.getQuantity() > 100)
     {
         QMessageBox::warning(parent, "Warning", "Sale exceeds 100");
         return;
     }
+
     if(!all_members.contains(value.getId()))
     {
         QString id;
@@ -391,12 +409,14 @@ void sales_container::push_back(QWidget* parent, // IN - QWidget to print errors
         QMessageBox::warning(parent, "Warning", "No member exists at id: " + id);
         return;
     }
+
     if(!inventory.contains(value.getItem()))
     {
         QString name = value.getItem().c_str();
         QMessageBox::warning(parent, "Warning", "Item " + name + " does not exist");
         return;
     }
+
     Item i = inventory[inventory.search(value.getItem())];
     if(i.get_quantity() < value.getQuantity())
     {

@@ -190,19 +190,25 @@ void item_reports::allItemReport()
     });
 
     QString output = "---------------Report--------------\n\n";
-    for(size_t i = 0; i < unique_sales.size(); i++)
+    int sold = 0;
+    for(size_t i = 0; i < all_items->size(); i++)
     {
-        int index = all_items->search(unique_sales[i].getItem());
+        int index = unique_sales.find((*all_items)[i].get_item_name());
+        index != -1 ? sold = unique_sales[index].getQuantity() : sold = 0;
+
         output += "Item name: ";
-        output += unique_sales[i].getItem().c_str();
+        output += QString::fromStdString((*all_items)[i].get_item_name());
         output += "\n";
         output += "Item quantity sold: ";
-        output += to_string(unique_sales[i].getQuantity()).c_str();
+        output += QString::fromStdString(to_string(sold));
         output += "\n";
         output += "Item quantity in Stock: ";
-        output += to_string((*all_items)[index].get_quantity()).c_str();
+        output += QString::fromStdString(to_string((*all_items)[i].get_quantity()));
         output += "\n\n";
     }
+    output += "Total Number of Items: ";
+    output += QString::fromStdString(to_string((*all_items).size()));
+    output += "\n\n";
     output += "------------End Report------------";
 
     ui->report->setText(output);
