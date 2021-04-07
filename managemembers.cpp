@@ -32,6 +32,8 @@ manageMembers::manageMembers(QWidget *parent, Members_Container* mc)
     ui->submitRenew->hide();
     ui->dateEdit->hide();
     ui->submitDate->hide();
+    ui->printTotalDues->hide();
+    ui->printTotalRebates->hide();
 
     members = mc;
 
@@ -338,7 +340,8 @@ void manageMembers::on_membersConvToBasic_clicked()
     // outputs temp container to display
     for (int j = 0; j < memberList.get_members_count(); j++)
     {
-        output += memberList[j].get_name() + std::to_string(memberList[j].get_membership_number()) + "\n";
+        output += "Name: " + memberList[j].get_name() + "\t\t" +
+                "ID: " + std::to_string(memberList[j].get_membership_number()) + "\n";
     }
 
     ui->display->setText(QString::fromStdString(output));
@@ -439,7 +442,8 @@ void manageMembers::on_membersConvToPremium_clicked() {
     // outputs temp container to display
     for (int j = 0; j < memberList.get_members_count(); j++)
     {
-        output += memberList[j].get_name() + std::to_string(memberList[j].get_membership_number()) + "\n";
+        output += "Name: " + memberList[j].get_name() + "\t\t" +
+                "ID: " + std::to_string(memberList[j].get_membership_number()) + "\n";
     }
 
     ui->display->setText(QString::fromStdString(output));
@@ -488,11 +492,16 @@ void manageMembers::on_submitDate_clicked() {
             memberList.add_member(members->_get_member(i));
     }
     std::string output = "";
-
+    std::string dues;
     // outputs temp container to display
     for (int j = 0; j < memberList.get_members_count(); j++)
     {
-        output += memberList[j].get_name() + std::to_string(memberList[j].get_membership_number()) + "\n";
+        if (memberList[j].is_premium_member()) {dues = "75.00";}
+        else {dues = "60.00";}
+
+        output += "Name: " + memberList[j].get_name() + "\t\t" +
+                "ID: " + std::to_string(memberList[j].get_membership_number()) + "\t\t" +
+                "Member Dues: " + dues + "\n";
     }
 
     ui->display->setText(QString::fromStdString(output));
