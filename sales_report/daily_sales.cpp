@@ -1,36 +1,65 @@
 #include "daily_sales.h"
 #include "ui_daily_sales.h"
 
+/****************************************************************
+ * daily_sales(QWidget* parent = nullptr);
+ *   Constructor; create a new window
+ *   Parameters: parent (QWidget*) // IN - pointer to widget
+ *   Return: none
+ ***************************************************************/
 daily_sales::daily_sales(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::daily_sales)
 {
     ui->setupUi(this);
-    ui->report->hide();
-    ui->goBack->hide();
 }
 
+/****************************************************************
+ *   daily_sales(QWidget *parent,
+ *               sales_container* sc,
+ *               Members_Container* mc);
+ *   Constructor; create a new window and initializes all member
+ *                attributes to the parameters.
+ *   Parameters: parent (QWidget*) // IN - pointer to window
+ *               sc (sales_container*) // IN - all sales made
+ *               mc (Members_Container*) // IN - container of members
+ *   Return: none
+ ***************************************************************/
 daily_sales::daily_sales(QWidget *parent, sales_container* sc, Members_Container* mc)
     : QWidget(parent)
     , ui(new Ui::daily_sales)
 {
     ui->setupUi(this);
-    ui->report->hide();
-    ui->goBack->hide();
 
     report = sc;
     members = mc;
 }
 
+/****************************************************************
+ * ~daily_sales();
+ *   Destructor; Frees memory used by the ui pointer
+ *   Parameters: none
+ *   Return: none
+ ***************************************************************/
 daily_sales::~daily_sales()
 {
     delete ui;
 }
 
+/****************************************************************
+ * void on_submit_clicked();
+ *
+ *   Accessor; This method will submit input from the user to
+ *             generate a report. generate_daily_daily_sales is
+ *             called
+ * --------------------------------------------------------------
+ *   Parameters: none
+ * --------------------------------------------------------------
+ *   Return: none
+ ***************************************************************/
 void daily_sales::on_submit_clicked()
 {
-    switchScreen();
-
+    ui->report->clear();
     QDate date = ui->dateEdit->date();
     QString sDate = date.toString("MM/dd/yyyy");
     std::string sdDate = sDate.toStdString();
@@ -55,35 +84,25 @@ void daily_sales::on_submit_clicked()
     generate_daily_daily_sales(sdDate, flag);
 }
 
-void daily_sales::switchScreen()
-{
-    if(ui->report->isHidden())
-    {
-        ui->date->hide();
-        ui->dateEdit->hide();
-        ui->preferred->hide();
-        ui->basic->hide();
-        ui->submit->hide();
-        ui->report->show();
-        ui->goBack->show();
-    }
-    else
-    {
-        ui->report->hide();
-        ui->date->show();
-        ui->dateEdit->show();
-        ui->preferred->show();
-        ui->basic->show();
-        ui->submit->show();
-        ui->goBack->hide();
-    }
-}
-
-// flag - 0 = Basic only
-//        1 = Preferred
-//        2 = both
+/****************************************************************
+ * void generate_daily_daily_sales(std::string date,
+ *                                 int flag);
+ *
+ *   Accessor; This method will create a report of all sales
+ *             made on the date. User can specify a flag to
+ *             toggle between member types
+ * --------------------------------------------------------------
+ *   Parameters: date (std::string) // IN - date of sales to find
+ *               flag (int) // IN - member type
+ *                          // 0 = basic
+ *                          // 1 = preferrred
+ *                          // 2 = both
+ * --------------------------------------------------------------
+ *   Return: none - report is output to the screen
+ ***************************************************************/
 void daily_sales::generate_daily_daily_sales(std::string date, int flag)
 {
+    ui->report->clear();
     report_output = report_output.fromStdString(("----------Date: " + date + "----------\n\n"));
     sales_container dailySale;
 
@@ -102,7 +121,7 @@ void daily_sales::generate_daily_daily_sales(std::string date, int flag)
             }
             else if(flag == 1) // only preferred members
             {
-                if(!(*members)[index].is_premium_member())
+                if((*members)[index].is_premium_member())
                 {
                     dailySale.push_back((*report)[i]);
                 }
@@ -118,21 +137,22 @@ void daily_sales::generate_daily_daily_sales(std::string date, int flag)
     {
         QString warning = date.c_str();
         QMessageBox::warning(this, "Warning", "No sales made on: " + warning);
-        switchScreen();
         return;
     }
 
+    // only one copy of each item
     sales_container unique_sales;
     for(size_t i = 0; i < dailySale.size(); i++)
     {
-        if(unique_sales.find(dailySale[i]) == -1)
+        int index = unique_sales.find(dailySale[i].getItem());
+        if( index == -1)
         {
             unique_sales.push_back(dailySale[i]);
         }
         else
         {
             sales s1 = dailySale[i];
-            sales* s2 = &unique_sales[unique_sales.find(dailySale[i])];
+            sales* s2 = &unique_sales[index];
 
             s2->setQuantity(s1.getQuantity() + s2->getQuantity());
         }
@@ -152,8 +172,11 @@ void daily_sales::generate_daily_daily_sales(std::string date, int flag)
         report_output += "\n\n";
     }
     // total revenue of all sales on the given date
-    report_output += "Total Revenue: ";
-    report_output += to_string(unique_sales.getTotalRevenue()).c_str();
+    report_output += "Total Revenue: $";
+    double revenue = std::ceil(unique_sales.getTotalRevenue()*100.0)/100.0;
+    std::string rev = to_string(revenue);
+    rev = rev.substr(0, rev.find(".")+3);
+    report_output += QString::fromStdString(rev);
     report_output += "\n\n";
 
     report_output += "List of Members:\n";
@@ -193,9 +216,4 @@ void daily_sales::generate_daily_daily_sales(std::string date, int flag)
 
     ui->report->show();
     ui->report->setText(report_output);
-}
-
-void daily_sales::on_goBack_clicked()
-{
-    switchScreen();
 }
