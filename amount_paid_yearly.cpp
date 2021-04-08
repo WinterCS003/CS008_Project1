@@ -65,6 +65,7 @@ amount_paid_yearly::~amount_paid_yearly()
 void amount_paid_yearly::on_submit_clicked()
 {
     ui->report->clear();
+
     int flag = 2;
     if(ui->basic->isChecked() && ui->preferred->isChecked())
     {
@@ -113,6 +114,7 @@ void amount_paid_yearly::on_close_clicked()
  ***************************************************************/
 void amount_paid_yearly::generate_report(int flag)
 {
+    ui->report->clear();
     Members_Container all;
 
     for (int i=0; i < members->get_members_count(); i++) {
