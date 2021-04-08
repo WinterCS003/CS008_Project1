@@ -64,6 +64,7 @@ amount_paid_yearly::~amount_paid_yearly()
  ***************************************************************/
 void amount_paid_yearly::on_submit_clicked()
 {
+    ui->report->clear();
     int flag = 2;
     if(ui->basic->isChecked() && ui->preferred->isChecked())
     {
@@ -123,7 +124,7 @@ void amount_paid_yearly::generate_report(int flag)
         else if (flag == 1) {
             // premium members only
             if((*members)[i].is_premium_member())
-                all.add_member(members[i].get_member(i));
+                all.add_member((*members)[i]);
         }
         else {
             all.add_member((*members)[i]);
