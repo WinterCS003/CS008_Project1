@@ -18,6 +18,13 @@
     <layout class="QGridLayout" name="gridLayout_2">
      <item row="1" column="1">
       <layout class="QGridLayout" name="gridLayout">
+       <item row="1" column="0">
+        <widget class="QLabel" name="idLabel">
+         <property name="text">
+          <string>Member ID:</string>
+         </property>
+        </widget>
+       </item>
        <item row="0" column="0">
         <widget class="QLabel" name="nameLabel">
          <property name="text">
@@ -39,10 +46,10 @@
          </property>
         </widget>
        </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="idLabel">
+       <item row="5" column="1">
+        <widget class="QPushButton" name="submit">
          <property name="text">
-          <string>Member ID:</string>
+          <string>submit</string>
          </property>
         </widget>
        </item>
@@ -50,9 +57,16 @@
         <widget class="QLineEdit" name="nameInput"/>
        </item>
        <item row="3" column="1">
-        <widget class="QPushButton" name="submit">
+        <widget class="QCheckBox" name="basicOnly">
          <property name="text">
-          <string>submit</string>
+          <string>Basic Only</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QCheckBox" name="preferredOnly">
+         <property name="text">
+          <string>Preferred Only</string>
          </property>
         </widget>
        </item>
