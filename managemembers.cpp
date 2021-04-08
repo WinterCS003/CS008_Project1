@@ -480,9 +480,9 @@ void manageMembers::on_displayButton_clicked() {
 
         if (members->get_member(id_number).is_premium_member()) {
             prem_display = "Y";
-            std::string temp = members->get_member(id_number).get_membership_expiration();
-            exp_date_display = QString::fromStdString(temp);
         }
+        std::string temp = members->get_member(id_number).get_membership_expiration();
+        exp_date_display = QString::fromStdString(temp);
 
         ui->display->setPlainText( msg_top + "\n" +
                                    msg_name + "\t" + "\t" + mem_name + "\n" +
